@@ -123,7 +123,9 @@ fun SmallTextFieldCustomPassword(
     BasicTextField(
         value = value,
         onValueChange = { onValueChange(it) },
-        modifier = modifier.fillMaxWidth().height(40.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(40.dp),
         // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
@@ -149,7 +151,7 @@ fun SmallTextFieldCustomPassword(
                     if (expanded) "Hide password" else "Show password"
                 */
 
-                val  changeIcon = extraTreat.this
+                val  changeIcon = { clickIconPassword }
                 /*IconButton(
                     onClick = {
                         expanded = !expanded

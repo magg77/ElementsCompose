@@ -92,7 +92,7 @@ fun InputsCustomPassword() {
         SmallTextFieldCustomPassword(
             value = password,
             onValueChange = { password = it },
-            iconClickPassword = {passwordVisible = !it},
+            extraTreat = {passwordVisible = !it},
         )
     }
 
@@ -105,7 +105,7 @@ fun SmallTextFieldCustomPassword(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    iconClickPassword: (Boolean) -> Unit
+    extraTreat: (iconCLick: Boolean) -> Unit
 ) {
     // parameters below will be passed to BasicTextField for correct behavior of the text field,
     // and to the decoration box for proper styling and sizing
@@ -142,18 +142,23 @@ fun SmallTextFieldCustomPassword(
             singleLine = singleLine,
             label = { Text(text = "") },
             trailingIcon = {
+
                 /*var image = if (expanded) Icons.Filled.KeyOff
                 else Icons.Filled.Key
                 var description =
                     if (expanded) "Hide password" else "Show password"
+                */
 
-                IconButton(
+                val  changeIcon = {extraTreat()}
+                /*IconButton(
                     onClick = {
                         expanded = !expanded
                     }
                 ) {
                     Icon(imageVector = image, contentDescription = description)
                 }*/
+
+
             },
             visualTransformation = if(expanded) VisualTransformation.None else PasswordVisualTransformation(),
             interactionSource = interactionSource,

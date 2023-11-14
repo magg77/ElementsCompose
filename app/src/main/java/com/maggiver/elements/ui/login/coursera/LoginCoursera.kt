@@ -89,7 +89,7 @@ fun LoginCoursera(navController: NavHostController) {
 
         Column(
             modifier = Modifier
-                .padding(24.dp, 32.dp)
+                .padding(24.dp, 24.dp)
                 .fillMaxSize()
                 .background(Color(0xFFFFFFFF))
         ) {
@@ -120,7 +120,7 @@ fun LoginCoursera(navController: NavHostController) {
             }
 
             Column {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
                 Text(
                     text = "Welcome Back",
@@ -133,7 +133,7 @@ fun LoginCoursera(navController: NavHostController) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "You can search course, apply courses and find scholarship for abroad studies  in addition to learning your favorite topics.",
+                    text = "You can search course, apply courses and find scholarship for abroad studies.",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(0.dp),
@@ -331,7 +331,7 @@ fun LoginCoursera(navController: NavHostController) {
             }*/
             Row(
                 modifier = Modifier
-                    .fillMaxHeight(1.0f)
+                    .fillMaxHeight(0.9f)
                     .fillMaxWidth()
                     .background(Color(0xFFFFFFFF)),
                 verticalAlignment = Alignment.Bottom,

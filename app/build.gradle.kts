@@ -27,12 +27,23 @@ android {
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            resValue("string", "nameApp", "Elements")
+            buildConfigField("String", "API_ELEMENTS_PROD", "\"${rootProject.extra["API_URL_BASE_PROD"]}\"")
+        }
+
+        getByName("debug") {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
+            manifestPlaceholders["cleartextTrafficPermitted"] = true
+            resValue("string", "nameApp", "Elements[DEBUG]")
+            buildConfigField("String", "API_ELEMENTS_DEBUG", "\"${rootProject.extra["API_URL_BASE_DEV"]}\"")
         }
     }
     compileOptions {

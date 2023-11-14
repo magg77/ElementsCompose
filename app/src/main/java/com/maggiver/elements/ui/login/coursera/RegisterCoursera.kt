@@ -100,7 +100,7 @@ fun RegisterCoursera(navController: NavHostController) {
 
     Column(
         modifier = Modifier
-            .padding(24.dp, 32.dp)
+            .padding(24.dp, 24.dp)
             .fillMaxSize()
             .background(Color(0xFFFFFFFF))
     ) {
@@ -132,12 +132,10 @@ fun RegisterCoursera(navController: NavHostController) {
                     fontWeight = FontWeight.Medium
                 )
             }
-
-
         }
 
         Column {
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "Welcome Back!",
@@ -163,7 +161,7 @@ fun RegisterCoursera(navController: NavHostController) {
         }
 
         Column {
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             Text(
                 text = "Email Address",
@@ -181,7 +179,7 @@ fun RegisterCoursera(navController: NavHostController) {
         }
 
         Column {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             Text(
                 text = "Phone Number",
@@ -199,7 +197,7 @@ fun RegisterCoursera(navController: NavHostController) {
         }
 
         Column {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             Text(
                 text = "Password",
@@ -244,7 +242,7 @@ fun RegisterCoursera(navController: NavHostController) {
             )
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Row {
 
@@ -303,7 +301,7 @@ fun RegisterCoursera(navController: NavHostController) {
 
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -342,7 +340,7 @@ fun RegisterCoursera(navController: NavHostController) {
             )
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -351,13 +349,13 @@ fun RegisterCoursera(navController: NavHostController) {
         ) {
             Divider(
                 color = Color(0xFFE0E0E0),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(0.43f)
             )
 
             Text(
                 text = "Don't have an account?",
                 modifier = Modifier
-                    .weight(2.0f)
+                    .weight(1.5f)
                     .background(Color(0xFFFFFFFF)),
                 color = Color(0xFF7A7A7A),
                 textAlign = TextAlign.Center,
@@ -368,7 +366,7 @@ fun RegisterCoursera(navController: NavHostController) {
 
             Divider(
                 color = Color(0xFFE0E0E0),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(0.43f)
             )
         }
 

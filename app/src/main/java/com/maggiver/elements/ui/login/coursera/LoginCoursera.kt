@@ -2,6 +2,7 @@ package com.maggiver.elements.ui.login.coursera
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -52,6 +53,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.maggiver.elements.R
 
 
@@ -79,7 +81,7 @@ import com.maggiver.elements.R
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginCoursera() {
+fun LoginCoursera(navController: NavHostController) {
 
 
         var emailAddress by rememberSaveable { mutableStateOf("") }
@@ -182,7 +184,7 @@ fun LoginCoursera() {
                     onValueChange = { password = it }
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
                     text = "Forgot Password?",
@@ -212,7 +214,7 @@ fun LoginCoursera() {
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        text = "Login",
+                        text = "Sign In",
                         fontSize = 16.sp
                     )
                 }
@@ -345,7 +347,13 @@ fun LoginCoursera() {
                 )
                 Text(
                     text = " Join Us",
-                    modifier = Modifier,
+                    modifier = Modifier.clickable {
+                        navController.navigate("Register"){
+                            /*popUpTo("Login"){
+                                inclusive = true
+                            }*/
+                        }
+                    },
                     color = Color(0xFFE7A436),
                     textAlign = TextAlign.End,
                     fontSize = 14.sp,

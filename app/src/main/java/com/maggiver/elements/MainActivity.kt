@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.maggiver.elements.ui.login.coursera.LoginCoursera
+import com.maggiver.elements.ui.login.coursera.NavigationCoursera
 import com.maggiver.elements.ui.theme.ElementsTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,11 +29,15 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
+
+                    NavigationCoursera()
+
                     Column(
                         modifier = Modifier
                     ) {
 
-                        LoginCoursera()
+                        /*LoginCoursera()*/
+
 
                         /*InputsDefault()
                         InputsCustom()

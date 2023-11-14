@@ -2,6 +2,7 @@ package com.maggiver.elements
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -17,6 +19,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.KeyOff
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,14 +35,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -65,7 +74,7 @@ import androidx.compose.ui.unit.sp
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "InvalidColorHexValue")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputsCustomOneline() {
@@ -115,6 +124,21 @@ fun InputsCustomOneline() {
     SmallTextFieldPasswordOneline(
         value = password2,
         onValueChange = { password2 = it }
+    )
+
+    Spacer(modifier = Modifier.height(8.dp))
+    InputTextField(
+        labelText = "Nombre: ",
+        dividerColor = Color(0XFF000000),
+        spacer = 8.dp,
+        textStyle = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Black,
+            fontSize = 18.sp,
+            lineHeight = 24.sp,
+            letterSpacing = 0.5.sp,
+            color = Color.Black
+        )
     )
 
 }
@@ -220,7 +244,7 @@ fun SmallTextFieldPasswordOneline(
         onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
-            .height(30.dp),
+            .height(35.dp),
         // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
@@ -278,4 +302,53 @@ fun SmallTextFieldPasswordOneline(
             }
         )
     }
+}
+
+@Composable
+fun InputTextField(
+    labelText: String,
+    modifier: Modifier = Modifier,
+    dividerColor: Color,
+    dividerThickness: Dp = 1.dp,
+    spacer: Dp,
+    textStyle: TextStyle
+) {
+    var value by remember { mutableStateOf(TextFieldValue("")) }
+    val dividerState = remember { mutableStateOf(true) }
+    BasicTextField(
+        value = value,
+        onValueChange = { value = it },
+        modifier = modifier
+            .onFocusChanged {
+                dividerState.value = !it.isFocused
+            },
+        decorationBox = { innerTextField ->
+            var mainModifier: Modifier = modifier
+            if (!dividerState.value){
+                mainModifier = Modifier
+                    .fillMaxWidth()
+                    .border(
+                        width = 1.dp,
+                        shape = RoundedCornerShape(16.dp),
+                        color = Color(0XFF000000)
+                    )
+                    .padding(16.dp)
+            }
+            Column(
+                modifier = mainModifier,
+                content = {
+                    Text(text = labelText, style = textStyle)
+                    Spacer(modifier = Modifier.size(spacer))
+                    innerTextField()
+                    if (dividerState.value) {
+                        Divider(
+                            thickness = dividerThickness,
+                            color = dividerColor,
+                            modifier = mainModifier
+                        )
+                    }
+                }
+            )
+        }
+    )
 }

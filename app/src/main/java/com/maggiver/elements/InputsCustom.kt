@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,6 +23,7 @@ import androidx.compose.material.icons.filled.KeyOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -30,7 +34,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontWeight
@@ -154,38 +160,52 @@ fun SmallTextFieldEmail(
         enabled = enabled,
         textStyle = MaterialTheme.typography.bodyLarge,
         singleLine = singleLine,
-        cursorBrush = SolidColor(Color.Black),
-        decorationBox = {
-            OutlinedTextFieldDefaults.DecorationBox(
-                value = value,
-                innerTextField = it,
-                enabled = enabled,
-                // same interaction source as the one passed to BasicTextField to read focus state
-                // for text field styling
-                singleLine = singleLine,
-                visualTransformation = VisualTransformation.None,
-                interactionSource = interactionSource,
-                // keep vertical paddings but change the horizontal
-                colors = colors,
-                contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
-                    start = 16.dp,
-                    end = 8.dp,
-                    top = 0.dp,
-                    bottom = 0.dp
-                ),
-                // update border thickness and shape
-                container = {
-                    OutlinedTextFieldDefaults.ContainerBox(
-                        enabled = enabled,
-                        isError = false,
-                        interactionSource = interactionSource,
-                        colors = OutlinedTextFieldDefaults.colors(),
-                        shape = RoundedCornerShape(16.dp) //OutlinedTextFieldDefaults.shape
-                    )
-                }
-            )
-        }
-    )
+        cursorBrush = SolidColor(Color.Black)
+    ) { innerTextField ->
+
+        OutlinedTextFieldDefaults.DecorationBox(
+            value = value,
+            innerTextField = {
+                /*Box(modifier = Modifier) {
+                    if (value.isEmpty()) {
+                        Text(
+                            text = "Tu Email",
+                            color = LocalContentColor.current.copy(alpha = 0.6f)
+                        )
+                    }
+                }*/
+                innerTextField()
+            },
+            enabled = enabled,
+            singleLine = singleLine,
+            visualTransformation = VisualTransformation.None,
+            interactionSource = interactionSource,
+            placeholder = {
+                Text(
+                    text = "Tu Email @",
+                    color = LocalContentColor.current.copy(alpha = 0.6f)
+                )
+            },
+            colors = colors,
+            contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
+                start = 16.dp,
+                end = 8.dp,
+                top = 0.dp,
+                bottom = 0.dp
+            ),
+            // update border thickness and shape
+            container = {
+                OutlinedTextFieldDefaults.ContainerBox(
+                    enabled = enabled,
+                    isError = false,
+                    interactionSource = interactionSource,
+                    colors = OutlinedTextFieldDefaults.colors(),
+                    shape = RoundedCornerShape(16.dp) //OutlinedTextFieldDefaults.shape
+                )
+            }
+        )
+
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -195,8 +215,6 @@ fun SmallTextFieldPassword(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // parameters below will be passed to BasicTextField for correct behavior of the text field,
-    // and to the decoration box for proper styling and sizing
     val interactionSource = remember { MutableInteractionSource() }
     val enabled = true
     val singleLine = true
@@ -207,14 +225,12 @@ fun SmallTextFieldPassword(
     var expanded by remember { mutableStateOf(false) }
     var keyBoardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
 
-
     BasicTextField(
         value = value,
         onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
             .height(40.dp),
-        // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
         textStyle = MaterialTheme.typography.bodyLarge,
@@ -222,15 +238,14 @@ fun SmallTextFieldPassword(
         visualTransformation = if (expanded) VisualTransformation.None else PasswordVisualTransformation(),
         singleLine = singleLine,
         cursorBrush = SolidColor(Color.Black)
-    ) {
+    ) { innerTextField ->
         OutlinedTextFieldDefaults.DecorationBox(
             value = value,
-            innerTextField = it,
+            innerTextField = {
+                innerTextField()
+            },
             enabled = enabled,
-            // same interaction source as the one passed to BasicTextField to read focus state
-            // for text field styling
             singleLine = singleLine,
-            label = { Text(text = "") },
             trailingIcon = {
                 var image = if (expanded) Icons.Filled.KeyOff
                 else Icons.Filled.Key
@@ -248,7 +263,12 @@ fun SmallTextFieldPassword(
             },
             visualTransformation = if (expanded) VisualTransformation.None else PasswordVisualTransformation(),
             interactionSource = interactionSource,
-            // keep vertical paddings but change the horizontal
+            placeholder = {
+                Text(
+                    text = "Tu Password",
+                    color = LocalContentColor.current.copy(alpha = 0.6f)
+                )
+            },
             colors = colors,
             contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
                 start = 16.dp,
@@ -256,17 +276,15 @@ fun SmallTextFieldPassword(
                 top = 0.dp,
                 bottom = 0.dp
             ),
-            // update border thickness and shape
             container = {
                 OutlinedTextFieldDefaults.ContainerBox(
                     enabled = enabled,
                     isError = false,
                     interactionSource = interactionSource,
                     colors = OutlinedTextFieldDefaults.colors(),
-                    shape = RoundedCornerShape(16.dp)
+                    shape = RoundedCornerShape(16.dp) //OutlinedTextFieldDefaults.shape
                 )
             }
         )
     }
 }
-

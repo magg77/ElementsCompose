@@ -1,4 +1,4 @@
-package com.maggiver.elements
+package com.maggiver.elements.ui.inputs_m3
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column

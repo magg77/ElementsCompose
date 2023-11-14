@@ -3,27 +3,26 @@ package com.maggiver.elements
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.KeyOff
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -32,7 +31,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -41,6 +39,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -69,47 +68,143 @@ import androidx.compose.ui.unit.sp
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputsCustomPassword() {
+fun InputsCustomOneline() {
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    var textEmail2 by rememberSaveable { mutableStateOf("") }
+    var password2 by rememberSaveable { mutableStateOf("") }
+    var passwordVisible2 by rememberSaveable { mutableStateOf(false) }
+    var customText by rememberSaveable { mutableStateOf("") }
 
-        var textEmail by rememberSaveable { mutableStateOf("") }
-        var password by rememberSaveable { mutableStateOf("") }
-        var passwordVisible by rememberSaveable { mutableStateOf(false) }
-        var customText by rememberSaveable { mutableStateOf("") }
+    Spacer(modifier = Modifier.height(32.dp))
+    Text(
+        text = "Text Inputs Custom Oneline",
+        modifier = Modifier.fillMaxWidth(),
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Start
+    )
+    Spacer(modifier = Modifier.height(16.dp))
 
-        Spacer(modifier = Modifier.height(24.dp))
+    Text(
+        text = "Email",
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0XFF00000)),
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Start
+    )
 
-        Text(
-            text = "TrailingIcon with Lambda function",
-            modifier = Modifier.fillMaxWidth(),
-            fontWeight = FontWeight.Normal,
-            textAlign = TextAlign.Left
-        )
+    SmallTextFieldEmailOnline(
+        value = textEmail2,
+        onValueChange = { textEmail2 = it }
+    )
 
-        SmallTextFieldCustomPassword(
-            value = password,
-            onValueChange = { password = it },
-            clickIconPassword = { passwordVisible = it }
-        )
-    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+    Text(
+        text = "Password",
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0XFF00000)),
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Start
+    )
+
+    SmallTextFieldPasswordOneline(
+        value = password2,
+        onValueChange = { password2 = it }
+    )
 
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Preview
+@Composable
+fun showInpusts() {
+    Scaffold {
+        Column {
+            InputsCustomOneline()
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SmallTextFieldCustomPassword(
+fun SmallTextFieldEmailOnline(
     value: String,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    clickIconPassword: (Boolean) -> Boolean
+    modifier: Modifier = Modifier.fillMaxWidth()
 ) {
     // parameters below will be passed to BasicTextField for correct behavior of the text field,
     // and to the decoration box for proper styling and sizing
     val interactionSource = remember { MutableInteractionSource() }
+    val enabled = true
+    val singleLine = true
+    val colors = OutlinedTextFieldDefaults.colors(
+        focusedBorderColor = Color.Black,
+        unfocusedBorderColor = Color.Black,
+    )
+
+    BasicTextField(
+        value = value,
+        onValueChange = { onValueChange(it) },
+        modifier = modifier
+            .fillMaxWidth()
+            .height(30.dp),
+        // internal implementation of the BasicTextField will dispatch focus events
+        interactionSource = interactionSource,
+        enabled = enabled,
+        textStyle = MaterialTheme.typography.bodyLarge,
+        singleLine = singleLine,
+        cursorBrush = SolidColor(Color.Black),
+        decorationBox = {
+            TextFieldDefaults.DecorationBox(
+                value = value,
+                innerTextField = it,
+                enabled = enabled,
+                // same interaction source as the one passed to BasicTextField to read focus state
+                // for text field styling
+                singleLine = singleLine,
+                visualTransformation = VisualTransformation.None,
+                interactionSource = interactionSource,
+                // keep vertical paddings but change the horizontal
+                colors = colors,
+                contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
+                    start = 0.dp,
+                    end = 8.dp,
+                    top = 0.dp,
+                    bottom = 0.dp
+                ),
+                // update border thickness and shape
+                container = {
+                    TextFieldDefaults.ContainerBox(
+                        enabled = enabled,
+                        isError = false,
+                        interactionSource = interactionSource,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color.Black,
+                            unfocusedBorderColor = Color.Black,
+                        ),
+                        shape = RoundedCornerShape(16.dp) //OutlinedTextFieldDefaults.shape
+                    )
+                }
+            )
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SmallTextFieldPasswordOneline(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    // parameters below will be passed to BasicTextField for correct behavior of the text field,
+    // and to the decoration box for proper styling and sizing
+    val interactionSource = remember{ MutableInteractionSource() }
     val enabled = true
     val singleLine = true
     val colors = OutlinedTextFieldDefaults.colors(
@@ -125,13 +220,13 @@ fun SmallTextFieldCustomPassword(
         onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(30.dp),
         // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
         textStyle = MaterialTheme.typography.bodyLarge,
         keyboardOptions = keyBoardOptions,
-        visualTransformation = if(expanded) VisualTransformation.None else PasswordVisualTransformation(),
+        visualTransformation = if (expanded) VisualTransformation.None else PasswordVisualTransformation(),
         singleLine = singleLine,
         cursorBrush = SolidColor(Color.Black)
     ) {
@@ -144,42 +239,41 @@ fun SmallTextFieldCustomPassword(
             singleLine = singleLine,
             label = { Text(text = "") },
             trailingIcon = {
-
-                /*var image = if (expanded) Icons.Filled.KeyOff
+                var image = if (expanded) Icons.Filled.KeyOff
                 else Icons.Filled.Key
+
                 var description =
                     if (expanded) "Hide password" else "Show password"
-                */
 
-                val  changeIcon = { clickIconPassword }
-                /*IconButton(
+                IconButton(
                     onClick = {
                         expanded = !expanded
                     }
                 ) {
                     Icon(imageVector = image, contentDescription = description)
-                }*/
-
-
+                }
             },
-            visualTransformation = if(expanded) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if (expanded) VisualTransformation.None else PasswordVisualTransformation(),
             interactionSource = interactionSource,
             // keep vertical paddings but change the horizontal
             colors = colors,
             contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
-                start = 16.dp,
+                start = 0.dp,
                 end = 8.dp,
                 top = 0.dp,
                 bottom = 0.dp
             ),
             // update border thickness and shape
             container = {
-                OutlinedTextFieldDefaults.ContainerBox(
+                TextFieldDefaults.ContainerBox(
                     enabled = enabled,
                     isError = false,
                     interactionSource = interactionSource,
-                    colors = OutlinedTextFieldDefaults.colors(),
-                    shape = OutlinedTextFieldDefaults.shape
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color.Black,
+                        unfocusedBorderColor = Color.Black,
+                    ),
+                    shape = MaterialTheme.shapes.large
                 )
             }
         )

@@ -34,9 +34,9 @@ class MainActivity : ComponentActivity() {
                         .background(Color.Blue)
                 ) {
                     Column {
-                        InputsDefault()
-                        InputsCustom()
-                        InputsCustomPassword()
+                        /*InputsDefault()
+                        InputsCustom()*/
+                        InputsCustomOneline()
                     }
                 }
             }

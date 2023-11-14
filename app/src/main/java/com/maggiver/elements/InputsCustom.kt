@@ -1,6 +1,7 @@
 package com.maggiver.elements
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -72,13 +73,23 @@ fun InputsCustom() {
     var passwordVisible2 by rememberSaveable { mutableStateOf(false) }
     var customText by rememberSaveable { mutableStateOf("") }
 
-    Spacer(modifier = Modifier.height(24.dp))
+    Spacer(modifier = Modifier.height(32.dp))
+    Text(
+        text = "Text Inputs Custom",
+        modifier = Modifier.fillMaxWidth(),
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Start
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+
 
     LazyRow(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth().padding(0.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp),
     ) {
-
         item {
             Column {
                 Text(
@@ -95,7 +106,7 @@ fun InputsCustom() {
             }
         }
 
-        item{
+        item {
             Column {
                 Text(
                     text = "Clave",
@@ -110,8 +121,8 @@ fun InputsCustom() {
                 )
             }
         }
-
     }
+
 
 }
 

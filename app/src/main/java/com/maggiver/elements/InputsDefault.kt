@@ -73,6 +73,16 @@ fun InputsDefault() {
         var passwordVisible by rememberSaveable { mutableStateOf(false) }
         var customText by rememberSaveable { mutableStateOf("") }
 
+
+        Text(
+            text = "Text Inputs Default",
+            modifier = Modifier.fillMaxWidth(),
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Start
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
         Text(
             text = "Email",
             modifier = Modifier.fillMaxWidth(),

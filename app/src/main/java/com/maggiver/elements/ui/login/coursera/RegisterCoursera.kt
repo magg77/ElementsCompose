@@ -407,6 +407,7 @@ fun TextFieldEmailSignUpCoursera(
         focusedBorderColor = Color.Black,
         unfocusedBorderColor = Color.Black,
     )
+    var keyBoardOptionEmail = KeyboardOptions(keyboardType = KeyboardType.Email)
 
     BasicTextField(
         value = value,
@@ -417,6 +418,7 @@ fun TextFieldEmailSignUpCoursera(
         // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
+        keyboardOptions = keyBoardOptionEmail,
         textStyle = MaterialTheme.typography.bodyLarge,
         singleLine = singleLine,
         cursorBrush = SolidColor(Color.Black)
@@ -478,6 +480,7 @@ fun TextFieldPhoneNumberSignUpCoursera(
         focusedBorderColor = Color.Black,
         unfocusedBorderColor = Color.Black,
     )
+    var keyBoardOptionNumber = KeyboardOptions(keyboardType = KeyboardType.Number)
 
     BasicTextField(
         value = value,
@@ -488,6 +491,7 @@ fun TextFieldPhoneNumberSignUpCoursera(
         // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
+        keyboardOptions = keyBoardOptionNumber,
         textStyle = MaterialTheme.typography.bodyLarge,
         singleLine = singleLine,
         cursorBrush = SolidColor(Color.Black)

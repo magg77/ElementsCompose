@@ -282,7 +282,7 @@ fun LoginCoursera(navController: NavHostController) {
 
                     Text(
                         text = "Google",
-                        fontSize = 16.sp
+                        fontSize = 14.sp
                     )
                 }
 
@@ -312,7 +312,7 @@ fun LoginCoursera(navController: NavHostController) {
 
                     Text(
                         text = "Facebook",
-                        fontSize = 16.sp
+                        fontSize = 14.sp
                     )
                 }
             }
@@ -382,6 +382,7 @@ fun TextFieldEmailLoginCoursera(
         focusedBorderColor = Color.Black,
         unfocusedBorderColor = Color.Black,
     )
+    var keyBoardOptionsEmail = KeyboardOptions(keyboardType = KeyboardType.Email)
 
     BasicTextField(
         value = value,
@@ -392,6 +393,7 @@ fun TextFieldEmailLoginCoursera(
         // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
+        keyboardOptions = keyBoardOptionsEmail,
         textStyle = MaterialTheme.typography.bodyLarge,
         singleLine = singleLine,
         cursorBrush = SolidColor(Color.Black)

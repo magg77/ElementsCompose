@@ -39,7 +39,7 @@ android {
         }
 
         getByName("debug") {
-            applicationIdSuffix = ".debug"
+            applicationIdSuffix = ".Login_Sunil"
             isDebuggable = true
             manifestPlaceholders["cleartextTrafficPermitted"] = true
             resValue("string", "nameApp", "Elements[DEBUG]")

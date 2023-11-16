@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.maggiver.elements.ui.login.coursera.LoginCoursera
-import com.maggiver.elements.ui.login.coursera.NavigationCoursera
+import com.maggiver.elements.ui.login.graphics_guruji.NavigationGraphics
 import com.maggiver.elements.ui.theme.ElementsTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,19 +28,16 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                 ) {
 
-                    NavigationCoursera()
+                    NavigationGraphics()
 
-                    Column(
-                        modifier = Modifier
-                    ) {
+                    /*LoginCoursera()*/
 
-                        /*LoginCoursera()*/
-
-
-                        /*InputsDefault()
+                    /*Column {
+                        InputsDefault()
                         InputsCustom()
-                        InputsCustomOneline()*/
-                    }
+                        InputsCustomOneline()
+                    }*/
+
                 }
             }
         }

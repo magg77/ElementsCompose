@@ -2,6 +2,7 @@ package com.maggiver.elements.ui.login.graphics_guruji
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -38,20 +40,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.maggiver.elements.R
 
 
 /**
@@ -89,9 +98,9 @@ fun LoginGraphics(navController: NavHostController) {
 
     ConstraintLayout {
 
-        val (mainContainer, headerContainer, bodyContainer, bottomContainer) = createRefs()
-        val guideBottomHorizontal = createGuidelineFromBottom(0.2f)
-        val guideBottomContainer = createGuidelineFromBottom(0.05f)
+        val (mainContainer, headerContainer, bodyContainer, terms, bottomContainer) = createRefs()
+        val guideBodyHorizontal = createGuidelineFromBottom(0.2f)
+        val guideBottomContainer = createGuidelineFromBottom(0.3f)
 
         //main
         Column(
@@ -111,7 +120,7 @@ fun LoginGraphics(navController: NavHostController) {
         Column(
             Modifier
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
-                .background(Color(0xFFE20495))
+                .background(Color(0xFFE70A89))
                 .fillMaxHeight(0.4f)
                 .constrainAs(headerContainer) {
                     start.linkTo(parent.start)
@@ -128,29 +137,76 @@ fun LoginGraphics(navController: NavHostController) {
         Column(
             Modifier
                 .padding(20.dp, 0.dp, 20.dp, 0.dp)
-                .fillMaxHeight(0.6f)
+                .fillMaxHeight(0.7f)
                 .constrainAs(bodyContainer) {
                     top.linkTo(headerContainer.bottom)
+                    bottom.linkTo(guideBodyHorizontal)
                     start.linkTo(headerContainer.start)
                     end.linkTo(headerContainer.end)
-                    bottom.linkTo(guideBottomHorizontal)
                 }
         ) {
             BodyLogin(navController = navController)
         }
 
+        //terms
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(70.dp)
+                .background(Color(0xFFF5EEEE))
+                .constrainAs(terms) {
+                    top.linkTo(mainContainer.bottom)
+                    bottom.linkTo(bottomContainer.top)
+                    start.linkTo(terms.start)
+                    end.linkTo(terms.end)
+                }
+                .padding(0.dp)
+                .border(1.dp, Color(0xFFF5EEEE), shape = RectangleShape)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+
+                Text(
+                    text = "By signing up, your are agree with out",
+                    modifier = Modifier,
+                    color = Color(0xFF000000),
+                    textAlign = TextAlign.End,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal
+                )
+                Text(
+                    text = "Terms & Conditions",
+                    modifier = Modifier.padding(start = 8.dp),
+                    color = Color(0xFFE70A89),
+                    textAlign = TextAlign.End,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    textDecoration = TextDecoration.Underline
+                )
+            }
+        }
+
         //bottom
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFFE20495))
+                .fillMaxHeight()
+                .fillMaxWidth()
+                .background(Color(0xFFE70A89))
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
                 .constrainAs(bottomContainer) {
-                    top.linkTo(mainContainer.bottom)
-                    start.linkTo(mainContainer.start)
-                    end.linkTo(mainContainer.end)
+                    top.linkTo(terms.bottom)
+                    bottom.linkTo(bottomContainer.bottom)
+                    start.linkTo(bottomContainer.start)
+                    end.linkTo(bottomContainer.end)
                 }
         ) {}
+
     }
 
     /* Modifier
@@ -184,13 +240,10 @@ fun LoginGraphics(navController: NavHostController) {
             ),
             shape = RectangleShape
        )*/
-
-
 }
 
 @Composable
 fun HeaderLogin() {
-
     Column {
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -216,11 +269,10 @@ fun HeaderLogin() {
             color = Color(0xFFFFFFFF),
             textAlign = TextAlign.Center,
             lineHeight = 18.sp,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal
         )
     }
-
 }
 
 @Composable
@@ -240,19 +292,10 @@ fun BodyLogin(navController: NavHostController) {
     ) {
 
         Column(
-            Modifier.padding(20.dp, 20.dp, 20.dp, 40.dp)
+            Modifier.padding(20.dp, 16.dp, 20.dp, 40.dp)
         ) {
 
             Column {
-
-                Text(
-                    text = "Email Address",
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Color(0xFF7A7A7A),
-                    textAlign = TextAlign.Start,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium
-                )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -265,17 +308,6 @@ fun BodyLogin(navController: NavHostController) {
             Column {
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Text(
-                    text = "Password",
-                    modifier = Modifier.fillMaxWidth(),
-                    color = Color(0xFF7A7A7A),
-                    textAlign = TextAlign.Start,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
                 TextFieldPasswordLoginCoursera(
                     value = password,
                     onValueChange = { password = it }
@@ -283,7 +315,7 @@ fun BodyLogin(navController: NavHostController) {
             }
 
             Column {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
                 Button(
                     onClick = { /*TODO*/ },
@@ -291,7 +323,7 @@ fun BodyLogin(navController: NavHostController) {
                         .fillMaxWidth()
                         .height(40.dp),
                     colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                        containerColor = Color(0xFF4E46F1),
+                        containerColor = Color(0xFFE70A89),
                         contentColor = Color(0xFFFFFFFF),
                         disabledContainerColor = Color(0xFF747474),
                         disabledContentColor = Color(0xFF222222)
@@ -309,17 +341,177 @@ fun BodyLogin(navController: NavHostController) {
                 Text(
                     text = "Forgot Password?",
                     modifier = Modifier.fillMaxWidth(),
-                    color = Color(0xFFE7A436),
+                    color = Color(0xFFE20495),
                     textAlign = TextAlign.End,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
                 )
 
             }
+
+            Column {
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = "or login with",
+                    modifier = Modifier.fillMaxWidth(),
+                    color = Color(0xFFA7A7A7),
+                    textAlign = TextAlign.Center,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+
+                ElevatedCard(
+                    modifier = Modifier
+                        .padding(8.dp, 0.dp, 8.dp, 0.dp)
+                        .height(60.dp)
+                        .width(60.dp),
+                    shape = RoundedCornerShape(3.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFFF5EEEE),
+                        contentColor = Color.White  //Card content color,e.g.text
+                    ),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 8.dp
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        IconButton(
+                            onClick = { /*TODO*/ },
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = Color.Transparent,
+                                contentColor = Color.Transparent,
+                                disabledContainerColor = Color(0xFFFFFFFF),
+                                disabledContentColor = Color(0xFF222222)
+                            )
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.logo_svg_small_google),
+                                contentDescription = "Sign Up finger print",
+                                tint = Color.Unspecified
+                            )
+                        }
+                    }
+                }
+
+                ElevatedCard(
+                    modifier = Modifier
+                        .padding(8.dp, 0.dp, 8.dp, 0.dp)
+                        .height(60.dp)
+                        .width(60.dp),
+                    shape = RoundedCornerShape(3.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFFF5EEEE),
+                        contentColor = Color.White  //Card content color,e.g.text
+                    ),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 8.dp
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        IconButton(
+                            onClick = { /*TODO*/ },
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = Color.Transparent,
+                                contentColor = Color.Transparent,
+                                disabledContainerColor = Color(0xFFFFFFFF),
+                                disabledContentColor = Color(0xFF222222)
+                            )
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.logo_facebook_svg_small_240),
+                                contentDescription = "Sign Up finger print",
+                                tint = Color.Unspecified
+                            )
+                        }
+                    }
+                }
+
+                ElevatedCard(
+                    modifier = Modifier
+                        .padding(8.dp, 0.dp, 8.dp, 0.dp)
+                        .height(60.dp)
+                        .width(60.dp),
+                    shape = RoundedCornerShape(3.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFFF5EEEE),
+                        contentColor = Color.White  //Card content color,e.g.text
+                    ),
+                    elevation = CardDefaults.cardElevation(
+                        defaultElevation = 8.dp
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        IconButton(
+                            onClick = { /*TODO*/ },
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = Color.Transparent,
+                                contentColor = Color.Transparent,
+                                disabledContainerColor = Color.Transparent,
+                                disabledContentColor = Color.Transparent
+                            )
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.twitter_svg_small_240),
+                                contentDescription = "Sign Up finger print",
+                                tint = Color.Unspecified
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center
+            ) {
+
+                Text(
+                    text = "Don't have an account?",
+                    modifier = Modifier,
+                    color = Color(0xFF000000),
+                    textAlign = TextAlign.End,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = "Register now",
+                    modifier = Modifier.padding(start = 8.dp),
+                    color = Color(0xFFE70A89),
+                    textAlign = TextAlign.End,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    textDecoration = TextDecoration.Underline
+                )
+            }
         }
 
     }
-
 
 }
 

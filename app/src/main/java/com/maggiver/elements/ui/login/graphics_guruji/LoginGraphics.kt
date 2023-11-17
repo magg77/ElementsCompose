@@ -103,7 +103,7 @@ fun LoginGraphics(navController: NavHostController) {
     ConstraintLayout {
 
         val (mainContainer, headerContainer, bodyContainer, terms, bottomContainer) = createRefs()
-        val guideBodyHorizontal = createGuidelineFromBottom(0.1f)
+        val guideBodyHorizontal = createGuidelineFromBottom(0.15f)
         val guideBottomContainer = createGuidelineFromBottom(0.3f)
         val guideterms = createGuidelineFromTop(0.915f)
 
@@ -280,6 +280,7 @@ fun BodyLogin(navController: NavHostController) {
     var password by rememberSaveable { mutableStateOf("") }
 
     ElevatedCard(
+        shape = RoundedCornerShape(4.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFFFFFFFF),
             contentColor = Color.White  //Card content color,e.g.text
@@ -319,14 +320,14 @@ fun BodyLogin(navController: NavHostController) {
                     onClick = { /*TODO*/ },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(40.dp),
+                        .height(50.dp),
                     colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
                         containerColor = Color(0xFFE70A89),
                         contentColor = Color(0xFFFFFFFF),
                         disabledContainerColor = Color(0xFF747474),
                         disabledContentColor = Color(0xFF222222)
                     ),
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(4.dp)
                 ) {
                     Text(
                         text = "Sign In",
@@ -537,7 +538,7 @@ fun TextFieldEmailLoginCoursera(
         onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(50.dp),
         // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
@@ -566,7 +567,7 @@ fun TextFieldEmailLoginCoursera(
             interactionSource = interactionSource,
             placeholder = {
                 Text(
-                    text = "example@gmail.com",
+                    text = "Email",
                     color = LocalContentColor.current.copy(alpha = 0.6f)
                 )
             },
@@ -587,7 +588,7 @@ fun TextFieldEmailLoginCoursera(
                         focusedBorderColor = Color(0xFF4B47A0),
                         unfocusedBorderColor = Color(0xFF000000)
                     ),
-                    shape = RoundedCornerShape(8.dp) //OutlinedTextFieldDefaults.shape
+                    shape = RoundedCornerShape(4.dp) //OutlinedTextFieldDefaults.shape
                 )
             }
         )
@@ -617,7 +618,7 @@ fun TextFieldPasswordLoginCoursera(
         onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(50.dp),
         interactionSource = interactionSource,
         enabled = enabled,
         textStyle = MaterialTheme.typography.bodyLarge,
@@ -652,7 +653,7 @@ fun TextFieldPasswordLoginCoursera(
             interactionSource = interactionSource,
             placeholder = {
                 Text(
-                    text = "Tu Password",
+                    text = "Password",
                     color = LocalContentColor.current.copy(alpha = 0.6f)
                 )
             },
@@ -672,7 +673,7 @@ fun TextFieldPasswordLoginCoursera(
                         focusedBorderColor = Color(0xFF4B47A0),
                         unfocusedBorderColor = Color(0xFF000000)
                     ),
-                    shape = RoundedCornerShape(8.dp) //OutlinedTextFieldDefaults.shape
+                    shape = RoundedCornerShape(4.dp) //OutlinedTextFieldDefaults.shape
                 )
             }
         )

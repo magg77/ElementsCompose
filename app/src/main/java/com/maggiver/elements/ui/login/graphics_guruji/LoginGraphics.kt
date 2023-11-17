@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -32,6 +35,7 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -99,14 +103,14 @@ fun LoginGraphics(navController: NavHostController) {
     ConstraintLayout {
 
         val (mainContainer, headerContainer, bodyContainer, terms, bottomContainer) = createRefs()
-        val guideBodyHorizontal = createGuidelineFromBottom(0.2f)
+        val guideBodyHorizontal = createGuidelineFromBottom(0.1f)
         val guideBottomContainer = createGuidelineFromBottom(0.3f)
+        val guideterms = createGuidelineFromTop(0.915f)
 
         //main
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF5EEEE))
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
                 .constrainAs(mainContainer) {
                     top.linkTo(parent.top)
@@ -150,23 +154,17 @@ fun LoginGraphics(navController: NavHostController) {
 
         //terms
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(70.dp)
-                .background(Color(0xFFF5EEEE))
+            modifier = Modifier.padding(bottom = 32.dp)
                 .constrainAs(terms) {
-                    top.linkTo(mainContainer.bottom)
+                    top.linkTo(guideterms)
                     bottom.linkTo(bottomContainer.top)
                     start.linkTo(terms.start)
                     end.linkTo(terms.end)
                 }
-                .padding(0.dp)
-                .border(1.dp, Color(0xFFF5EEEE), shape = RectangleShape)
+                .border(2.dp, Color.Transparent, shape = RectangleShape)
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
 
@@ -195,7 +193,7 @@ fun LoginGraphics(navController: NavHostController) {
         //bottom
         Column(
             modifier = Modifier
-                .fillMaxHeight()
+                .height(30.dp)
                 .fillMaxWidth()
                 .background(Color(0xFFE70A89))
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
@@ -283,7 +281,7 @@ fun BodyLogin(navController: NavHostController) {
 
     ElevatedCard(
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFF5EEEE),
+            containerColor = Color(0xFFFFFFFF),
             contentColor = Color.White  //Card content color,e.g.text
         ),
         elevation = CardDefaults.cardElevation(
@@ -377,7 +375,7 @@ fun BodyLogin(navController: NavHostController) {
                         .width(60.dp),
                     shape = RoundedCornerShape(3.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFFF5EEEE),
+                        containerColor = Color(0xFFFFFFFF),
                         contentColor = Color.White  //Card content color,e.g.text
                     ),
                     elevation = CardDefaults.cardElevation(
@@ -414,7 +412,7 @@ fun BodyLogin(navController: NavHostController) {
                         .width(60.dp),
                     shape = RoundedCornerShape(3.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFFF5EEEE),
+                        containerColor = Color(0xFFFFFFFF),
                         contentColor = Color.White  //Card content color,e.g.text
                     ),
                     elevation = CardDefaults.cardElevation(
@@ -451,7 +449,7 @@ fun BodyLogin(navController: NavHostController) {
                         .width(60.dp),
                     shape = RoundedCornerShape(3.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFFF5EEEE),
+                        containerColor = Color(0xFFFFFFFF),
                         contentColor = Color.White  //Card content color,e.g.text
                     ),
                     elevation = CardDefaults.cardElevation(

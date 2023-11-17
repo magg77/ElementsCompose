@@ -54,9 +54,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.maggiver.elements.R
 
 
@@ -81,6 +83,11 @@ import com.maggiver.elements.R
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
+@Preview
+@Composable
+fun PreviewRegisterGraphics(Background: Color = Color(0xFFFFFFFF)) {
+    RegisterGraphics(navController = rememberNavController())
+}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -314,7 +321,7 @@ fun RegisterGraphics(navController: NavHostController) {
             )
 
             Icon(
-                painter = painterResource(id = R.drawable.logo_svg_small_google),
+                painter = painterResource(id = R.drawable.logo_svg_small_google_240),
                 contentDescription = "Sign Up with Google",
                 modifier = Modifier
                     .padding(0.dp, 0.dp, 16.dp, 0.dp)
@@ -323,7 +330,7 @@ fun RegisterGraphics(navController: NavHostController) {
             )
 
             Icon(
-                painter = painterResource(id = R.drawable.logo_facebook_svg_small_240),
+                painter = painterResource(id = R.drawable.logo_svg_small_facebook_240),
                 contentDescription = "Sign Up with Facebook",
                 modifier = Modifier
                     .padding(0.dp, 0.dp, 0.dp, 0.dp)

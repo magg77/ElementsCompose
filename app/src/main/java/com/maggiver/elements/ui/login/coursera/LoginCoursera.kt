@@ -280,7 +280,7 @@ fun LoginCoursera(navController: NavHostController) {
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.logo_img_small_google),
+                        painter = painterResource(id = R.drawable.logo_img_small_google_512),
                         contentDescription = "Iniciar sesion con Google",
                         modifier = Modifier
                             .padding(0.dp, 0.dp, 16.dp, 0.dp)
@@ -310,7 +310,7 @@ fun LoginCoursera(navController: NavHostController) {
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Icon(
-                        bitmap = ImageBitmap.imageResource(id = R.drawable.logo_img_small_facebook),
+                        bitmap = ImageBitmap.imageResource(id = R.drawable.logo_img_small_facebook_512),
                         contentDescription = "Iniciar sesion con Facebook",
                         modifier = Modifier
                             .padding(0.dp, 0.dp, 16.dp, 0.dp)

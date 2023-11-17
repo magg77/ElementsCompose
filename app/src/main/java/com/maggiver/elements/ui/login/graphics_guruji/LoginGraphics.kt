@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,8 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -35,7 +32,6 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -131,7 +127,7 @@ fun LoginGraphics(navController: NavHostController) {
                     end.linkTo(parent.end)
                     top.linkTo(parent.top)
                 }
-                .padding(16.dp)
+                .padding(16.dp, 0.dp, 16.dp, 0.dp)
 
         ) {
             HeaderLogin()
@@ -154,7 +150,8 @@ fun LoginGraphics(navController: NavHostController) {
 
         //terms
         Column(
-            modifier = Modifier.padding(bottom = 32.dp)
+            modifier = Modifier
+                .padding(bottom = 32.dp)
                 .constrainAs(terms) {
                     top.linkTo(guideterms)
                     bottom.linkTo(bottomContainer.top)
@@ -243,27 +240,26 @@ fun LoginGraphics(navController: NavHostController) {
 @Composable
 fun HeaderLogin() {
     Column {
-        Spacer(modifier = Modifier.height(20.dp))
 
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(
-                imageVector = Icons.Filled.CarCrash,
+                painter = painterResource(id = R.drawable.graphics_guruji_logo),
                 contentDescription = "Icono de inicio",
                 modifier = Modifier
-                    .height(80.dp)
-                    .width(80.dp),
+                    .height(130.dp)
+                    .width(130.dp),
                 tint = Color(0xFFFFFFFF)
             )
         }
+
         Text(
             text = "Learn Graphics and UI/UX designing with us for free with live projects.",
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp, 16.dp, 0.dp, 0.dp),
+                .padding(0.dp, 10.dp, 0.dp, 0.dp),
             color = Color(0xFFFFFFFF),
             textAlign = TextAlign.Center,
             lineHeight = 18.sp,
@@ -398,7 +394,7 @@ fun BodyLogin(navController: NavHostController) {
                             )
                         ) {
                             Icon(
-                                painter = painterResource(id = R.drawable.logo_svg_small_google),
+                                painter = painterResource(id = R.drawable.logo_svg_small_google_240),
                                 contentDescription = "Sign Up finger print",
                                 tint = Color.Unspecified
                             )
@@ -435,7 +431,7 @@ fun BodyLogin(navController: NavHostController) {
                             )
                         ) {
                             Icon(
-                                imageVector = ImageVector.vectorResource(R.drawable.logo_facebook_svg_small_240),
+                                imageVector = ImageVector.vectorResource(R.drawable.logo_svg_small_facebook_240),
                                 contentDescription = "Sign Up finger print",
                                 tint = Color.Unspecified
                             )
@@ -472,7 +468,7 @@ fun BodyLogin(navController: NavHostController) {
                             )
                         ) {
                             Icon(
-                                imageVector = ImageVector.vectorResource(R.drawable.twitter_svg_small_240),
+                                imageVector = ImageVector.vectorResource(R.drawable.logo_svg_small_twitter_240),
                                 contentDescription = "Sign Up finger print",
                                 tint = Color.Unspecified
                             )

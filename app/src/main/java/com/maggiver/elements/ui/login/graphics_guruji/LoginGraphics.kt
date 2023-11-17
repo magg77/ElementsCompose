@@ -101,7 +101,7 @@ fun LoginGraphics(navController: NavHostController) {
         val (mainContainer, headerContainer, bodyContainer, terms, bottomContainer) = createRefs()
         val guideBodyHorizontal = createGuidelineFromBottom(0.15f)
         val guideBottomContainer = createGuidelineFromBottom(0.3f)
-        val guideterms = createGuidelineFromTop(0.915f)
+        val guideTerms = createGuidelineFromTop(0.915f)
 
         //main
         Column(
@@ -120,7 +120,7 @@ fun LoginGraphics(navController: NavHostController) {
         Column(
             Modifier
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
-                .background(Color(0xFFE70A89))
+                .background(Color(0xFFE70B89))
                 .fillMaxHeight(0.4f)
                 .constrainAs(headerContainer) {
                     start.linkTo(parent.start)
@@ -153,7 +153,7 @@ fun LoginGraphics(navController: NavHostController) {
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .constrainAs(terms) {
-                    top.linkTo(guideterms)
+                    top.linkTo(guideTerms)
                     bottom.linkTo(bottomContainer.top)
                     start.linkTo(terms.start)
                     end.linkTo(terms.end)
@@ -178,7 +178,7 @@ fun LoginGraphics(navController: NavHostController) {
                 Text(
                     text = "Terms & Conditions",
                     modifier = Modifier.padding(start = 8.dp),
-                    color = Color(0xFFE70A89),
+                    color = Color(0xFFE70B89),
                     textAlign = TextAlign.End,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
@@ -318,7 +318,7 @@ fun BodyLogin(navController: NavHostController) {
                         .fillMaxWidth()
                         .height(50.dp),
                     colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                        containerColor = Color(0xFFE70A89),
+                        containerColor = Color(0xFFE70B89),
                         contentColor = Color(0xFFFFFFFF),
                         disabledContainerColor = Color(0xFF747474),
                         disabledContentColor = Color(0xFF222222)
@@ -336,7 +336,7 @@ fun BodyLogin(navController: NavHostController) {
                 Text(
                     text = "Forgot Password?",
                     modifier = Modifier.fillMaxWidth(),
-                    color = Color(0xFFE20495),
+                    color = Color(0xFFE70B89),
                     textAlign = TextAlign.End,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
@@ -351,7 +351,7 @@ fun BodyLogin(navController: NavHostController) {
                 Text(
                     text = "or login with",
                     modifier = Modifier.fillMaxWidth(),
-                    color = Color(0xFFA7A7A7),
+                    color = Color(0xFF9D9D9D),
                     textAlign = TextAlign.Center,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium
@@ -395,7 +395,7 @@ fun BodyLogin(navController: NavHostController) {
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.logo_svg_small_google_240),
-                                contentDescription = "Sign Up finger print",
+                                contentDescription = "Google",
                                 tint = Color.Unspecified
                             )
                         }
@@ -497,7 +497,7 @@ fun BodyLogin(navController: NavHostController) {
                 Text(
                     text = "Register now",
                     modifier = Modifier.padding(start = 8.dp),
-                    color = Color(0xFFE70A89),
+                    color = Color(0xFFE70B89),
                     textAlign = TextAlign.End,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,

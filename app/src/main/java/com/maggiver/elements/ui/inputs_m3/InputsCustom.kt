@@ -1,6 +1,7 @@
 package com.maggiver.elements.ui.inputs_m3
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -37,6 +39,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -61,6 +64,34 @@ import androidx.compose.ui.unit.sp
  *                         pueden ser transferibles a terceros con la autorización del titular del software en virtud de la autonomía de su voluntad, en cuyo caso, el autor o titular de la obra denominado cedente transmite total o parcialmente sus derechos a un tercero a través de un contrato de cesión de derechos.
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
+
+
+@Preview
+@Composable
+fun PreviewInputsCustom(
+    name: String = "custom textview",
+    showBackground: Boolean = true,
+    uiMode: Int = Configuration.UI_MODE_NIGHT_NO
+) {
+    /*showBackground: Boolean = true*/
+
+    Surface(
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        Column {
+            InputsCustom()
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            SmallTextFieldEmail(value = "", onValueChange = {})
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            SmallTextFieldPassword(value = "", onValueChange = {})
+        }
+    }
+}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)

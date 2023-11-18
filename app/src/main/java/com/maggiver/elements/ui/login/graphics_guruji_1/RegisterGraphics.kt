@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.login.graphics_guruji
+package com.maggiver.elements.ui.login.graphics_guruji_1
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
@@ -114,10 +114,10 @@ fun RegisterGraphics(navController: NavHostController) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBackIos,
                     contentDescription = "Go to back",
-                    modifier = Modifier.clickable {navController.popBackStack()}
+                    modifier = Modifier
+                        .clickable { navController.popBackStack() }
                         .height(24.dp)
-                        .width(24.dp)
-                    ,tint = Color(0xFF000000)
+                        .width(24.dp), tint = Color(0xFF000000)
                 )
 
                 Text(
@@ -376,8 +376,7 @@ fun RegisterGraphics(navController: NavHostController) {
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(40.dp)
-                ,border = BorderStroke(1.dp, Color(0xFF8A5AA0)),
+                    .height(40.dp), border = BorderStroke(1.dp, Color(0xFF8A5AA0)),
                 shape = RoundedCornerShape(8.dp)
             ) {
                 Text(

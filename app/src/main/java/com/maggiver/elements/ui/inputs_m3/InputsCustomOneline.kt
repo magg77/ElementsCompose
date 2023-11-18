@@ -1,6 +1,7 @@
 package com.maggiver.elements.ui.inputs_m3
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -69,6 +70,43 @@ import androidx.compose.ui.unit.sp
  *                         pueden ser transferibles a terceros con la autorización del titular del software en virtud de la autonomía de su voluntad, en cuyo caso, el autor o titular de la obra denominado cedente transmite total o parcialmente sus derechos a un tercero a través de un contrato de cesión de derechos.
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
+
+@Preview
+@Composable
+fun PreviewInputsCustomOneline(
+    name : String = "ONELINE",
+    showBackground: Boolean = false,
+    uiMode: Int = Configuration.UI_MODE_NIGHT_NO,
+) {
+    Column(modifier = Modifier
+        .padding(16.dp).background(Color(0XFFEFEFEF))
+    ) {
+
+        InputsCustomOneline()
+
+        Spacer(modifier = Modifier.height(24.dp))
+        SmallTextFieldEmailOnline("", {})
+
+        Spacer(modifier = Modifier.height(24.dp))
+        SmallTextFieldPasswordOneline("", {})
+
+        Spacer(modifier = Modifier.height(32.dp))
+        InputTextField(labelText = "Label Immersive: ",
+            dividerColor = Color(0XFF000000),
+            spacer = 8.dp,
+            textStyle = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Black,
+                fontSize = 18.sp,
+                lineHeight = 24.sp,
+                letterSpacing = 0.5.sp,
+                color = Color.Black
+            )
+        )
+
+
+    }
+}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "InvalidColorHexValue")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -139,16 +177,6 @@ fun InputsCustomOneline() {
 
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
-@Composable
-fun showInpusts() {
-    Scaffold {
-        Column {
-            InputsCustomOneline()
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

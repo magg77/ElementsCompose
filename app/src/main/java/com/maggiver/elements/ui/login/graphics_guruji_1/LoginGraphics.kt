@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.login.graphics_guruji
+package com.maggiver.elements.ui.login.graphics_guruji_1
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CarCrash
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
@@ -204,6 +203,7 @@ fun LoginGraphics(navController: NavHostController) {
 
     }
 
+    //border with gradiente - border degradado
     /* Modifier
          .offset(0.dp, (-64).dp)
          .padding(32.dp, 0.dp, 32.dp, 0.dp)
@@ -246,7 +246,7 @@ fun HeaderLogin() {
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.graphics_guruji_logo),
+                painter = painterResource(id = R.drawable.logo_graphics_guruji_white),
                 contentDescription = "Icono de inicio",
                 modifier = Modifier
                     .height(130.dp)
@@ -535,7 +535,6 @@ fun TextFieldEmailLoginCoursera(
         modifier = modifier
             .fillMaxWidth()
             .height(50.dp),
-        // internal implementation of the BasicTextField will dispatch focus events
         interactionSource = interactionSource,
         enabled = enabled,
         keyboardOptions = keyBoardOptionsEmail,
@@ -543,7 +542,6 @@ fun TextFieldEmailLoginCoursera(
         singleLine = singleLine,
         cursorBrush = SolidColor(Color.Black)
     ) { innerTextField ->
-
         OutlinedTextFieldDefaults.DecorationBox(
             value = value,
             innerTextField = {
@@ -574,7 +572,6 @@ fun TextFieldEmailLoginCoursera(
                 top = 0.dp,
                 bottom = 0.dp
             ),
-            // update border thickness and shape
             container = {
                 OutlinedTextFieldDefaults.ContainerBox(
                     enabled = enabled,
@@ -599,6 +596,7 @@ fun TextFieldPasswordLoginCoursera(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     val interactionSource = remember { MutableInteractionSource() }
     val enabled = true
     val singleLine = true

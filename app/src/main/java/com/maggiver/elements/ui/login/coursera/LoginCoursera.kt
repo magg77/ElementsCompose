@@ -369,7 +369,6 @@ fun LoginCoursera(navController: NavHostController) {
                 )
             }
 
-
         }// Column Main
 
 }

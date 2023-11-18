@@ -1,11 +1,9 @@
-package com.maggiver.elements.ui.login.graphics_guruji
+package com.maggiver.elements.ui.login.graphics_guruji_1
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.maggiver.elements.ui.login.coursera.LoginCoursera
-import com.maggiver.elements.ui.login.coursera.RegisterCoursera
 
 
 /**

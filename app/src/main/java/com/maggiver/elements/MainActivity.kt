@@ -17,6 +17,7 @@ import com.maggiver.elements.ui.inputs_m3.InputsCustom
 import com.maggiver.elements.ui.inputs_m3.InputsCustomOneline
 import com.maggiver.elements.ui.inputs_m3.InputsDefault
 import com.maggiver.elements.ui.login.graphics_guruji_2.NavigationGraphicsWhite
+import com.maggiver.elements.ui.rentalcar.NavigationRentalCarBlack
 import com.maggiver.elements.ui.theme.ElementsTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,10 +43,11 @@ class MainActivity : ComponentActivity() {
 
 
                     /*Screen Layouts ***************************************/
-                    /*LoginCoursera()*/
-                    /*NavigationGraphics()*/
+                    /*LoginCoursera()
+                    NavigationGraphics()
+                    NavigationGraphicsWhite()*/
 
-                    NavigationGraphicsWhite()
+                    NavigationRentalCarBlack()
 
                 }
             }

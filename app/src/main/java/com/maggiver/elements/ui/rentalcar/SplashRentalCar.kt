@@ -134,7 +134,7 @@ fun SplashRentalCar(navController: NavHostController) {
         ) {
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate("HomeRentalCar") },
                 shape = RoundedCornerShape(24.dp),
                 modifier = Modifier
                     .fillMaxWidth(0.7f)

@@ -32,15 +32,15 @@ import androidx.navigation.compose.rememberNavController
 fun NavigationRentalCarBlack() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "splashRentalCar") {
+    NavHost(navController = navController, startDestination = "SplashRentalCar") {
 
-        composable("splashRentalCar") {
+        composable("SplashRentalCar") {
             SplashRentalCar(navController = navController)
         }
 
-        /*composable("Register") {
-            RegisterGraphics(navController = navController)
-        }*/
+        composable("HomeRentalCar") {
+            HomeRentalCar(navController = navController)
+        }
     }
 
 }

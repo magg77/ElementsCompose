@@ -1,6 +1,16 @@
 package com.maggiver.elements.ui.rentalcar
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 
 /**
@@ -25,6 +35,18 @@ import androidx.compose.runtime.Composable
  */
  
 @Composable
-fun HomeRentalCar() {
+fun HomeRentalCar(navController: NavHostController) {
+
+    Text(
+        text = "Home Car",
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp, 0.dp, 0.dp, 0.dp),
+        color = Color(0xFFFFFFFF),
+        textAlign = TextAlign.Center,
+        lineHeight = 20.sp,
+        fontSize = 36.sp,
+        fontWeight = FontWeight.Bold
+    )
 
 }

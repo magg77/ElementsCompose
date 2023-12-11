@@ -33,11 +33,11 @@ private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
     tertiary = Pink40,
-    background = Color(0xFF000000),
-    surface = Color(0xFFF5EEEE),
-    onPrimary = Color.White,
+    onPrimary = Color.Yellow,
     onSecondary = Color.White,
     onTertiary = Color.White,
+    background = Color(0xFF000000),
+    surface = Color(0xFF000000),
     onBackground = Color(0xFF1C1B1F),
     onSurface = Color(0xFF1C1B1F)
 )

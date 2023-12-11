@@ -104,7 +104,7 @@ fun SplashRentalCar(navController: NavHostController) {
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             Text(
                 text = "Encuentra tu auto ideal a buen precio",

@@ -3,15 +3,20 @@ package com.maggiver.elements.ui.rentalcar
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -20,18 +25,28 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.lerp
 import androidx.navigation.NavHostController
 import com.maggiver.elements.R
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 
 /**
@@ -59,86 +74,164 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeRentalCar(navController: NavHostController) {
 
-    val listCars = listOf(
-        R.drawable.carousel1,
-        R.drawable.carousel2,
-        R.drawable.carousel3,
-        R.drawable.carousel4,
-        R.drawable.carousel5
-    )
-    val pagerState = rememberPagerState(pageCount = { listCars.size })
+    data class CarouselCar(val modelCar: String, val pathCarModel: Int)
+    val listCarsModel = remember{
+        mutableStateOf(
+            listOf(
+                CarouselCar("Ferrari 39c", R.drawable.carousel1),
+                CarouselCar("Renaulto Logan", R.drawable.carousel2),
+                CarouselCar("Kia Picanto", R.drawable.carousel3),
+                CarouselCar("Chevrolet Tracker", R.drawable.carousel4),
+                CarouselCar("Mazda 3", R.drawable.carousel5)
+            )
+        )
+    }
+
+    val pagerState = rememberPagerState(pageCount = { listCarsModel.value.size })
     val scope = rememberCoroutineScope()
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.padding(top = 64.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
+
+        HorizontalPager(
+            state = pagerState,
             modifier = Modifier
-                .padding(top = 0.dp)
-                .background(Color.White)
-        ) {
-            HorizontalPager(
-                state = pagerState,
+                .background(Color(0xFF000000))
+                .padding(start = 0.dp, end = 0.dp),
+            contentPadding = PaddingValues(horizontal = 0.dp),
+            verticalAlignment = Alignment.Top,
+            key = { listCarsModel.value[it].pathCarModel },
+        ) { page ->
+
+            Card(
                 modifier = Modifier
-                    .background(Color(0xFFFFCD0D))
-                    .padding(0.dp),
-                key = { listCars[it] },
-                pageSize = PageSize.Fill,
-                verticalAlignment = Alignment.Top
-            ) { index ->
-                Card(
-                    shape = RoundedCornerShape(0.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+                    .align(CenterHorizontally)
+                    .padding(start = 0.dp, end = 0.dp)
+                    .graphicsLayer {
+                        val pageOffset = (
+                                (pagerState.currentPage - page) + pagerState
+                                    .currentPageOffsetFraction
+                                ).absoluteValue
+                        lerp(
+                            start = 0.8f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        ).also { scale ->
+                            scaleX = scale
+                            scaleY = scale
+                        }
+                        alpha = lerp(
+                            start = 0.3f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        )
+                    },
+                shape = RoundedCornerShape(24.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+            ) {
+                Box(
+                    modifier = Modifier
                 ) {
                     Image(
-                        painter = painterResource(id = listCars[index]),
+                        painter = painterResource(id = listCarsModel.value[page].pathCarModel),
                         contentDescription = null,
                         contentScale = ContentScale.FillWidth,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .background(Color(0xFFFF0D0D))
+                            .fillMaxWidth(1f)
                     )
-
+                    Text(
+                        text = listCarsModel.value[page].modelCar,
+                        modifier = Modifier
+                            .padding(top = 160.dp, start = 16.dp),
+                        color = Color(0xFFFFFFFF),
+                        textAlign = TextAlign.Start,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium
+                    )
                 }
             }
+
         }
+
 
         Box(
             modifier = Modifier
                 .padding(4.dp)
                 .offset(y = (0).dp)
-                .fillMaxWidth(0.5f)
+                .fillMaxWidth(0.8f)
                 .height(32.dp)
                 .clip(RoundedCornerShape(100))
                 .padding(0.dp)
-                .background(Color(0xFFFFCD0D)),
-            contentAlignment = Alignment.BottomCenter
         ) {
-            IconButton(
-                onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                    }
-                },
-                modifier = Modifier
-                    .padding(0.dp)
-                    .align(Alignment.CenterStart)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "Go back")
-            }
 
-            IconButton(
-                onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                IconButton(
+                    enabled = pagerState.currentPage > 0,
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                        }
+                    }, modifier = Modifier
+                        .padding(0.dp)
+                        .weight(1f)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowLeft,
+                        contentDescription = "Go back",
+                        modifier = Modifier.size(32.dp),
+                        tint = Color(0xFF01A738)
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .weight(3f),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    repeat(listCarsModel.value.size) { iteration ->
+                        val colorCurrent =
+                            if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+                        Box(
+                            modifier = Modifier
+                                .padding(6.dp)
+                                .clip(CircleShape)
+                                .size(16.dp)
+                                .background(colorCurrent)
+                                .clickable {
+                                    scope.launch {
+                                        pagerState.animateScrollToPage(iteration)
+                                    }
+                                }
+                        )
+
                     }
-                },
-                modifier = Modifier
-                    .padding(0.dp)
-                    .align(Alignment.CenterEnd)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.KeyboardArrowRight,
-                    contentDescription = "Go forward"
-                )
+                }
+
+
+                IconButton(
+                    enabled = pagerState.currentPage < listCarsModel.value.size - 1,
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                        }
+                    }, modifier = Modifier
+                        .padding(0.dp)
+                        .weight(1f)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowRight,
+                        contentDescription = "Go forward",
+                        modifier = Modifier.size(32.dp),
+                        tint = Color(0xFF01A738)
+                    )
+                }
+
             }
         }
     }

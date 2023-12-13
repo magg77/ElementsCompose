@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +30,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -45,6 +50,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.navigation.NavHostController
 import com.maggiver.elements.R
+import com.maggiver.elements.ui.rentalcar.models.CarouselCar
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
@@ -74,31 +81,76 @@ import kotlin.math.absoluteValue
 @Composable
 fun HomeRentalCar(navController: NavHostController) {
 
-    data class CarouselCar(val modelCar: String, val pathCarModel: Int)
-    val listCarsModel = remember{
+    val listCarsModel = remember {
         mutableStateOf(
             listOf(
-                CarouselCar("Ferrari 39c", R.drawable.carousel1),
-                CarouselCar("Renaulto Logan", R.drawable.carousel2),
-                CarouselCar("Kia Picanto", R.drawable.carousel3),
-                CarouselCar("Chevrolet Tracker", R.drawable.carousel4),
-                CarouselCar("Mazda 3", R.drawable.carousel5)
+                CarouselCar(
+                    modelCar = "Mazda 3 Prime",
+                    deliveryTime = "15 Min",
+                    kmTraveled = "1.450 KM",
+                    hourlyRental = "$49.900 / H",
+                    pathCarModel = R.drawable.car1
+                ),
+                CarouselCar(
+                    modelCar = "Renault Duster",
+                    deliveryTime = "30 Min",
+                    kmTraveled = "18.650 KM",
+                    hourlyRental = "$25.000 / H",
+                    pathCarModel = R.drawable.car2
+                ),
+                CarouselCar(
+                    modelCar = "Chevrolet Tracker",
+                    deliveryTime = "15 Min",
+                    kmTraveled = "7.830 KM",
+                    hourlyRental = "$45.000 / H",
+                    pathCarModel = R.drawable.car3
+                ),
+                CarouselCar(
+                    modelCar = "RAV4-Limited-4X4",
+                    deliveryTime = "20 Min",
+                    kmTraveled = "12.450 KM",
+                    hourlyRental = "$69.900 / ",
+                    pathCarModel = R.drawable.car4
+                )
             )
         )
     }
 
     val pagerState = rememberPagerState(pageCount = { listCarsModel.value.size })
+    val scrollState = rememberLazyListState()
     val scope = rememberCoroutineScope()
+    val index by remember { mutableStateOf(0) }
+
+    /*LaunchedEffect(key1 = true, block = {
+        coroutineScope.launch {
+            while (true) {
+                delay(1000)
+                if (index == images.size - 1) index = 0
+                else index++
+                scrollState.animateScrollToItem(index)
+            }
+        }
+    })*/
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(4000)
+            val nextPage = (pagerState.currentPage + 1) % listCarsModel.value.size
+            pagerState.animateScrollToPage(nextPage)
+        }
+    }
 
     Column(
-        modifier = Modifier.padding(top = 64.dp), horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF1A1A1A)),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
-                .background(Color(0xFF000000))
-                .padding(start = 0.dp, end = 0.dp),
+                .padding(start = 16.dp, end = 16.dp, top = 64.dp)
+                .clip(RoundedCornerShape(16.dp)),
             contentPadding = PaddingValues(horizontal = 0.dp),
             verticalAlignment = Alignment.Top,
             key = { listCarsModel.value[it].pathCarModel },
@@ -127,32 +179,78 @@ fun HomeRentalCar(navController: NavHostController) {
                             fraction = 1f - pageOffset.coerceIn(0f, 1f)
                         )
                     },
+                colors = CardDefaults.cardColors(
+                    containerColor = Color(0xFF000000),
+                    contentColor = Color(0xFFFFFFFF)  //Card content color,e.g.text
+                ),
                 shape = RoundedCornerShape(24.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
-                Box(
+
+                Column(
                     modifier = Modifier
+                        .fillMaxWidth(1f)
+                        .height(200.dp)
+                        .padding(start = 24.dp, end = 24.dp, top = 16.dp)
                 ) {
-                    Image(
-                        painter = painterResource(id = listCarsModel.value[page].pathCarModel),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillWidth,
+
+                    Column(
                         modifier = Modifier
-                            .background(Color(0xFFFF0D0D))
-                            .fillMaxWidth(1f)
-                    )
-                    Text(
-                        text = listCarsModel.value[page].modelCar,
-                        modifier = Modifier
-                            .padding(top = 160.dp, start = 16.dp),
-                        color = Color(0xFFFFFFFF),
-                        textAlign = TextAlign.Start,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium
-                    )
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.End
+                    ) {
+                        Image(
+                            painter = painterResource(id = listCarsModel.value[page].pathCarModel),
+                            contentDescription = null,
+                            alignment = Alignment.CenterEnd,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.height(100.dp)
+                        )
+                    }
+
+                    Column {
+                        Text(
+                            text = listCarsModel.value[page].modelCar,
+                            modifier = Modifier,
+                            textAlign = TextAlign.Start,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = listCarsModel.value[page].deliveryTime,
+                                modifier = Modifier,
+                                color = Color(0xFFA4A4A4),
+                                textAlign = TextAlign.Start,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Normal
+                            )
+
+                            Text(
+                                text = listCarsModel.value[page].kmTraveled,
+                                modifier = Modifier,
+                                color = Color(0xFFA4A4A4),
+                                textAlign = TextAlign.Start,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Normal
+                            )
+
+                            Text(
+                                text = listCarsModel.value[page].hourlyRental,
+                                modifier = Modifier,
+                                textAlign = TextAlign.Start,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+
                 }
             }
-
         }
 
 

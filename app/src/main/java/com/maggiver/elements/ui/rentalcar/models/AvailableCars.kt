@@ -1,15 +1,11 @@
 package com.maggiver.elements.ui.rentalcar.models
 
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import com.maggiver.elements.R
-
 
 /**
  * Created by
  * @AUTHOR: Daniel Maggiver Acevedo
  * @NICK_NAME: mackgaru
- * @DATE: 12,diciembre,2023
+ * @DATE: 13,diciembre,2023
  * @COMPAN: Juice
  * @EMAIL: dmacevedo00@misena.edu.co
  *
@@ -25,11 +21,10 @@ import com.maggiver.elements.R
  *                         pueden ser transferibles a terceros con la autorización del titular del software en virtud de la autonomía de su voluntad, en cuyo caso, el autor o titular de la obra denominado cedente transmite total o parcialmente sus derechos a un tercero a través de un contrato de cesión de derechos.
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
-
-data class CarouselCar(
+ 
+data class AvailableCars(
     val modelCar: String,
-    val deliveryTime: String,
-    val aniocModel: String,
-    val hourlyRental: String,
-    val pathCarModel: Int
+    val aniocModelAvailable: String,
+    val dailyRentalPrice: String,
+    val pathCarModelAvailable: Int
 )

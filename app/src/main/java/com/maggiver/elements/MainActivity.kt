@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import com.maggiver.elements.ui.inputs_m3.InputsCustom
 import com.maggiver.elements.ui.inputs_m3.InputsCustomOneline
 import com.maggiver.elements.ui.inputs_m3.InputsDefault
+import com.maggiver.elements.ui.login.coursera.LoginCoursera
+import com.maggiver.elements.ui.login.coursera.NavigationCoursera
 import com.maggiver.elements.ui.login.graphics_guruji_2.NavigationGraphicsWhite
 import com.maggiver.elements.ui.rentalcar.NavigationRentalCarBlack
 import com.maggiver.elements.ui.theme.ElementsTheme
@@ -43,9 +45,10 @@ class MainActivity : ComponentActivity() {
 
 
                     /*Screen Layouts ***************************************/
-                    /*LoginCoursera()
+                    /*NavigationCoursera()
                     NavigationGraphics()
                     NavigationGraphicsWhite()*/
+
 
                     NavigationRentalCarBlack()
 

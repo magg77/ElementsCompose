@@ -645,6 +645,8 @@ fun LazyListScope.Carousel(
     }
 }
 
+
+//PROXIMO-DESTINO   ***********************************************************************
 fun LazyListScope.ProximoDestino() {
     items(1) {
          Column(

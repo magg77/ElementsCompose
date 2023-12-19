@@ -92,14 +92,14 @@ dependencies {
     //hilt
         implementation("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
         implementation("androidx.legacy:legacy-support-v4:1.0.0")
-        implementation(platform("androidx.compose:compose-bom:2023.03.00"))
-        androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
         annotationProcessor("com.google.dagger:hilt-compiler:${rootProject.extra["hilt_version"]}")
         //kapt "com.google.dagger:hilt-compiler:$rootProject.hilt_version"
         ksp("com.google.dagger:hilt-compiler:${rootProject.extra["hilt_version"]}")
 
 
-    //such as input and measurement/layout
+
+
+    //compose : such as input and measurement/layout
         implementation(platform("androidx.compose:compose-bom:2023.10.01"))
         implementation("androidx.compose.ui:ui")
         implementation("androidx.compose.ui:ui-graphics")
@@ -122,7 +122,7 @@ dependencies {
         androidTestImplementation("androidx.test.ext:junit:1.1.5")
         androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-        androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
+        androidTestImplementation(platform("androidx.compose:compose-bom:2023.10.01"))
         androidTestImplementation("androidx.compose.ui:ui-test-junit4")
         debugImplementation("androidx.compose.ui:ui-tooling")
         debugImplementation("androidx.compose.ui:ui-test-manifest")

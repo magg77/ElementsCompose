@@ -1,18 +1,14 @@
 package com.maggiver.elements.ui.rentalcar
 
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import com.maggiver.elements.R
+import com.maggiver.elements.ui.rentalcar.models.CarouselCar
 
 
 /**
  * Created by
  * @AUTHOR: Daniel Maggiver Acevedo
  * @NICK_NAME: mackgaru
- * @DATE: 14,noviembre,2023
+ * @DATE: 19,diciembre,2023
  * @COMPAN: Juice
  * @EMAIL: dmacevedo00@misena.edu.co
  *
@@ -29,31 +25,37 @@ import androidx.navigation.navArgument
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
+object DataUtils {
 
-@Composable
-fun NavigationRentalCarBlack() {
-    val navController = rememberNavController()
-
-    NavHost(navController = navController, startDestination = "SplashRentalCar") {
-
-        composable("SplashRentalCar") {
-            SplashRentalCar(navController = navController)
-        }
-
-        composable("HomeRentalCar") {
-            HomeRentalCar(navController = navController)
-        }
-
-        composable(
-            route = "DetailRentalCar/{carCarouselPosition}",
-            arguments = listOf(navArgument("carCarouselPosition") { type = NavType.IntType })
-        ) { backStackEntry ->
-            DetailRentalCar(
-                navController = navController,
-                carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition") ?: 0
-            )
-        }
-
-    }
+    val carCarouel = listOf(
+        CarouselCar(
+            modelCar = "Mazda 3 Prime",
+            deliveryTime = "15 Min",
+            aniocModel = "2023",
+            hourlyRental = "$49.900 / H",
+            pathCarModel = R.drawable.car1
+        ),
+        CarouselCar(
+            modelCar = "Renault Duster",
+            deliveryTime = "30 Min",
+            aniocModel = "2021",
+            hourlyRental = "$25.000 / H",
+            pathCarModel = R.drawable.car2
+        ),
+        CarouselCar(
+            modelCar = "Chevrolet Tracker",
+            deliveryTime = "15 Min",
+            aniocModel = "2020",
+            hourlyRental = "$45.000 / H",
+            pathCarModel = R.drawable.car3
+        ),
+        CarouselCar(
+            modelCar = "RAV4-Limited-4X4",
+            deliveryTime = "20 Min",
+            aniocModel = "2023",
+            hourlyRental = "$69.900 / H",
+            pathCarModel = R.drawable.car4
+        )
+    )
 
 }

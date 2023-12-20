@@ -143,7 +143,8 @@
             Perfil()
             Carousel(listCarsModelPagerCarousel, pagerState, scope) {
                 Log.i("itemClicked", "Enviado: $it")
-                navController.navigate("DetailRentalCar/$it")
+                val typeDataSend = "carousel"
+                navController.navigate("DetailRentalCar/$typeDataSend/$it")
             }
             ProximoDestino()
 

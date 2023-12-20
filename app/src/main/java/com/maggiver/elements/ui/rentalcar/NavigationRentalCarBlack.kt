@@ -45,11 +45,15 @@ fun NavigationRentalCarBlack() {
         }
 
         composable(
-            route = "DetailRentalCar/{carCarouselPosition}",
-            arguments = listOf(navArgument("carCarouselPosition") { type = NavType.IntType })
+            route = "DetailRentalCar/{typeDataSend}/{carCarouselPosition}",
+            arguments = listOf(
+                navArgument("typeDataSend") { type = NavType.StringType },
+                navArgument("carCarouselPosition") { type = NavType.IntType }
+            )
         ) { backStackEntry ->
             DetailRentalCar(
                 navController = navController,
+                typeDataSend = backStackEntry.arguments?.getString("typeDataSend") ?: "",
                 carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition") ?: 0
             )
         }

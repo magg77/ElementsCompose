@@ -1,15 +1,32 @@
 package com.maggiver.elements.ui.rentalcar
 
+import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 
 /**
@@ -32,19 +49,110 @@ import androidx.navigation.NavHostController
  *                         pueden ser transferibles a terceros con la autorización del titular del software en virtud de la autonomía de su voluntad, en cuyo caso, el autor o titular de la obra denominado cedente transmite total o parcialmente sus derechos a un tercero a través de un contrato de cesión de derechos.
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
- 
+
+
+@Preview
 @Composable
-fun DetailRentalCar(navController: NavHostController, carCarouselPosition: Int) {
-
-    Log.i("itemClicked", "Recibido: $carCarouselPosition")
-
-    Text(
-        text = "item.modelCar",
-        modifier = Modifier,
-        color = Color(0xFFFFFFFF),
-        textAlign = TextAlign.Start,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold
+fun DetailRentalCarPreview() {
+    DetailRentalCar(
+        navController = rememberNavController(),
+        typeDataSend = "",
+        carCarouselPosition = 0
     )
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun DetailRentalCar(
+    navController: NavHostController,
+    typeDataSend: String,
+    carCarouselPosition: Int
+) {
+
+        ConstraintLayout(
+            modifier = Modifier.fillMaxSize().background(Color(0xFF000000))
+        ) {
+            val (availability, description) = createRefs()
+            val guidelineHeader = createGuidelineFromBottom(0.6f)
+            val guidelinedescription = createGuidelineFromTop(0.7f)
+
+            Column(
+                modifier = Modifier
+                    .clip(shape = RoundedCornerShape(topStart =0.dp, topEnd = 0.dp, bottomStart = 32.dp, bottomEnd = 32.dp))
+                    .background(Color(0xFF181818))
+                    .constrainAs(availability) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(guidelineHeader)
+                        height = Dimension.fillToConstraints
+                        width = Dimension.fillToConstraints
+                    }
+            ) {
+
+                Column(modifier = Modifier) {
+                    Text(
+                        text = "aaaaaaaaa",
+                        modifier = Modifier,
+                        color = Color(0xFFFFFFFF),
+                        textAlign = TextAlign.Start,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+
+                    Text(
+                        text = "bbbbbbbbb",
+                        modifier = Modifier,
+                        color = Color(0xFFFF0000),
+                        textAlign = TextAlign.Start,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+
+            }
+
+            Column(
+                modifier = Modifier
+                    .background(Color(0xFF000000))
+                    .constrainAs(description) {
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        top.linkTo(availability.bottom)
+                        bottom.linkTo(parent.bottom)
+                        height = Dimension.fillToConstraints
+                        width = Dimension.fillToConstraints
+                    }
+            ) {
+
+                Column(modifier = Modifier) {
+                    Text(
+                        text = "1111111111111",
+                        modifier = Modifier,
+                        color = Color(0xFFA4A4A4),
+                        textAlign = TextAlign.Start,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+
+                    Text(
+                        text = "22222222222",
+                        modifier = Modifier,
+                        color = Color(0xFFA4A4A4),
+                        textAlign = TextAlign.Start,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+
+            }
+
+
+
+
+
+
+    }
+
 
 }

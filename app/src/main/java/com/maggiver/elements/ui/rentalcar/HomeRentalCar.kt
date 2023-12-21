@@ -67,6 +67,7 @@
     import com.maggiver.elements.R
     import com.maggiver.elements.ui.rentalcar.models.AvailableCars
     import com.maggiver.elements.ui.rentalcar.models.CarouselCar
+    import com.maggiver.elements.ui.rentalcar.repo.DataUtils
     import kotlinx.coroutines.CoroutineScope
     import kotlinx.coroutines.delay
     import kotlinx.coroutines.launch

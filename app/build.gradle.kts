@@ -47,6 +47,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -96,9 +97,6 @@ dependencies {
         //kapt "com.google.dagger:hilt-compiler:$rootProject.hilt_version"
         ksp("com.google.dagger:hilt-compiler:${rootProject.extra["hilt_version"]}")
 
-
-
-
     //compose : such as input and measurement/layout
         implementation(platform("androidx.compose:compose-bom:2023.10.01"))
         implementation("androidx.compose.ui:ui")
@@ -116,6 +114,9 @@ dependencies {
     //splash-screen
         implementation("androidx.core:core-splashscreen:1.0.1")
         implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.2-alpha")
+
+    //compatibilidad para componentes apis infereriores
+    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.0.4")
 
     //test
         testImplementation("junit:junit:4.13.2")

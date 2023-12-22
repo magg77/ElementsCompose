@@ -100,34 +100,9 @@
     fun HomeRentalCar(navController: NavHostController) {
 
 
-        val listAvailableCars = listOf(
-            AvailableCars(
-                "Mazda 3 Prime",
-                "2023",
-                "$359.900 / Dìa",
-                pathCarModelAvailable = R.drawable.car1
-            ),
-            AvailableCars(
-                "Renault Duster",
-                "2019",
-                "$259.900 / Dìa",
-                pathCarModelAvailable = R.drawable.car2
-            ),
-            AvailableCars(
-                "Chevrolet Tracker",
-                "2021",
-                "$349.900 / Dìa",
-                pathCarModelAvailable = R.drawable.car3
-            ),
-            AvailableCars(
-                "Kia Picanto",
-                "2022",
-                "$279.900 / Dìa",
-                pathCarModelAvailable = R.drawable.car3
-            ),
-        )
-
         val listCarsModelPagerCarousel = remember { mutableStateOf(DataUtils.carCarouel) }
+        val listAvailableCars = DataUtils.lazyColumList
+        var typeDataSend = ""
 
         val pagerState = rememberPagerState(pageCount = { listCarsModelPagerCarousel.value.size })
         val scrollState = rememberLazyListState()
@@ -144,7 +119,7 @@
             Perfil()
             Carousel(listCarsModelPagerCarousel, pagerState, scope) {
                 Log.i("itemClicked", "Enviado: $it")
-                val typeDataSend = "carousel"
+                typeDataSend = "carousel"
                 navController.navigate("DetailRentalCar/$typeDataSend/$it")
             }
             ProximoDestino()
@@ -187,7 +162,7 @@
                             )
 
                             Text(
-                                text = item.aniocModelAvailable,
+                                text = item.aniocModel,
                                 modifier = Modifier,
                                 color = Color(0xFFA4A4A4),
                                 textAlign = TextAlign.Start,
@@ -200,7 +175,7 @@
 
                     //imagen
                     Image(
-                        painter = painterResource(id = item.pathCarModelAvailable),
+                        painter = painterResource(id = item.pathCarModel),
                         contentDescription = null,
                         modifier = Modifier
                             .height(60.dp)
@@ -234,7 +209,7 @@
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = item.dailyRentalPrice,
+                            text = item.hourlyRental,
                             modifier = Modifier,
                             color = Color(0xFFFFFFFF),
                             textAlign = TextAlign.Start,
@@ -242,8 +217,10 @@
                             fontWeight = FontWeight.Bold
                         )
 
+                        typeDataSend = "lazyColum"
+
                         Button(
-                            onClick = { /*TODO*/ },
+                            onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
                             modifier = Modifier
                                 .fillMaxWidth(0.6f)
                                 .height(35.dp),

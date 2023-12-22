@@ -79,14 +79,14 @@ import com.maggiver.elements.ui.rentalcar.repo.DataUtils
 fun PurchaseCarPreview() {
     PurchaseCar(
         navController = rememberNavController(),
-        0
+        carCarouselPosition = 0
     )
 }
 
 @Composable
 fun PurchaseCar(
     navController: NavHostController,
-    carCarouselPosition: Int = 0
+    carCarouselPosition: Int
 ) {
 
     val dataCarCarousel = DataUtils.carCarouel[carCarouselPosition]

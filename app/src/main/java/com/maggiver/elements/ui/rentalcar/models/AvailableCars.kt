@@ -23,6 +23,7 @@ package com.maggiver.elements.ui.rentalcar.models
  */
  
 data class AvailableCars(
+    val id: Int,
     val modelCar: String,
     val aniocModelAvailable: String,
     val dailyRentalPrice: String,

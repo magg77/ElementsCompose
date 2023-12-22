@@ -1,6 +1,7 @@
 package com.maggiver.elements.ui.rentalcar.repo
 
 import com.maggiver.elements.R
+import com.maggiver.elements.ui.rentalcar.models.AvailableCars
 import com.maggiver.elements.ui.rentalcar.models.CarouselCar
 
 
@@ -29,6 +30,7 @@ object DataUtils {
 
     val carCarouel = listOf(
         CarouselCar(
+            id = 0,
             modelCar = "Mazda 3 Prime",
             deliveryTime = "15 Min",
             aniocModel = "2023",
@@ -41,6 +43,7 @@ object DataUtils {
             pathCarModel = R.drawable.car1
         ),
         CarouselCar(
+            id = 1,
             modelCar = "Renault Duster",
             deliveryTime = "30 Min",
             aniocModel = "2021",
@@ -53,6 +56,7 @@ object DataUtils {
             pathCarModel = R.drawable.car2
         ),
         CarouselCar(
+            id = 2,
             modelCar = "Chevrolet Tracker",
             deliveryTime = "15 Min",
             aniocModel = "2020",
@@ -65,6 +69,62 @@ object DataUtils {
             pathCarModel = R.drawable.car3
         ),
         CarouselCar(
+            id = 3,
+            modelCar = "RAV4-Limited-4X4",
+            deliveryTime = "20 Min",
+            aniocModel = "2023",
+            hourlyRental = "$69.900 / H",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.car4
+        )
+    )
+
+    val lazyColumList = listOf(
+        CarouselCar(
+            id = 0,
+            modelCar = "Mazda 3 Prime",
+            deliveryTime = "15 Min",
+            aniocModel = "2023",
+            hourlyRental = "$49.900 / H",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.car1
+        ),
+        CarouselCar(
+            id = 1,
+            modelCar = "Renault Duster",
+            deliveryTime = "30 Min",
+            aniocModel = "2021",
+            hourlyRental = "$25.000 / H",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.car2
+        ),
+        CarouselCar(
+            id = 2,
+            modelCar = "Chevrolet Tracker",
+            deliveryTime = "15 Min",
+            aniocModel = "2020",
+            hourlyRental = "$45.000 / H",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.car3
+        ),
+        CarouselCar(
+            id = 3,
             modelCar = "RAV4-Limited-4X4",
             deliveryTime = "20 Min",
             aniocModel = "2023",

@@ -27,6 +27,7 @@ import com.maggiver.elements.R
  */
 
 data class CarouselCar(
+    val id: Int,
     val modelCar: String,
     val deliveryTime: String,
     val aniocModel: String,

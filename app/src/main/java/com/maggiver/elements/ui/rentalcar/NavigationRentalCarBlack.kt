@@ -58,6 +58,18 @@ fun NavigationRentalCarBlack() {
             )
         }
 
+        composable(
+            route = "PurchaseCar/{carCarouselPosition}",
+            arguments = listOf(
+                navArgument("carCarouselPosition") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            PurchaseCar(
+                navController = navController,
+                carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition") ?: 0
+            )
+        }
+
     }
 
 }

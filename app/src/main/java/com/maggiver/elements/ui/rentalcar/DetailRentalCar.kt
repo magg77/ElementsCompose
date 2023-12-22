@@ -96,7 +96,9 @@ fun DetailRentalCarPreview() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun DetailRentalCar(
-    navController: NavHostController, typeDataSend: String, carCarouselPosition: Int
+    navController: NavHostController,
+    typeDataSend: String,
+    carCarouselPosition: Int
 ) {
 
     val dataCarCarousel = DataUtils.carCarouel[carCarouselPosition]
@@ -133,7 +135,7 @@ fun DetailRentalCar(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(
-                        onClick = { navController.popBackStack()},
+                        onClick = { navController.popBackStack() },
                         modifier = Modifier
                             .height(30.dp)
                             .width(30.dp),
@@ -488,11 +490,11 @@ fun DetailRentalCar(
                             textLargeClicked.value = !textLargeClicked.value
                         },
                     color = Color(0xFFE4E4E4),
-                    fontSize = 14.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     textAlign = TextAlign.Justify,
                     lineHeight = 1.em,
-                    maxLines = if (textLargeClicked.value) Int.MAX_VALUE else 8,
+                    maxLines = if (textLargeClicked.value) Int.MAX_VALUE else 6,
                     softWrap = true,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -546,7 +548,8 @@ fun DetailRentalCar(
                     }
 
                     Column(
-                        modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                        modifier = Modifier
+                            .padding(start = 12.dp, end = 12.dp)
                             .border(
                                 1.dp,
                                 Color(0xFFADADAD),
@@ -646,7 +649,8 @@ fun DetailRentalCar(
                     }
 
                     Column(
-                        modifier = Modifier.padding(start = 12.dp, end = 12.dp)
+                        modifier = Modifier
+                            .padding(start = 12.dp, end = 12.dp)
                             .border(
                                 1.dp,
                                 Color(0xFFADADAD),
@@ -733,11 +737,11 @@ fun DetailRentalCar(
                     }
 
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { navController.navigate("PurchaseCar/$carCarouselPosition") },
                         modifier = Modifier,
                         colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
                             containerColor = Color(0xFF19E914),
-                            contentColor = Color(0xFFFFFFFF),
+                            contentColor = Color(0xFF000000),
                             disabledContainerColor = Color(0xFF747474),
                             disabledContentColor = Color(0xFF222222)
                         ),
@@ -746,7 +750,8 @@ fun DetailRentalCar(
                         Text(
                             text = "¡Reservar!",
                             modifier = Modifier.padding(16.dp, 8.dp),
-                            fontSize = 16.sp
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
                         )
                     }
                 }

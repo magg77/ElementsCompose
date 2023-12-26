@@ -1,18 +1,13 @@
-package com.maggiver.elements.ui.rentalcar
+package com.maggiver.elements.ui.rentalcar.models
 
-import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.compose.ui.graphics.vector.ImageVector
 
 
 /**
  * Created by
  * @AUTHOR: Daniel Maggiver Acevedo
  * @NICK_NAME: mackgaru
- * @DATE: 14,noviembre,2023
+ * @DATE: 26,diciembre,2023
  * @COMPAN: Juice
  * @EMAIL: dmacevedo00@misena.edu.co
  *
@@ -28,52 +23,10 @@ import androidx.navigation.navArgument
  *                         pueden ser transferibles a terceros con la autorización del titular del software en virtud de la autonomía de su voluntad, en cuyo caso, el autor o titular de la obra denominado cedente transmite total o parcialmente sus derechos a un tercero a través de un contrato de cesión de derechos.
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
-
-
-@Composable
-fun NavigationRentalCarBlack() {
-    val navController = rememberNavController()
-
-    NavHost(navController = navController, startDestination = "SplashRentalCar") {
-
-        composable("SplashRentalCar") {
-            SplashRentalCar(navController = navController)
-        }
-
-        composable("HomeRentalCar") {
-            HomeRentalCar(navController = navController)
-        }
-
-        composable(
-            route = "DetailRentalCar/{typeDataSend}/{carCarouselPosition}",
-            arguments = listOf(
-                navArgument("typeDataSend") { type = NavType.StringType },
-                navArgument("carCarouselPosition") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-            DetailRentalCar(
-                navController = navController,
-                typeDataSend = backStackEntry.arguments?.getString("typeDataSend") ?: "",
-                carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition") ?: 0
-            )
-        }
-
-        composable(
-            route = "PurchaseCar/{carCarouselPosition}",
-            arguments = listOf(
-                navArgument("carCarouselPosition") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-            PurchaseCar(
-                navController = navController,
-                carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition") ?: 0
-            )
-        }
-
-        composable("ChatScreen") {
-            ChatScreen(navController = navController)
-        }
-
-    }
-
-}
+ 
+data class BussinesData(
+    val id: Int,
+    val title: String,
+    val description: String,
+    val icon: ImageVector
+)

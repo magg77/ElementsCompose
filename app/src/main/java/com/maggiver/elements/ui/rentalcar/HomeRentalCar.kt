@@ -12,6 +12,7 @@
     import androidx.compose.foundation.layout.Column
     import androidx.compose.foundation.layout.PaddingValues
     import androidx.compose.foundation.layout.Row
+    import androidx.compose.foundation.layout.Spacer
     import androidx.compose.foundation.layout.fillMaxSize
     import androidx.compose.foundation.layout.fillMaxWidth
     import androidx.compose.foundation.layout.height
@@ -29,6 +30,9 @@
     import androidx.compose.foundation.shape.CircleShape
     import androidx.compose.foundation.shape.RoundedCornerShape
     import androidx.compose.material.icons.Icons
+    import androidx.compose.material.icons.filled.AccessTimeFilled
+    import androidx.compose.material.icons.filled.CarCrash
+    import androidx.compose.material.icons.filled.CarRental
     import androidx.compose.material.icons.filled.KeyboardArrowLeft
     import androidx.compose.material.icons.filled.KeyboardArrowRight
     import androidx.compose.material3.Button
@@ -39,6 +43,7 @@
     import androidx.compose.material3.Icon
     import androidx.compose.material3.IconButton
     import androidx.compose.material3.IconButtonDefaults
+    import androidx.compose.material3.MaterialTheme
     import androidx.compose.material3.Text
     import androidx.compose.runtime.Composable
     import androidx.compose.runtime.LaunchedEffect
@@ -54,7 +59,10 @@
     import androidx.compose.ui.graphics.Color
     import androidx.compose.ui.graphics.graphicsLayer
     import androidx.compose.ui.layout.ContentScale
+    import androidx.compose.ui.res.colorResource
+    import androidx.compose.ui.res.dimensionResource
     import androidx.compose.ui.res.painterResource
+    import androidx.compose.ui.res.stringResource
     import androidx.compose.ui.text.font.FontWeight
     import androidx.compose.ui.text.style.TextAlign
     import androidx.compose.ui.text.style.TextDecoration
@@ -68,6 +76,7 @@
     import com.maggiver.elements.ui.rentalcar.models.AvailableCars
     import com.maggiver.elements.ui.rentalcar.models.CarouselCar
     import com.maggiver.elements.ui.rentalcar.repo.DataUtils
+    import com.maggiver.elements.ui.theme.LightColors
     import kotlinx.coroutines.CoroutineScope
     import kotlinx.coroutines.delay
     import kotlinx.coroutines.launch
@@ -222,8 +231,8 @@
                         Button(
                             onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
                             modifier = Modifier
-                                .fillMaxWidth(0.6f)
-                                .height(35.dp),
+                                .fillMaxWidth(0.7f)
+                                .height(40.dp),
                             colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
                                 containerColor = Color(0xFF00B127),
                                 contentColor = Color(0xFFFFFFFF),
@@ -233,8 +242,9 @@
                             shape = RoundedCornerShape(24.dp)
                         ) {
                             Text(
-                                text = "Detalles",
-                                fontSize = 16.sp
+                                text = "Alquilar",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp
                             )
                         }
                     }
@@ -605,17 +615,16 @@
     //PROXIMO-DESTINO   ***********************************************************************
     fun LazyListScope.ProximoDestino() {
         items(1) {
-            Column(
-                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
-            ) {
-                Text(
-                    text = "Proximo Destino",
-                    modifier = Modifier.padding(start = 16.dp),
-                    color = Color(0xFFFFFFFF),
-                    textAlign = TextAlign.Start,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "Disponibles",
+                modifier = Modifier.padding(start = 16.dp),
+                color = Color(0xFFFFFFFF),
+                textAlign = TextAlign.Start,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }

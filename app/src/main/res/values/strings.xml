@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Elements</string>
+    <string name="app_name">Rental</string>
+
+
+    <string name="card_info">Aceptar Terminos y condiciones</string>
+    <string name="card_info_text">Card Info</string>
+
+    <string name="label_card_number">Card Number</string>
+    <string name="label_expiration_date">Expiration Date</string>
+    <string name="label_cvv">CCV</string>
+    <string name="btn_pay">Pagar</string>
+
 </resources>

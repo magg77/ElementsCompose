@@ -224,7 +224,7 @@ fun DetailRentalCar(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 8.dp),
+                        .padding(start = 16.dp, end = 16.dp, top = 12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
 
@@ -719,8 +719,11 @@ fun DetailRentalCar(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
-                        onClick = { /*TODO*/ },
-                        modifier = Modifier,
+                        onClick = { navController.navigate("ChatScreen") },
+                        modifier = Modifier
+                            .height(50.dp)
+                            .weight(1f)
+                            .padding(end = 8.dp),
                         colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
                             containerColor = Color(0xFFD9D9D9),
                             contentColor = Color(0xFF000000),
@@ -731,14 +734,17 @@ fun DetailRentalCar(
                     ) {
                         Text(
                             text = "Contactar",
-                            modifier = Modifier.padding(16.dp, 8.dp),
-                            fontSize = 16.sp
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
                         )
                     }
 
                     Button(
                         onClick = { navController.navigate("PurchaseCar/$carCarouselPosition") },
-                        modifier = Modifier,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .height(50.dp)
+                            .weight(1f),
                         colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
                             containerColor = Color(0xFF19E914),
                             contentColor = Color(0xFF000000),
@@ -749,9 +755,8 @@ fun DetailRentalCar(
                     ) {
                         Text(
                             text = "¡Reservar!",
-                            modifier = Modifier.padding(16.dp, 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
                         )
                     }
                 }

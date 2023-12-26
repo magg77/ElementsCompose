@@ -92,7 +92,7 @@ dependencies {
 
     //hilt
         implementation("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
-        implementation("androidx.legacy:legacy-support-v4:1.0.0")
+        kapt("com.google.dagger:hilt-android-compiler:${rootProject.extra["hilt_version"]}")
         annotationProcessor("com.google.dagger:hilt-compiler:${rootProject.extra["hilt_version"]}")
         //kapt "com.google.dagger:hilt-compiler:$rootProject.hilt_version"
         ksp("com.google.dagger:hilt-compiler:${rootProject.extra["hilt_version"]}")

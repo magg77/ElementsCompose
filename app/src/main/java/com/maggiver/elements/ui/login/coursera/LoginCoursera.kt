@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -41,6 +42,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.SolidColor
@@ -468,20 +470,24 @@ fun TextFieldPasswordLoginCoursera(
         focusedBorderColor = Color.Black,
         unfocusedBorderColor = Color.Black,
     )
-    var expanded by remember { mutableStateOf(false) }
+    var isPasswordVisible by remember { mutableStateOf(false) }
     var keyBoardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+    var isFocused by remember { mutableStateOf(false) }
 
     BasicTextField(
         value = value,
         onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(40.dp)
+            .onFocusChanged {
+                isFocused = it.isFocused
+            },
         interactionSource = interactionSource,
         enabled = enabled,
         textStyle = MaterialTheme.typography.bodyLarge,
         keyboardOptions = keyBoardOptions,
-        visualTransformation = if (expanded) VisualTransformation.None else PasswordVisualTransformation(),
+        visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         singleLine = singleLine,
         cursorBrush = SolidColor(Color.Black)
     ) { innerTextField ->
@@ -492,22 +498,44 @@ fun TextFieldPasswordLoginCoursera(
             },
             enabled = enabled,
             singleLine = singleLine,
+            /*label = {
+                Text(
+                    "Label",
+                    color = if (isFocused) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
+                    }
+                )
+            },*/
+            leadingIcon = {
+                Icon(
+                    Icons.Filled.Lock,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            },
             trailingIcon = {
-                var image = if (expanded) Icons.Filled.VisibilityOff
-                else Icons.Filled.Visibility
+                var image = if (isPasswordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility
 
-                var description =
-                    if (expanded) "Hide password" else "Show password"
+                var description = if (isPasswordVisible) "Hide password" else "Show password"
 
                 IconButton(
-                    onClick = {
-                        expanded = !expanded
-                    }
-                ) {
-                    Icon(imageVector = image, contentDescription = description)
+                    onClick = { isPasswordVisible =! isPasswordVisible }
+                ){
+                    Icon(
+                        imageVector = image,
+                        contentDescription = null,
+                        tint = if (isFocused) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onBackground
+                        }
+                    )
+
                 }
             },
-            visualTransformation = if (expanded) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             interactionSource = interactionSource,
             placeholder = {
                 Text(

@@ -76,7 +76,8 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.0")
 
     //constraintLayout
-        implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+        //implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+        implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
 
     //coroutines
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.extra["coroutines_android"]}")
@@ -105,7 +106,8 @@ dependencies {
         implementation("androidx.compose.ui:ui-util")
 
     //material
-        implementation("androidx.compose.material3:material3")
+        implementation("androidx.compose.material3:material3:1.2.0-beta01")
+        //implementation("androidx.compose.material3:material3")
         implementation("androidx.compose.material3:material3-window-size-class")
         implementation("androidx.compose.material:material-icons-extended-android:1.5.4")
         /*implementation("com.google.android.material:material:${rootProject.extra["materialDesing"]}")*/

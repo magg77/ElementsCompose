@@ -299,7 +299,7 @@ fun HomeRentalCar(navController: NavHostController) {
                 Text(
                     text = "Urbanos",
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp),
-                    color = Color(0xFFFFFFFF),
+                    color = Color(0xFFB8B8B8),
                     textAlign = TextAlign.Start,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -309,7 +309,7 @@ fun HomeRentalCar(navController: NavHostController) {
             //CARS_URBANOS
             LazyRow(
                 modifier = Modifier
-                    .padding(top = 4.dp)
+                    .padding(top = 8.dp)
                     .fillMaxSize()
                     .constrainAs(CARS_URBANOS) {
                         start.linkTo(parent.start)
@@ -452,7 +452,7 @@ fun HomeRentalCar(navController: NavHostController) {
                 Text(
                     text = "Camiones",
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp),
-                    color = Color(0xFFFFFFFF),
+                    color = Color(0xFFB8B8B8),
                     textAlign = TextAlign.Start,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -461,7 +461,7 @@ fun HomeRentalCar(navController: NavHostController) {
 
             LazyRow(
                 modifier = Modifier
-                    .padding(top = 4.dp)
+                    .padding(top = 8.dp)
                     .fillMaxSize()
                     .constrainAs(CARS_CAMIONES) {
                         start.linkTo(parent.start)
@@ -604,7 +604,7 @@ fun HomeRentalCar(navController: NavHostController) {
                 Text(
                     text = "Motocarros",
                     modifier = Modifier.fillMaxWidth().padding(start = 16.dp),
-                    color = Color(0xFFFFFFFF),
+                    color = Color(0xFFB8B8B8),
                     textAlign = TextAlign.Start,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -613,7 +613,7 @@ fun HomeRentalCar(navController: NavHostController) {
 
             LazyRow(
                 modifier = Modifier
-                    .padding(top = 4.dp)
+                    .padding(top = 8.dp)
                     .fillMaxSize()
                     .constrainAs(CARS_MOTOCARROS) {
                         start.linkTo(parent.start)
@@ -746,164 +746,7 @@ fun HomeRentalCar(navController: NavHostController) {
             }
 
 
-
-
-
-
         }
-
-
-        /*
-        Column(
-            modifier = Modifier
-                .background(Color(0xFF1A1A1A))
-                .verticalScroll(rememberScrollState())
-        ) {
-            Perfil()
-
-            Carousel(listCarsModelPagerCarousel, pagerState, scope) {
-                Log.i("itemClicked", "Enviado: $it")
-                typeDataSend = "carousel"
-                navController.navigate("DetailRentalCar/$typeDataSend/$it")
-            }
-
-            //urbanos
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                text = "Urbanos",
-                modifier = Modifier.padding(start = 16.dp),
-                color = Color(0xFFFFFFFF),
-                textAlign = TextAlign.Start,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            /*
-            LazyRow(){
-                items(listAvailableCars) { item ->
-                    ConstraintLayout(modifier = Modifier) {
-
-                        val (modelCar, detailsCar, imageCar) = createRefs()
-                        val guidelineImage = createGuidelineFromEnd(0.5f)
-
-                        //modelCar
-                        Row(modifier = Modifier
-                            .padding(top = 16.dp)
-                            .clip(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                            .background(Color(0xFF000000))
-                            .constrainAs(modelCar) {
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                                top.linkTo(parent.top)
-                                bottom.linkTo(detailsCar.top)
-                                width = Dimension.matchParent
-                                height = Dimension.wrapContent
-                            }
-                        ) {
-
-                            //model car
-                            Column(
-                                modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                            ) {
-                                Text(
-                                    text = item.modelCar,
-                                    modifier = Modifier,
-                                    color = Color(0xFFFFFFFF),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-
-                                Text(
-                                    text = item.aniocModel,
-                                    modifier = Modifier,
-                                    color = Color(0xFFA4A4A4),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            }
-
-                        }
-
-                        //imagen
-                        Image(
-                            painter = painterResource(id = item.pathCarModel),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .height(60.dp)
-                                .constrainAs(imageCar) {
-                                    start.linkTo(guidelineImage)
-                                    end.linkTo(parent.end)
-                                    top.linkTo(imageCar.top)
-                                    bottom.linkTo(imageCar.bottom)
-                                    width = Dimension.wrapContent
-                                    height = Dimension.wrapContent
-                                },
-                            contentScale = ContentScale.Crop,
-                        )
-
-                        //precio & button_Detalles
-                        Row(
-                            modifier = Modifier
-                                .padding(bottom = 24.dp)
-                                .clip(
-                                    shape = RoundedCornerShape(
-                                        bottomStart = 16.dp, bottomEnd = 16.dp
-                                    )
-                                )
-                                .background(Color(0xFF000000))
-                                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
-                                .constrainAs(detailsCar) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    top.linkTo(modelCar.bottom)
-                                    bottom.linkTo(parent.bottom)
-                                    width = Dimension.wrapContent
-                                    height = Dimension.wrapContent
-                                },
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = item.hourlyRental,
-                                modifier = Modifier,
-                                color = Color(0xFFFFFFFF),
-                                textAlign = TextAlign.Start,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-
-                            typeDataSend = "lazyColum"
-
-                            Button(
-                                onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
-                                modifier = Modifier
-                                    .fillMaxWidth(0.7f)
-                                    .height(40.dp),
-                                colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                    containerColor = Color(0xFF00B127),
-                                    contentColor = Color(0xFFFFFFFF),
-                                    disabledContainerColor = Color(0xFF747474),
-                                    disabledContentColor = Color(0xFF222222)
-                                ),
-                                shape = RoundedCornerShape(24.dp)
-                            ) {
-                                Text(
-                                    text = "Alquilar",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
-                                )
-                            }
-                        }
-
-                    }//ConstraintLayout
-                }
-            }
-            */
-        }
-        */
-
     }
 
     /*ModalBottomSheet(

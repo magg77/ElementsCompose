@@ -18,32 +18,42 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
@@ -55,6 +65,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -62,11 +75,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
@@ -105,7 +120,6 @@ import kotlin.math.absoluteValue
  */
 
 
-
 @Preview
 @Composable
 fun HomeRentalCarPreview(navController: NavHostController = rememberNavController()) {
@@ -128,62 +142,103 @@ fun HomeRentalCar(navController: NavHostController) {
 
 
     //bottom sheet
-    val scopeSheetState = rememberCoroutineScope()
-    var scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = rememberStandardBottomSheetState(
-            initialValue = SheetValue.PartiallyExpanded, skipHiddenState = true
-        )
-    )
+    var peekHeight: Int by remember { mutableStateOf(0) }
 
+    //var que se guardara en bd y hacer parte de config_init user app
+    var showBottomSheetRegisterUser: Boolean by remember { mutableStateOf(false) }
+    var bottomSheetState: SheetState = rememberStandardBottomSheetState(
+        initialValue = SheetValue.PartiallyExpanded,
+        confirmValueChange = { true },
+        skipHiddenState = false
+    )
+    val bottomSheetStateCustom = rememberCustomBottomSheetState()
+    var scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = bottomSheetState)
 
     BottomSheetScaffold(
         sheetContent = {
-            Column() {
+            Column(
+                modifier = Modifier,
+                horizontalAlignment = CenterHorizontally
+            ) {
+
+                LazyColumn{
+                    items(50){
+                        ListItem(
+                            headlineContent = { Text("Item $it") },
+                            leadingContent = {
+                                Icon(imageVector = Icons.Default.Favorite, contentDescription = null)
+                            }
+                        )
+                    }
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .padding(16.dp, 16.dp)
+                                .fillMaxWidth()
+                                .background(Color(0xFF4CFF37)),
+                            contentAlignment = Alignment.Center
+                        ) {
+
+                            Button(onClick = {
+
+                                scope.launch {
+                                    if (scaffoldState.bottomSheetState.isVisible) {
+                                        scaffoldState.bottomSheetState.hide()
+                                        showBottomSheetRegisterUser = true
+                                    }
+                                }
+
+                                scope.launch {
+                                    scaffoldState.bottomSheetState.hide()
+                                }
+
+                            }
+                            ) {
+                                Text("Registrar")
+                            }
+
+                        }
+                    }
+                }
+
+            }
+        },
+        modifier = Modifier,
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = 90.dp,
+        sheetShadowElevation = 40.dp,
+        sheetDragHandle = {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = CenterHorizontally
+            ) {
+                BottomSheetDefaults.DragHandle()
                 Text(
                     text = "Registrarse",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(0.dp, 0.dp, 0.dp, 0.dp),
+                        .padding(16.dp, 0.dp, 0.dp, 0.dp),
                     color = Color(0xFF000000),
                     textAlign = TextAlign.Center,
                     lineHeight = 18.sp,
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Medium
                 )
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color(0xFF4CFF37)),
-                    contentAlignment = Alignment.Center
-                ) {
-
-                    Button(onClick = {
-                        scopeSheetState.launch {
-                            scaffoldState.bottomSheetState.expand()
-                        }
-                    }) {
-                        Text("Hide bottom sheet")
-                    }
-
-                }
-
-
-                Button(onClick = { /*TODO*/ }) {
-                    Text("Hide bottom sheet")
-                }
+                Spacer(modifier = Modifier.height(10.dp))
+                HorizontalDivider(
+                    modifier = Modifier.fillMaxWidth(),
+                    thickness = 1.dp,
+                    color = Color(0xFF000000)
+                )
             }
-        },
-        scaffoldState = scaffoldState,
-        sheetPeekHeight = 90.dp,
-        sheetShadowElevation = 40.dp,
+        }
     ) {
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFF1A1A1A))
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 90.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 0.dp)
         ) {
 
             Perfil()
@@ -194,9 +249,19 @@ fun HomeRentalCar(navController: NavHostController) {
                 navController.navigate("DetailRentalCar/$typeDataSend/$it")
             }
 
-            ProximoDestino()
+            //urbanos
+            item {
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = "Urbanos",
+                    modifier = Modifier.padding(start = 16.dp),
+                    color = Color(0xFFFFFFFF),
+                    textAlign = TextAlign.Start,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
-            //AVAILABLE CARS   *************************************************************************
             items(listAvailableCars) { item ->
                 ConstraintLayout(modifier = Modifier.fillMaxSize()) {
 
@@ -315,11 +380,12 @@ fun HomeRentalCar(navController: NavHostController) {
                     }
 
                 }//ConstraintLayout
-            }//items
+            }
+
+
         }//Lazycolumn
 
     }
-
 
     /*ModalBottomSheet(
         sheetState = sheetState,
@@ -352,9 +418,45 @@ fun HomeRentalCar(navController: NavHostController) {
 
 }
 
-//PERFIL        ***************************************************************************
+@Composable
+@ExperimentalMaterial3Api
+fun rememberCustomBottomSheetState(
+    skipPartiallyExpanded: Boolean = false,
+    confirmValueChange: (SheetValue) -> Boolean = { true },
+    initialValue: SheetValue = SheetValue.PartiallyExpanded,
+    skipHiddenState: Boolean = false,
+): SheetState {
+    return rememberSaveable(
+        skipPartiallyExpanded, skipHiddenState, confirmValueChange,
+        saver = Saver(
+            save = { it.currentValue },
+            restore = { savedValue ->
+                SheetState(
+                    skipPartiallyExpanded = skipPartiallyExpanded,
+                    density = Density(density = 1f, fontScale = 1f),
+                    initialValue = savedValue,
+                    confirmValueChange = confirmValueChange,
+                    skipHiddenState = skipHiddenState
+                )
+            }
+        )
+    ) {
+        SheetState(
+            skipPartiallyExpanded = skipPartiallyExpanded,
+            density = Density(density = 1f, fontScale = 1f),
+            initialValue = initialValue,
+            confirmValueChange = confirmValueChange,
+            skipHiddenState = skipHiddenState
+        )
+    }
+}
+
+
+
+//***************************************************************************
+// Perfil
 fun LazyListScope.Perfil() {
-    items(1) {
+    item {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -478,7 +580,9 @@ fun LazyListScope.Perfil() {
     }
 }
 
-//CAROUSEL     *****************************************************************************
+
+//***************************************************************************
+// Carousel
 @OptIn(ExperimentalFoundationApi::class)
 fun LazyListScope.Carousel(
     listCarsModelPager: MutableState<List<CarouselCar>>,
@@ -486,10 +590,11 @@ fun LazyListScope.Carousel(
     scope: CoroutineScope,
     itemClicked: (Int) -> Unit
 ) {
-    items(1) {
+
+    item{
         Column(
             modifier = Modifier.padding(top = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = CenterHorizontally
         ) {
 
             /*LaunchedEffect(key1 = true, block = {
@@ -692,23 +797,7 @@ fun LazyListScope.Carousel(
             }
         }
     }
-}
 
-//PROXIMO-DESTINO   ***********************************************************************
-fun LazyListScope.ProximoDestino() {
-    items(1) {
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Text(
-            text = "Disponibles",
-            modifier = Modifier.padding(start = 16.dp),
-            color = Color(0xFFFFFFFF),
-            textAlign = TextAlign.Start,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
-    }
 }
 
 

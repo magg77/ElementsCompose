@@ -96,6 +96,7 @@ import com.maggiver.elements.ui.rentalcar.repo.DataUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.format.TextStyle
 import kotlin.math.absoluteValue
 
 
@@ -298,10 +299,12 @@ fun HomeRentalCar(navController: NavHostController) {
             ) {
                 Text(
                     text = "Urbanos",
-                    modifier = Modifier.fillMaxWidth().padding(start = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp),
                     color = Color(0xFFB8B8B8),
                     textAlign = TextAlign.Start,
-                    fontSize = 24.sp,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -309,7 +312,7 @@ fun HomeRentalCar(navController: NavHostController) {
             //CARS_URBANOS
             LazyRow(
                 modifier = Modifier
-                    .padding(top = 8.dp)
+                    .padding(top = 32.dp)
                     .fillMaxSize()
                     .constrainAs(CARS_URBANOS) {
                         start.linkTo(parent.start)
@@ -323,117 +326,137 @@ fun HomeRentalCar(navController: NavHostController) {
                             .fillMaxWidth(1f)
                     ) {
 
-                        val (modelCar, detailsCar, imageCar) = createRefs()
-                        val guidelineImage = createGuidelineFromEnd(0.5f)
+                        val (rowEmptyContent, imageCar, modelCarUrban, detailsCarUrban) = createRefs()
+                        val guidelineImage = createGuidelineFromStart(0.1f)
 
-                        //modelCar
+                        //imagen
                         Row(
                             modifier = Modifier
-                                .fillParentMaxWidth()
+                                .fillParentMaxWidth(0.8f)
+                                .height(80.dp)
                                 .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                                .clip(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                                .clip(
+                                    shape = RoundedCornerShape(
+                                        topStart = 16.dp,
+                                        topEnd = 16.dp
+                                    )
+                                )
                                 .background(Color(0xFF000000))
-                                .constrainAs(modelCar) {
+                                .constrainAs(rowEmptyContent) {
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
                                     top.linkTo(parent.top)
-                                    bottom.linkTo(detailsCar.top)
                                 }
-                        ) {
+                        ) {}
 
-                            //model car
-                            Column(
-                                modifier = Modifier
-                                    .padding(start = 16.dp, top = 16.dp)
-                            ) {
-                                Text(
-                                    text = item.modelCar,
-                                    modifier = Modifier,
-                                    color = Color(0xFFFFFFFF),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-
-                                Text(
-                                    text = item.aniocModel,
-                                    modifier = Modifier,
-                                    color = Color(0xFFA4A4A4),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            }
-
-                        }
-
-                        //imagen
                         Image(
                             painter = painterResource(id = item.pathCarModel),
                             contentDescription = null,
                             modifier = Modifier
-                                .height(70.dp)
+                                .height(100.dp)
                                 .constrainAs(imageCar) {
-                                    start.linkTo(guidelineImage)
+                                    start.linkTo(parent.start)
                                     end.linkTo(parent.end)
-                                    top.linkTo(imageCar.top)
-                                    bottom.linkTo(imageCar.bottom)
+                                    bottom.linkTo(modelCarUrban.top)
                                     width = Dimension.wrapContent
                                     height = Dimension.wrapContent
                                 },
+                            alignment = Alignment.Center,
                             contentScale = ContentScale.Crop,
                         )
 
-                        //precio & button_Detalles
-                        Row(
+                        //modelCar
+                        Column(
                             modifier = Modifier
-                                .fillParentMaxWidth()
-                                .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
-                                .clip(
-                                    shape = RoundedCornerShape(
-                                        bottomStart = 16.dp, bottomEnd = 16.dp
-                                    )
-                                )
-                                .background(Color(0xFF000000))
-                                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
-                                .constrainAs(detailsCar) {
+                                .fillParentMaxWidth(0.8f)
+                                .constrainAs(modelCarUrban) {
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
-                                    top.linkTo(modelCar.bottom)
-                                    bottom.linkTo(parent.bottom)
-                                },
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                                    top.linkTo(rowEmptyContent.bottom)
+                                }
                         ) {
-                            Text(
-                                text = item.hourlyRental,
-                                modifier = Modifier,
-                                color = Color(0xFFFFFFFF),
-                                textAlign = TextAlign.Start,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-
-                            typeDataSend = "lazyColum"
-
-                            Button(
-                                onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                            Row(
                                 modifier = Modifier
-                                    .fillMaxWidth(0.7f)
-                                    .height(40.dp),
-                                colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                    containerColor = Color(0xFF00B127),
-                                    contentColor = Color(0xFFFFFFFF),
-                                    disabledContainerColor = Color(0xFF747474),
-                                    disabledContentColor = Color(0xFF222222)
-                                ),
-                                shape = RoundedCornerShape(24.dp)
+                                    .fillMaxWidth()
+                                    .padding(start = 16.dp, end = 16.dp)
+                                    .background(Color(0xFF000000))
+                            ) {
+
+                                //model car
+                                Column(
+                                    modifier = Modifier
+                                        .padding(start = 16.dp)
+                                ) {
+                                    Text(
+                                        text = item.modelCar,
+                                        modifier = Modifier,
+                                        color = Color(0xFFFFFFFF),
+                                        textAlign = TextAlign.Start,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+
+                                    Text(
+                                        text = item.aniocModel,
+                                        modifier = Modifier,
+                                        color = Color(0xFFA4A4A4),
+                                        textAlign = TextAlign.Start,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+
+                            }
+
+                            //precio & button_Detalles
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
+                                    .clip(
+                                        shape = RoundedCornerShape(
+                                            bottomStart = 16.dp, bottomEnd = 16.dp
+                                        )
+                                    )
+                                    .background(Color(0xFF000000))
+                                    .padding(
+                                        start = 16.dp,
+                                        end = 16.dp,
+                                        top = 16.dp,
+                                        bottom = 16.dp
+                                    ),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = "Alquilar",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
+                                    text = item.hourlyRental,
+                                    modifier = Modifier.fillMaxWidth().padding(bottom = 18.dp),
+                                    color = Color(0xFFFFFFFF),
+                                    textAlign = TextAlign.Start,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold
                                 )
+
+                                typeDataSend = "lazyColum"
+
+                                Button(
+                                    onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(40.dp),
+                                    colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
+                                        containerColor = Color(0xFF00B127),
+                                        contentColor = Color(0xFFFFFFFF),
+                                        disabledContainerColor = Color(0xFF747474),
+                                        disabledContentColor = Color(0xFF222222)
+                                    ),
+                                    shape = RoundedCornerShape(24.dp)
+                                ) {
+                                    Text(
+                                        text = "Alquilar",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 18.sp
+                                    )
+                                }
                             }
                         }
 
@@ -451,17 +474,19 @@ fun HomeRentalCar(navController: NavHostController) {
             ) {
                 Text(
                     text = "Camiones",
-                    modifier = Modifier.fillMaxWidth().padding(start = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp),
                     color = Color(0xFFB8B8B8),
                     textAlign = TextAlign.Start,
-                    fontSize = 24.sp,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
 
             LazyRow(
                 modifier = Modifier
-                    .padding(top = 8.dp)
+                    .padding(top = 32.dp)
                     .fillMaxSize()
                     .constrainAs(CARS_CAMIONES) {
                         start.linkTo(parent.start)
@@ -475,117 +500,137 @@ fun HomeRentalCar(navController: NavHostController) {
                             .fillMaxWidth(1f)
                     ) {
 
-                        val (modelCar, detailsCar, imageCar) = createRefs()
-                        val guidelineImage = createGuidelineFromEnd(0.5f)
+                        val (rowEmptyContent, imageCar, modelCarUrban, detailsCarUrban) = createRefs()
+                        val guidelineImage = createGuidelineFromStart(0.1f)
 
-                        //modelCar
+                        //imagen
                         Row(
                             modifier = Modifier
-                                .fillParentMaxWidth()
+                                .fillParentMaxWidth(0.8f)
+                                .height(80.dp)
                                 .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                                .clip(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                                .clip(
+                                    shape = RoundedCornerShape(
+                                        topStart = 16.dp,
+                                        topEnd = 16.dp
+                                    )
+                                )
                                 .background(Color(0xFF000000))
-                                .constrainAs(modelCar) {
+                                .constrainAs(rowEmptyContent) {
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
                                     top.linkTo(parent.top)
-                                    bottom.linkTo(detailsCar.top)
                                 }
-                        ) {
+                        ) {}
 
-                            //model car
-                            Column(
-                                modifier = Modifier
-                                    .padding(start = 16.dp, top = 16.dp)
-                            ) {
-                                Text(
-                                    text = item.modelCar,
-                                    modifier = Modifier,
-                                    color = Color(0xFFFFFFFF),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-
-                                Text(
-                                    text = item.aniocModel,
-                                    modifier = Modifier,
-                                    color = Color(0xFFA4A4A4),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            }
-
-                        }
-
-                        //imagen
                         Image(
                             painter = painterResource(id = item.pathCarModel),
                             contentDescription = null,
                             modifier = Modifier
-                                .height(70.dp)
+                                .height(100.dp)
                                 .constrainAs(imageCar) {
-                                    start.linkTo(guidelineImage)
+                                    start.linkTo(parent.start)
                                     end.linkTo(parent.end)
-                                    top.linkTo(imageCar.top)
-                                    bottom.linkTo(imageCar.bottom)
+                                    bottom.linkTo(modelCarUrban.top)
                                     width = Dimension.wrapContent
                                     height = Dimension.wrapContent
                                 },
+                            alignment = Alignment.Center,
                             contentScale = ContentScale.Crop,
                         )
 
-                        //precio & button_Detalles
-                        Row(
+                        //modelCar
+                        Column(
                             modifier = Modifier
-                                .fillParentMaxWidth()
-                                .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
-                                .clip(
-                                    shape = RoundedCornerShape(
-                                        bottomStart = 16.dp, bottomEnd = 16.dp
-                                    )
-                                )
-                                .background(Color(0xFF000000))
-                                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
-                                .constrainAs(detailsCar) {
+                                .fillParentMaxWidth(0.8f)
+                                .constrainAs(modelCarUrban) {
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
-                                    top.linkTo(modelCar.bottom)
-                                    bottom.linkTo(parent.bottom)
-                                },
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                                    top.linkTo(rowEmptyContent.bottom)
+                                }
                         ) {
-                            Text(
-                                text = item.hourlyRental,
-                                modifier = Modifier,
-                                color = Color(0xFFFFFFFF),
-                                textAlign = TextAlign.Start,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-
-                            typeDataSend = "lazyColum"
-
-                            Button(
-                                onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                            Row(
                                 modifier = Modifier
-                                    .fillMaxWidth(0.7f)
-                                    .height(40.dp),
-                                colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                    containerColor = Color(0xFF00B127),
-                                    contentColor = Color(0xFFFFFFFF),
-                                    disabledContainerColor = Color(0xFF747474),
-                                    disabledContentColor = Color(0xFF222222)
-                                ),
-                                shape = RoundedCornerShape(24.dp)
+                                    .fillMaxWidth()
+                                    .padding(start = 16.dp, end = 16.dp)
+                                    .background(Color(0xFF000000))
+                            ) {
+
+                                //model car
+                                Column(
+                                    modifier = Modifier
+                                        .padding(start = 16.dp)
+                                ) {
+                                    Text(
+                                        text = item.modelCar,
+                                        modifier = Modifier,
+                                        color = Color(0xFFFFFFFF),
+                                        textAlign = TextAlign.Start,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+
+                                    Text(
+                                        text = item.aniocModel,
+                                        modifier = Modifier,
+                                        color = Color(0xFFA4A4A4),
+                                        textAlign = TextAlign.Start,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+
+                            }
+
+                            //precio & button_Detalles
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
+                                    .clip(
+                                        shape = RoundedCornerShape(
+                                            bottomStart = 16.dp, bottomEnd = 16.dp
+                                        )
+                                    )
+                                    .background(Color(0xFF000000))
+                                    .padding(
+                                        start = 16.dp,
+                                        end = 16.dp,
+                                        top = 16.dp,
+                                        bottom = 16.dp
+                                    ),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = "Alquilar",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
+                                    text = item.hourlyRental,
+                                    modifier = Modifier.fillMaxWidth().padding(bottom = 18.dp),
+                                    color = Color(0xFFFFFFFF),
+                                    textAlign = TextAlign.Start,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold
                                 )
+
+                                typeDataSend = "lazyColum"
+
+                                Button(
+                                    onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(40.dp),
+                                    colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
+                                        containerColor = Color(0xFF00B127),
+                                        contentColor = Color(0xFFFFFFFF),
+                                        disabledContainerColor = Color(0xFF747474),
+                                        disabledContentColor = Color(0xFF222222)
+                                    ),
+                                    shape = RoundedCornerShape(24.dp)
+                                ) {
+                                    Text(
+                                        text = "Alquilar",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 18.sp
+                                    )
+                                }
                             }
                         }
 
@@ -603,17 +648,19 @@ fun HomeRentalCar(navController: NavHostController) {
             ) {
                 Text(
                     text = "Motocarros",
-                    modifier = Modifier.fillMaxWidth().padding(start = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp),
                     color = Color(0xFFB8B8B8),
                     textAlign = TextAlign.Start,
-                    fontSize = 24.sp,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
 
             LazyRow(
                 modifier = Modifier
-                    .padding(top = 8.dp)
+                    .padding(top = 32.dp)
                     .fillMaxSize()
                     .constrainAs(CARS_MOTOCARROS) {
                         start.linkTo(parent.start)
@@ -627,117 +674,137 @@ fun HomeRentalCar(navController: NavHostController) {
                             .fillMaxWidth(1f)
                     ) {
 
-                        val (modelCar, detailsCar, imageCar) = createRefs()
-                        val guidelineImage = createGuidelineFromEnd(0.5f)
+                        val (rowEmptyContent, imageCar, modelCarUrban, detailsCarUrban) = createRefs()
+                        val guidelineImage = createGuidelineFromStart(0.1f)
 
-                        //modelCar
+                        //imagen
                         Row(
                             modifier = Modifier
-                                .fillParentMaxWidth()
+                                .fillParentMaxWidth(0.8f)
+                                .height(80.dp)
                                 .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                                .clip(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                                .clip(
+                                    shape = RoundedCornerShape(
+                                        topStart = 16.dp,
+                                        topEnd = 16.dp
+                                    )
+                                )
                                 .background(Color(0xFF000000))
-                                .constrainAs(modelCar) {
+                                .constrainAs(rowEmptyContent) {
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
                                     top.linkTo(parent.top)
-                                    bottom.linkTo(detailsCar.top)
                                 }
-                        ) {
+                        ) {}
 
-                            //model car
-                            Column(
-                                modifier = Modifier
-                                    .padding(start = 16.dp, top = 16.dp)
-                            ) {
-                                Text(
-                                    text = item.modelCar,
-                                    modifier = Modifier,
-                                    color = Color(0xFFFFFFFF),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-
-                                Text(
-                                    text = item.aniocModel,
-                                    modifier = Modifier,
-                                    color = Color(0xFFA4A4A4),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            }
-
-                        }
-
-                        //imagen
                         Image(
                             painter = painterResource(id = item.pathCarModel),
                             contentDescription = null,
                             modifier = Modifier
-                                .height(70.dp)
+                                .height(100.dp)
                                 .constrainAs(imageCar) {
-                                    start.linkTo(guidelineImage)
+                                    start.linkTo(parent.start)
                                     end.linkTo(parent.end)
-                                    top.linkTo(imageCar.top)
-                                    bottom.linkTo(imageCar.bottom)
+                                    bottom.linkTo(modelCarUrban.top)
                                     width = Dimension.wrapContent
                                     height = Dimension.wrapContent
                                 },
+                            alignment = Alignment.Center,
                             contentScale = ContentScale.Crop,
                         )
 
-                        //precio & button_Detalles
-                        Row(
+                        //modelCar
+                        Column(
                             modifier = Modifier
-                                .fillParentMaxWidth()
-                                .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
-                                .clip(
-                                    shape = RoundedCornerShape(
-                                        bottomStart = 16.dp, bottomEnd = 16.dp
-                                    )
-                                )
-                                .background(Color(0xFF000000))
-                                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
-                                .constrainAs(detailsCar) {
+                                .fillParentMaxWidth(0.8f)
+                                .constrainAs(modelCarUrban) {
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
-                                    top.linkTo(modelCar.bottom)
-                                    bottom.linkTo(parent.bottom)
-                                },
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                                    top.linkTo(rowEmptyContent.bottom)
+                                }
                         ) {
-                            Text(
-                                text = item.hourlyRental,
-                                modifier = Modifier,
-                                color = Color(0xFFFFFFFF),
-                                textAlign = TextAlign.Start,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-
-                            typeDataSend = "lazyColum"
-
-                            Button(
-                                onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                            Row(
                                 modifier = Modifier
-                                    .fillMaxWidth(0.7f)
-                                    .height(40.dp),
-                                colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                    containerColor = Color(0xFF00B127),
-                                    contentColor = Color(0xFFFFFFFF),
-                                    disabledContainerColor = Color(0xFF747474),
-                                    disabledContentColor = Color(0xFF222222)
-                                ),
-                                shape = RoundedCornerShape(24.dp)
+                                    .fillMaxWidth()
+                                    .padding(start = 16.dp, end = 16.dp)
+                                    .background(Color(0xFF000000))
+                            ) {
+
+                                //model car
+                                Column(
+                                    modifier = Modifier
+                                        .padding(start = 16.dp)
+                                ) {
+                                    Text(
+                                        text = item.modelCar,
+                                        modifier = Modifier,
+                                        color = Color(0xFFFFFFFF),
+                                        textAlign = TextAlign.Start,
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+
+                                    Text(
+                                        text = item.aniocModel,
+                                        modifier = Modifier,
+                                        color = Color(0xFFA4A4A4),
+                                        textAlign = TextAlign.Start,
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+
+                            }
+
+                            //precio & button_Detalles
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
+                                    .clip(
+                                        shape = RoundedCornerShape(
+                                            bottomStart = 16.dp, bottomEnd = 16.dp
+                                        )
+                                    )
+                                    .background(Color(0xFF000000))
+                                    .padding(
+                                        start = 16.dp,
+                                        end = 16.dp,
+                                        top = 16.dp,
+                                        bottom = 16.dp
+                                    ),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = "Alquilar",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
+                                    text = item.hourlyRental,
+                                    modifier = Modifier.fillMaxWidth().padding(bottom = 18.dp),
+                                    color = Color(0xFFFFFFFF),
+                                    textAlign = TextAlign.Start,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold
                                 )
+
+                                typeDataSend = "lazyColum"
+
+                                Button(
+                                    onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(40.dp),
+                                    colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
+                                        containerColor = Color(0xFF00B127),
+                                        contentColor = Color(0xFFFFFFFF),
+                                        disabledContainerColor = Color(0xFF747474),
+                                        disabledContentColor = Color(0xFF222222)
+                                    ),
+                                    shape = RoundedCornerShape(24.dp)
+                                ) {
+                                    Text(
+                                        text = "Alquilar",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 18.sp
+                                    )
+                                }
                             }
                         }
 

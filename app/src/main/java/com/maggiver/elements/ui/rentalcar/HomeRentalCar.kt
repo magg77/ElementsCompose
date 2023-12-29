@@ -34,9 +34,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
-import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -46,11 +44,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -59,7 +55,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -71,11 +66,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.maggiver.elements.R
 import com.maggiver.elements.ui.rentalcar.models.CarouselCar
 import com.maggiver.elements.ui.rentalcar.repo.DataUtils
@@ -106,6 +104,14 @@ import kotlin.math.absoluteValue
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
+
+
+@Preview
+@Composable
+fun HomeRentalCarPreview(navController: NavHostController = rememberNavController()) {
+    HomeRentalCar(navController)
+}
+
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun HomeRentalCar(navController: NavHostController) {
@@ -128,150 +134,96 @@ fun HomeRentalCar(navController: NavHostController) {
             initialValue = SheetValue.PartiallyExpanded, skipHiddenState = true
         )
     )
-    var isSheetOpen = rememberSaveable { mutableStateOf(true) }
 
-    Column {
-        BottomSheetScaffold(
-            sheetContent = {
-                Column() {
-                    Text(
-                        text = "Resgistrarse",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(0.dp, 0.dp, 0.dp, 0.dp),
-                        color = Color(0xFF000000),
-                        textAlign = TextAlign.Center,
-                        lineHeight = 18.sp,
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold
-                    )
 
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color(0xFF4CFF37)),
-                        contentAlignment = Alignment.Center
-                    ) {
+    BottomSheetScaffold(
+        sheetContent = {
+            Column() {
+                Text(
+                    text = "Registrarse",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp, 0.dp, 0.dp, 0.dp),
+                    color = Color(0xFF000000),
+                    textAlign = TextAlign.Center,
+                    lineHeight = 18.sp,
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
 
-                        Button(onClick = {
-                            scopeSheetState.launch {
-                                scaffoldState.bottomSheetState.expand()
-                            }
-                        }) {
-                            Text("Hide bottom sheet")
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFF4CFF37)),
+                    contentAlignment = Alignment.Center
+                ) {
+
+                    Button(onClick = {
+                        scopeSheetState.launch {
+                            scaffoldState.bottomSheetState.expand()
                         }
-
-                    }
-
-
-                    Button(onClick = { /*TODO*/ }) {
+                    }) {
                         Text("Hide bottom sheet")
                     }
+
                 }
-            },
-            scaffoldState = scaffoldState,
-            sheetPeekHeight = 90.dp,
-            sheetShadowElevation = 40.dp,
+
+
+                Button(onClick = { /*TODO*/ }) {
+                    Text("Hide bottom sheet")
+                }
+            }
+        },
+        scaffoldState = scaffoldState,
+        sheetPeekHeight = 90.dp,
+        sheetShadowElevation = 40.dp,
+    ) {
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFF1A1A1A))
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 90.dp)
         ) {
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color(0xFF1A1A1A))
-                    .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 90.dp)
-            ) {
+            Perfil()
 
-                Perfil()
+            Carousel(listCarsModelPagerCarousel, pagerState, scope) {
+                Log.i("itemClicked", "Enviado: $it")
+                typeDataSend = "carousel"
+                navController.navigate("DetailRentalCar/$typeDataSend/$it")
+            }
 
-                Carousel(listCarsModelPagerCarousel, pagerState, scope) {
-                    Log.i("itemClicked", "Enviado: $it")
-                    typeDataSend = "carousel"
-                    navController.navigate("DetailRentalCar/$typeDataSend/$it")
-                }
+            ProximoDestino()
 
-                ProximoDestino()
+            //AVAILABLE CARS   *************************************************************************
+            items(listAvailableCars) { item ->
+                ConstraintLayout(modifier = Modifier.fillMaxSize()) {
 
-                //AVAILABLE CARS   *************************************************************************
-                items(listAvailableCars) { item ->
-                    ConstraintLayout(modifier = Modifier) {
+                    val (modelCar, detailsCar, imageCar) = createRefs()
+                    val guidelineImage = createGuidelineFromEnd(0.5f)
 
-                        val (modelCar, detailsCar, imageCar) = createRefs()
-                        val guidelineImage = createGuidelineFromEnd(0.5f)
-
-                        //modelCar
-                        Row(modifier = Modifier
-                            .padding(top = 16.dp)
-                            .fillMaxWidth()
-                            .clip(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                            .background(Color(0xFF000000))
-                            .constrainAs(modelCar) {
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                                top.linkTo(parent.top)
-                                bottom.linkTo(detailsCar.top)
-                            }) {
-
-                            //model car
-                            Column(
-                                modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                            ) {
-                                Text(
-                                    text = item.modelCar,
-                                    modifier = Modifier,
-                                    color = Color(0xFFFFFFFF),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-
-                                Text(
-                                    text = item.aniocModel,
-                                    modifier = Modifier,
-                                    color = Color(0xFFA4A4A4),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            }
-
+                    //modelCar
+                    Row(modifier = Modifier
+                        .padding(top = 16.dp)
+                        .clip(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                        .background(Color(0xFF000000))
+                        .constrainAs(modelCar) {
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                            top.linkTo(parent.top)
+                            bottom.linkTo(detailsCar.top)
+                            width = Dimension.matchParent
+                            height = Dimension.wrapContent
                         }
+                    ) {
 
-                        //imagen
-                        Image(
-                            painter = painterResource(id = item.pathCarModel),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .height(60.dp)
-                                .constrainAs(imageCar) {
-                                    start.linkTo(guidelineImage)
-                                    end.linkTo(parent.end)
-                                },
-                            contentScale = ContentScale.Crop,
-                        )
-
-                        //precio & button_Detalles
-                        Row(
-                            modifier = Modifier
-                                .padding(bottom = 24.dp)
-                                .fillMaxWidth()
-                                .clip(
-                                    shape = RoundedCornerShape(
-                                        bottomStart = 16.dp, bottomEnd = 16.dp
-                                    )
-                                )
-                                .background(Color(0xFF000000))
-                                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
-                                .constrainAs(detailsCar) {
-                                    start.linkTo(detailsCar.start)
-                                    end.linkTo(detailsCar.end)
-                                    top.linkTo(modelCar.bottom)
-                                    bottom.linkTo(parent.bottom)
-                                },
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                        //model car
+                        Column(
+                            modifier = Modifier.padding(start = 16.dp, top = 16.dp)
                         ) {
                             Text(
-                                text = item.hourlyRental,
+                                text = item.modelCar,
                                 modifier = Modifier,
                                 color = Color(0xFFFFFFFF),
                                 textAlign = TextAlign.Start,
@@ -279,35 +231,95 @@ fun HomeRentalCar(navController: NavHostController) {
                                 fontWeight = FontWeight.Bold
                             )
 
-                            typeDataSend = "lazyColum"
-
-                            Button(
-                                onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
-                                modifier = Modifier
-                                    .fillMaxWidth(0.7f)
-                                    .height(40.dp),
-                                colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                    containerColor = Color(0xFF00B127),
-                                    contentColor = Color(0xFFFFFFFF),
-                                    disabledContainerColor = Color(0xFF747474),
-                                    disabledContentColor = Color(0xFF222222)
-                                ),
-                                shape = RoundedCornerShape(24.dp)
-                            ) {
-                                Text(
-                                    text = "Alquilar",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
-                                )
-                            }
+                            Text(
+                                text = item.aniocModel,
+                                modifier = Modifier,
+                                color = Color(0xFFA4A4A4),
+                                textAlign = TextAlign.Start,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium
+                            )
                         }
 
-                    }//ConstraintLayout
-                }//items
-            }//Lazycolumn
+                    }
 
-        }
+                    //imagen
+                    Image(
+                        painter = painterResource(id = item.pathCarModel),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .height(60.dp)
+                            .constrainAs(imageCar) {
+                                start.linkTo(guidelineImage)
+                                end.linkTo(parent.end)
+                                top.linkTo(imageCar.top)
+                                bottom.linkTo(imageCar.bottom)
+                                width = Dimension.wrapContent
+                                height = Dimension.wrapContent
+                            },
+                        contentScale = ContentScale.Crop,
+                    )
+
+                    //precio & button_Detalles
+                    Row(
+                        modifier = Modifier
+                            .padding(bottom = 24.dp)
+                            .clip(
+                                shape = RoundedCornerShape(
+                                    bottomStart = 16.dp, bottomEnd = 16.dp
+                                )
+                            )
+                            .background(Color(0xFF000000))
+                            .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
+                            .constrainAs(detailsCar) {
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                                top.linkTo(modelCar.bottom)
+                                bottom.linkTo(parent.bottom)
+                                width = Dimension.matchParent
+                                height = Dimension.wrapContent
+                            },
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = item.hourlyRental,
+                            modifier = Modifier,
+                            color = Color(0xFFFFFFFF),
+                            textAlign = TextAlign.Start,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        typeDataSend = "lazyColum"
+
+                        Button(
+                            onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                            modifier = Modifier
+                                .fillMaxWidth(0.7f)
+                                .height(40.dp),
+                            colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
+                                containerColor = Color(0xFF00B127),
+                                contentColor = Color(0xFFFFFFFF),
+                                disabledContainerColor = Color(0xFF747474),
+                                disabledContentColor = Color(0xFF222222)
+                            ),
+                            shape = RoundedCornerShape(24.dp)
+                        ) {
+                            Text(
+                                text = "Alquilar",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp
+                            )
+                        }
+                    }
+
+                }//ConstraintLayout
+            }//items
+        }//Lazycolumn
+
     }
+
 
     /*ModalBottomSheet(
         sheetState = sheetState,
@@ -465,7 +477,6 @@ fun LazyListScope.Perfil() {
         }
     }
 }
-
 
 //CAROUSEL     *****************************************************************************
 @OptIn(ExperimentalFoundationApi::class)

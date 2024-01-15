@@ -9,5 +9,6 @@
     <string name="label_expiration_date">Expiration Date</string>
     <string name="label_cvv">CCV</string>
     <string name="btn_pay">Pagar</string>
+    <string name="title_activity_splash">RentalCar</string>
 
 </resources>

@@ -200,7 +200,7 @@ fun SplashRentalCar(navController: NavHostController) {
                             modifier = Modifier
                                 .weight(1f)
                                 .clip(shape = MaterialTheme.shapes.medium)
-                                .background(color = Color(0x40000000))
+                                .background(color = Color(0xA6000000))
                         ) {
 
                             Column(
@@ -268,7 +268,7 @@ fun SplashRentalCar(navController: NavHostController) {
             ) {
 
                 Text(
-                    text = "Ver Autos",
+                    text = "Alquilar",
                     fontSize = 18.sp,
                     color = Color(0xFF000000),
                     fontWeight = FontWeight.Bold,

@@ -11,7 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.maggiver.elements.ui.rentalcar.NavigationRentalCarBlack
+import com.maggiver.elements.ui.rentalcar.navigation.NavigationRentalCarBlack
 import com.maggiver.elements.ui.theme.ElementsTheme
 import java.time.Instant
 import java.time.LocalDate
@@ -19,7 +19,6 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {

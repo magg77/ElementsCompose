@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.rentalcar
+package com.maggiver.elements.ui.rentalcar.screens.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

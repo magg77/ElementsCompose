@@ -1,18 +1,30 @@
-package com.maggiver.elements.ui.rentalcar
+package com.maggiver.elements.ui.rentalcar.screens.auth
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 /**
  * Created by
  * @AUTHOR: Daniel Maggiver Acevedo
  * @NICK_NAME: mackgaru
- * @DATE: 14,noviembre,2023
+ * @DATE: 15,enero,2024
  * @COMPAN: Juice
  * @EMAIL: dmacevedo00@misena.edu.co
  *
@@ -29,51 +41,43 @@ import androidx.navigation.navArgument
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
+@Composable
+fun ForgetPasswordScreen(
+    navController: NavController,
+    onClickForgotPassword: () -> Unit,
+    navigateToLogin: () -> Unit
+) {
+    Scaffold {
+        BodyContentForgetPassword(navController, it, onClickForgotPassword, navigateToLogin)
+    }
+}
 
 @Composable
-fun NavigationRentalCarBlack() {
-    val navController = rememberNavController()
+fun BodyContentForgetPassword(
+    navController: NavController,
+    paddingValues: PaddingValues,
+    onClickForgotPassword: () -> Unit,
+    navigateToLogin: () -> Unit,
+) {
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .fillMaxSize()
+                .background(Color.Magenta),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "Forget", fontSize = 32.sp)
+            Spacer(modifier = Modifier.height(40.dp))
 
-    NavHost(navController = navController, startDestination = "SplashRentalCar") {
 
-        composable("SplashRentalCar") {
-            SplashRentalCar(navController = navController)
+            Button(onClick = { onClickForgotPassword() }) {
+                Text(text = "Recuperar Password", fontSize = 24.sp)
+            }
+            Button(onClick = { navigateToLogin() }) {
+                Text(text = "Navigate to Login", fontSize = 24.sp)
+            }
         }
-
-        composable("HomeRentalCar") {
-            HomeRentalCar(navController = navController)
-        }
-
-        composable(
-            route = "DetailRentalCar/{typeDataSend}/{carCarouselPosition}",
-            arguments = listOf(
-                navArgument("typeDataSend") { type = NavType.StringType },
-                navArgument("carCarouselPosition") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-            DetailRentalCar(
-                navController = navController,
-                typeDataSend = backStackEntry.arguments?.getString("typeDataSend") ?: "",
-                carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition") ?: 0
-            )
-        }
-
-        composable(
-            route = "PurchaseCar/{carCarouselPosition}",
-            arguments = listOf(
-                navArgument("carCarouselPosition") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-            PurchaseCar(
-                navController = navController,
-                carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition") ?: 0
-            )
-        }
-
-        composable("ChatScreen") {
-            ChatScreen(navController = navController)
-        }
-
     }
-
 }

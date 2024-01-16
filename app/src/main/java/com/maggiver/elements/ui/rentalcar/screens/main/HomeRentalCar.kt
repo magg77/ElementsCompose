@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.maggiver.elements.ui.rentalcar
+package com.maggiver.elements.ui.rentalcar.screens.main
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke

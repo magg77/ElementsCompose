@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.rentalcar
+package com.maggiver.elements.ui.rentalcar.screens.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -21,7 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.CarRental
-import androidx.compose.material.icons.filled.IncompleteCircle
 import androidx.compose.material.icons.filled.TimeToLeave
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults

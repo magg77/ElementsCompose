@@ -13,7 +13,7 @@ class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var statusLoginUser = true
+        var statusLoginUser = false
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen().setKeepOnScreenCondition { false }
@@ -23,6 +23,10 @@ class SplashActivity : ComponentActivity() {
             if (statusLoginUser) {
                 context.startActivity(Intent(context, MainActivity::class.java))
                 (context as Activity).finish()
+            } else {
+                context.startActivity(Intent(context, AuthActivity::class.java))
+                (context as Activity).finish()
+                finish()
             }
         }
     }

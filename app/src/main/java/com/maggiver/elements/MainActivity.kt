@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     NavigationGraphicsWhite()*/
 
 
-                    NavigationRentalCarBlack()
+                    //NavigationRentalCarBlack()
 
                     NavigationGraphMasterApp(navController =  rememberNavController())
 

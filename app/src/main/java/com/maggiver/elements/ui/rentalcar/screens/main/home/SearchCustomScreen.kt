@@ -1,11 +1,31 @@
-package com.maggiver.elements.ui.rentalcar.navigation.routes
+package com.maggiver.elements.ui.rentalcar.screens.main.home
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
+import androidx.navigation.NavHostController
 
 
 /**
  * Created by
  * @AUTHOR: Daniel Maggiver Acevedo
  * @NICK_NAME: mackgaru
- * @DATE: 15,enero,2024
+ * @DATE: 19,enero,2024
  * @COMPAN: Juice
  * @EMAIL: dmacevedo00@misena.edu.co
  *
@@ -22,9 +42,30 @@ package com.maggiver.elements.ui.rentalcar.navigation.routes
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
-object RootGraph {
-    const val ROOT_NAVIGATION_GRAPH = "ROOT_NAVIGATION_GRAPH"
-    const val MASTER_CONTENT_APP = "MASTER_CONTENT_APP"
+@Composable
+fun SearchCustomScreen(navController: NavHostController, onClick: () -> Unit) {
 
-    const val HOME_CONTENT_SEARCH_CUSTOM = "HOME_CONTENT_SEARCH_CUSTOM"
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Blue)
+                .zIndex(5f),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "Home Detail", fontSize = 40.sp)
+            Spacer(modifier = Modifier.height(40.dp))
+
+            Text(
+                modifier = Modifier.clickable { onClick() },
+                text = "Search Custom",
+                fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                fontWeight = FontWeight.Bold
+            )
+
+
+        }
+    }
+
 }

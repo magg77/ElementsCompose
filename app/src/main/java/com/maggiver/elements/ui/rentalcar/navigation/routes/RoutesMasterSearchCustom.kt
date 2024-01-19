@@ -21,10 +21,9 @@ package com.maggiver.elements.ui.rentalcar.navigation.routes
  *                         pueden ser transferibles a terceros con la autorización del titular del software en virtud de la autonomía de su voluntad, en cuyo caso, el autor o titular de la obra denominado cedente transmite total o parcialmente sus derechos a un tercero a través de un contrato de cesión de derechos.
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
+ 
+sealed class RoutesMasterSearchCustom(val route: String) {
 
-object RootGraph {
-    const val ROOT_NAVIGATION_GRAPH = "ROOT_NAVIGATION_GRAPH"
-    const val MASTER_CONTENT_APP = "MASTER_CONTENT_APP"
+    object SearchCustomRoute: RoutesMasterSearchCustom(route = "search_custom_home")
 
-    const val HOME_CONTENT_SEARCH_CUSTOM = "HOME_CONTENT_SEARCH_CUSTOM"
 }

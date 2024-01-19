@@ -47,7 +47,7 @@ fun NavigationRentalCarBlack() {
         }
 
         composable("HomeRentalCar") {
-            HomeRentalCar(navController = navController)
+            HomeRentalCar(navController = navController, onClickNavigateToSearchCustom = {})
         }
 
             composable(

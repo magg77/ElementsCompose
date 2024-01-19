@@ -1,6 +1,7 @@
 package com.maggiver.elements.ui.rentalcar.screens.main.profile
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,8 +19,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Battery5Bar
 import androidx.compose.material.icons.filled.LocalTaxi
@@ -28,9 +31,12 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -41,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -137,15 +144,138 @@ fun ProfileScreen(navController: NavHostController) {
                                 color = Color(0xFFE9EAF1)
                             ),
                         painter = painterResource(R.drawable.user_app),
-                        contentDescription = "Profile Pic"
+                        contentDescription = "Profile Pic",
+                        alignment = Alignment.TopCenter,
+                        contentScale = ContentScale.Crop
                     )
                     Spacer(modifier = Modifier.height(40.dp))
                     Text(
-                        text = "John Doe",
+                        text = "John Marcus Allegria",
                         fontWeight = FontWeight.Bold,
                         fontSize = 28.sp,
                         color = Color.Black
                     )
+
+                    Row(
+                        modifier = Modifier
+                            .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+                            .fillMaxWidth()
+                            .clip(shape = RoundedCornerShape(24.dp))
+                            .background(Color(0xFFD5D5D5))
+                            .padding(start = 8.dp, end = 0.dp, top = 8.dp, bottom = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        /*ElevatedCard(
+                            modifier = Modifier.size(72.dp),
+                            shape = CircleShape,
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color(0xFF222222),
+                                contentColor = Color.White  //Card content color,e.g.text
+                            ),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+                        ) {
+                            Image(
+                                painterResource(R.drawable.user_app),
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .border(1.dp, Color(0xFFB4B4B4), CircleShape),
+                                alignment = Alignment.TopCenter,
+                                contentScale = ContentScale.Crop
+                            )
+                        }*/
+
+                        Column(
+                            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+                        ) {
+
+                            Row(
+                                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
+                            ) {
+                                Card(
+                                    shape = RoundedCornerShape(24.dp),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = Color(0xFFACACAC),
+                                        contentColor = Color(0xFFFFFFFF)  //Card content color,e.g.text
+                                    ),
+                                    border = BorderStroke(2.dp, Color(0xFF858585)),
+                                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+                                ) {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth(1f)
+                                            .padding(
+                                                start = 24.dp,
+                                                end = 24.dp,
+                                                top = 6.dp,
+                                                bottom = 6.dp
+                                            ),
+                                        horizontalArrangement = Arrangement.SpaceBetween
+                                    ) {
+                                        IconButton(
+                                            onClick = { /*TODO*/ },
+                                            modifier = Modifier
+                                                .height(30.dp)
+                                                .width(30.dp),
+                                            colors = IconButtonDefaults.iconButtonColors(
+                                                containerColor = Color.Transparent,
+                                                contentColor = Color.Transparent,
+                                                disabledContainerColor = Color(0xFFFFFFFF),
+                                                disabledContentColor = Color(0xFF222222)
+                                            )
+                                        ) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.perfil_menu_reservas),
+                                                contentDescription = "Google",
+                                                tint = Color(0xFF3F3F3F)
+                                            )
+                                        }
+
+                                        IconButton(
+                                            onClick = { /*TODO*/ },
+                                            modifier = Modifier
+                                                .height(30.dp)
+                                                .width(30.dp),
+                                            colors = IconButtonDefaults.iconButtonColors(
+                                                containerColor = Color.Transparent,
+                                                contentColor = Color.Transparent,
+                                                disabledContainerColor = Color(0xFFFFFFFF),
+                                                disabledContentColor = Color(0xFF222222)
+                                            )
+                                        ) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.perfil_menu_agenda),
+                                                contentDescription = "Google",
+                                                tint = Color(0xFF3F3F3F)
+                                            )
+                                        }
+
+                                        IconButton(
+                                            onClick = { /*TODO*/ },
+                                            modifier = Modifier
+                                                .height(30.dp)
+                                                .width(30.dp),
+                                            colors = IconButtonDefaults.iconButtonColors(
+                                                containerColor = Color.Transparent,
+                                                contentColor = Color.Transparent,
+                                                disabledContainerColor = Color(0xFFFFFFFF),
+                                                disabledContentColor = Color(0xFF222222)
+                                            )
+                                        ) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.perfil_menu_notificaciones),
+                                                contentDescription = "Google",
+                                                tint = Color(0xFF3F3F3F)
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+
                     Spacer(modifier = Modifier.height(40.dp))
                 }
             }

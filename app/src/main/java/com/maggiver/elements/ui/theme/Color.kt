@@ -26,3 +26,11 @@ object LightColors {
     val textGrey = Color(0xFF8f929a)
     val ads_home_1 = Color(0xFFe5ffd8)
 }
+
+//Colors
+val myCarsColor = Color(0xFFea5261)
+val chargingHistoryColor = Color(0xFF29B32B)
+val profileInfoColor = Color(0xFFD8B42B)
+val notificationsColor = Color(0xFF358BF5)
+val changePasswordColor = Color(0xFFDB6904)
+val logoutColor = Color(0xFFA80000)

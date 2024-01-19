@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.rentalcar.screens.main
+package com.maggiver.elements.ui.rentalcar.screens.main.home
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -84,7 +84,7 @@ import java.util.Locale
  */
 
 
-@Preview
+@Preview()
 @Composable
 fun DetailRentalCarPreview() {
     DetailRentalCar(
@@ -110,6 +110,7 @@ fun DetailRentalCar(
 
     Column(
         modifier = Modifier
+            .padding(bottom = 80.dp)
             .background(Color(0xFF000000))
             .fillMaxSize()
             .verticalScroll(
@@ -447,7 +448,9 @@ fun DetailRentalCar(
         //Content - description - actions
         Column(
             modifier = Modifier
-                .background(Color(0xFF000000))
+                .padding(top = 16.dp, bottom = 16.dp)
+                .clip(RoundedCornerShape(32.dp))
+                .background(Color(0xFF303030))
             /*.constrainAs(description) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
@@ -459,13 +462,13 @@ fun DetailRentalCar(
         ) {
 
             Column(
-                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp)
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
             ) {
                 Text(
                     text = dataCarCarousel.hourlyRental,
                     modifier = Modifier.fillMaxWidth(),
                     color = Color(0xFFFFFFFF),
-                    fontSize = 22.sp,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.End,
                 )
@@ -474,7 +477,7 @@ fun DetailRentalCar(
                     text = "Descripción General",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp),
+                        .padding(top = 0.dp),
                     color = Color(0xFFE4E4E4),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
@@ -730,7 +733,7 @@ fun DetailRentalCar(
                             disabledContainerColor = Color(0xFF747474),
                             disabledContentColor = Color(0xFF222222)
                         ),
-                        shape = RoundedCornerShape(24.dp)
+                        shape = RoundedCornerShape(32.dp)
                     ) {
                         Text(
                             text = "Contactar",
@@ -751,7 +754,7 @@ fun DetailRentalCar(
                             disabledContainerColor = Color(0xFF747474),
                             disabledContentColor = Color(0xFF222222)
                         ),
-                        shape = RoundedCornerShape(24.dp)
+                        shape = RoundedCornerShape(32.dp)
                     ) {
                         Text(
                             text = "¡Reservar!",

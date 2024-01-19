@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.maggiver.elements.ui.rentalcar.screens.main
+package com.maggiver.elements.ui.rentalcar.screens.main.home
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
@@ -236,6 +236,7 @@ fun HomeRentalCar(navController: NavHostController) {
 
         ConstraintLayout(
             modifier = Modifier
+                .padding(bottom = 80.dp)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(Color(0xBF000000))

@@ -11,6 +11,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.maggiver.elements.ui.rentalcar.navigation.NavigationGraphMasterApp
 import com.maggiver.elements.ui.rentalcar.navigation.NavigationRentalCarBlack
 import com.maggiver.elements.ui.theme.ElementsTheme
 import java.time.Instant
@@ -25,7 +27,6 @@ class MainActivity : ComponentActivity() {
 
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -50,6 +51,8 @@ class MainActivity : ComponentActivity() {
 
 
                     NavigationRentalCarBlack()
+
+                    NavigationGraphMasterApp(navController =  rememberNavController())
 
 
 

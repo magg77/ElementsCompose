@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.rentalcar.navigation
+package com.maggiver.elements.ui.rentalcar.navigation.routes
 
 
 /**
@@ -21,8 +21,12 @@ package com.maggiver.elements.ui.rentalcar.navigation
  *                         pueden ser transferibles a terceros con la autorización del titular del software en virtud de la autonomía de su voluntad, en cuyo caso, el autor o titular de la obra denominado cedente transmite total o parcialmente sus derechos a un tercero a través de un contrato de cesión de derechos.
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
+ 
+sealed class RoutesMaster(val route: String) {
 
-object RootGraphAuth {
-    const val ROOT_NAVIGATION_GRAPH = "ROOT_NAVIGATION_GRAPH"
-    const val MASTER_CONTENT_APP = "MASTER_CONTENT_APP"
+    object MasterStartRoute: RoutesMaster(route = "master")
+
+    object HomeRoute: RoutesMaster(route = "home")
+    object CartRoute: RoutesMaster(route = "cart")
+    object ProfileRoute: RoutesMaster(route = "profile")
 }

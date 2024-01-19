@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.rentalcar.screens.main
+package com.maggiver.elements.ui.rentalcar.screens.main.carShopping
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -135,6 +135,7 @@ fun PurchaseCar(
 
     Column(
         modifier = Modifier
+            .padding(bottom = 64.dp)
             .background(Color(0xFF1A1A1A))
             .fillMaxSize()
             .verticalScroll(

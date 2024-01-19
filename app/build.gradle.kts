@@ -113,6 +113,8 @@ dependencies {
         implementation("androidx.compose.material3:material3:1.2.0-beta01")
         //implementation("androidx.compose.material3:material3")
         implementation("androidx.compose.material3:material3-window-size-class")
+        implementation("androidx.compose.material3:material3-adaptive:1.0.0-alpha04")
+        implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.0.0-alpha02")
         implementation("androidx.compose.material:material-icons-extended-android:1.5.4")
         /*implementation("com.google.android.material:material:${rootProject.extra["materialDesing"]}")*/
 

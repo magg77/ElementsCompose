@@ -116,7 +116,7 @@ import kotlin.math.absoluteValue
  */
 
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeRentalCarPreview(navController: NavHostController = rememberNavController()) {
     HomeRentalCar(navController)
@@ -141,71 +141,75 @@ fun HomeRentalCar(navController: NavHostController) {
     var peekHeight: Int by remember { mutableStateOf(0) }
 
     //var que se guardara en bd y hacer parte de config_init user app
-    var showBottomSheetRegisterUser: Boolean by remember { mutableStateOf(false) }
+    var showBottomSheet: Boolean by remember { mutableStateOf(false) }
     var bottomSheetState: SheetState = rememberStandardBottomSheetState(
-        initialValue = SheetValue.PartiallyExpanded,
-        confirmValueChange = { true },
+        initialValue = if(showBottomSheet) SheetValue.Expanded else SheetValue.Hidden,
         skipHiddenState = false
     )
     val bottomSheetStateCustom = rememberCustomBottomSheetState()
     var scaffoldState = rememberBottomSheetScaffoldState(bottomSheetState = bottomSheetState)
 
+    //show bottom sheet desde afuera y al abrir la app, esta oculto
+    /*Button(onClick = {
+        scope.launch {
+            scaffoldState.bottomSheetState.expand()
+            showBottomSheet = true
+        }
+    }
+    ) {
+        Text("Registrar")
+    }*/
+
     BottomSheetScaffold(
         sheetContent = {
-            Column(
-                modifier = Modifier,
-                horizontalAlignment = CenterHorizontally
-            ) {
+                Column(
+                    modifier = Modifier.padding(bottom = 90.dp),
+                    horizontalAlignment = CenterHorizontally
+                ) {
 
-                LazyColumn {
-                    items(50) {
-                        ListItem(
-                            headlineContent = { Text("Item $it") },
-                            leadingContent = {
-                                Icon(
-                                    imageVector = Icons.Default.Favorite,
-                                    contentDescription = null
-                                )
-                            }
-                        )
-                    }
-                    item {
-                        Box(
-                            modifier = Modifier
-                                .padding(16.dp, 16.dp)
-                                .fillMaxWidth()
-                                .background(Color(0xFF4CFF37)),
-                            contentAlignment = Alignment.Center
-                        ) {
+                    LazyColumn {
+                        items(50) {
+                            ListItem(
+                                headlineContent = { Text("Item $it") },
+                                leadingContent = {
+                                    Icon(
+                                        imageVector = Icons.Default.Favorite,
+                                        contentDescription = null
+                                    )
+                                }
+                            )
+                        }
+                        item {
+                            Box(
+                                modifier = Modifier
+                                    .padding(16.dp, 16.dp)
+                                    .fillMaxWidth()
+                                    .background(Color(0xFF4CFF37)),
+                                contentAlignment = Alignment.Center
+                            ) {
 
-                            Button(onClick = {
-
-                                scope.launch {
-                                    if (scaffoldState.bottomSheetState.isVisible) {
-                                        scaffoldState.bottomSheetState.hide()
-                                        showBottomSheetRegisterUser = true
+                                Button(onClick = {
+                                    scope.launch {
+                                        if (scaffoldState.bottomSheetState.isVisible) {
+                                            scaffoldState.bottomSheetState.hide()
+                                            showBottomSheet = true
+                                        }
                                     }
                                 }
-
-                                scope.launch {
-                                    scaffoldState.bottomSheetState.hide()
+                                ) {
+                                    Text("Registrar")
                                 }
 
                             }
-                            ) {
-                                Text("Registrar")
-                            }
-
                         }
                     }
-                }
 
-            }
+                }
         },
         modifier = Modifier
             .fillMaxSize(),
         scaffoldState = scaffoldState,
-        sheetPeekHeight = 90.dp,
+        sheetPeekHeight = if(showBottomSheet) 180.dp else 0.dp,
         sheetShadowElevation = 40.dp,
         sheetDragHandle = {
             Column(

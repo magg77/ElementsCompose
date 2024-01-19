@@ -13,6 +13,7 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -114,17 +115,21 @@ fun NavigationBarMaster(navController: NavHostController) {
                     }
                 },
                 label = {
-                    Text(text = item.title)
+                    Text(text = item.title, color = Color.White)
                 },
                 alwaysShowLabel = false,
                 icon = {
                     BadgedBox(badge = {
                         if (item.badgeCount != null) {
-                            Badge() {
-                                Text(text = item.badgeCount.toString())
+                            Badge(
+                                containerColor = Color(0xFFFFE000),
+                            ) {
+                                Text(text = item.badgeCount.toString(), color = MaterialTheme.colorScheme.surface)
                             }
                         } else if (item.hasNew) {
-                            Badge()
+                            Badge(
+                                containerColor = Color(0xFFFFE000),
+                            )
                         }
                     }) {
                         Icon(
@@ -136,7 +141,7 @@ fun NavigationBarMaster(navController: NavHostController) {
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color.Black,
+                    selectedIconColor = Color(0xFF5CC500),
                     unselectedTextColor = LightColors.textGrey,
                     unselectedIconColor = Color.Gray
                 )

@@ -134,7 +134,7 @@ fun ProfileScreen(navController: NavHostController) {
                             .border(
                                 width = 5.dp,
                                 shape = CircleShape,
-                                color = Color(0xFF747474)
+                                color = Color(0xFFE9EAF1)
                             ),
                         painter = painterResource(R.drawable.user_app),
                         contentDescription = "Profile Pic"

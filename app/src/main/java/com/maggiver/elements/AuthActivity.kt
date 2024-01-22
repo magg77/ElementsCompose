@@ -41,8 +41,8 @@ class AuthActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = RoutesAuth.AuthStartRoute.route,
-                        route = RootGraph.ROOT_NAVIGATION_GRAPH
+                        startDestination = RoutesAuth.AUTH_ROOT_ROUTE.route,
+                        route = RootGraph.ROOT_NAVIGATION_AUTH
                     ) {
                         NavigationGraphAuth(navController = navController, contextLocal = contextLocal)
                     }

@@ -38,9 +38,10 @@ import com.maggiver.elements.ui.rentalcar.screens.auth.RegisterScreen
  */
 
 fun NavGraphBuilder.NavigationGraphAuth(navController: NavController, contextLocal: Context) {
+
     navigation(
         startDestination = RoutesAuth.LoginRoute.route,
-        route = RoutesAuth.AuthStartRoute.route
+        route = RoutesAuth.AUTH_ROOT_ROUTE.route
     ) {
 
         composable(RoutesAuth.LoginRoute.route) {
@@ -90,9 +91,9 @@ fun NavGraphBuilder.NavigationGraphAuth(navController: NavController, contextLoc
                 },
                 navigateToLogin = {
                     navController.navigate(
-                        route = RootGraph.ROOT_NAVIGATION_GRAPH,
+                        route = RootGraph.ROOT_NAVIGATION_AUTH,
                         navOptions = NavOptions.Builder()
-                            .setPopUpTo(RoutesAuth.AuthStartRoute.route, true).build()
+                            .setPopUpTo(RoutesAuth.AUTH_ROOT_ROUTE.route, true).build()
                     )
                 }
             )

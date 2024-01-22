@@ -20,7 +20,7 @@ buildscript {
 
     val compose_ui by extra("1.5.3")
     /*val compose_navigation by extra("2.6.0")*/
-    val compose_navigation by extra("2.7.4")
+    val compose_navigation by extra("2.7.6")
 
     val API_URL_BASE_DEV by extra("https://www.api.com./")
     val API_URL_BASE_PROD by extra("https://www.api.com./")

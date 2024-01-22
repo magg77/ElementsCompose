@@ -1,9 +1,11 @@
 package com.maggiver.elements.ui.rentalcar.navigation
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
@@ -36,6 +38,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.maggiver.elements.ui.rentalcar.navigation.routes.RootGraph
@@ -76,7 +79,9 @@ import com.maggiver.elements.ui.theme.LightColors
 @Composable
 fun NavigationGraphMasterApp(navController: NavHostController) {
     Scaffold(
-        modifier = Modifier.fillMaxSize().background(Color(0xFFFF4242)),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFFF4242)),
         topBar = {
             /*TopAppBar(title = { Text(text = "HeladoMagg") })*/
         },
@@ -161,86 +166,70 @@ fun NavigationBarMaster(navController: NavHostController) {
 fun NavigationGraphMasterApp(navController: NavHostController, paddingValue: PaddingValues) {
     NavHost(
         navController = navController,
-        startDestination = RoutesMaster.MasterStartRoute.route,
-        route = RootGraph.MASTER_CONTENT_APP
+        startDestination = RoutesMaster.HomeRoute.route,
+        route = RootGraph.ROOT_NAVIGATION_MASTER
     ) {
 
-        navigation(
-            startDestination = RoutesMaster.HomeRoute.route,
-            route = RoutesMaster.MasterStartRoute.route
-        ) {
-
-            composable(route = RoutesMaster.HomeRoute.route) {
-                HomeRentalCar(
-                    navController,
-                    onClickNavigateToSearchCustom = { navController.navigate(RootGraph.HOME_CONTENT_SEARCH_CUSTOM) })
-            }
-            composable(
-                route = "DetailRentalCar/{typeDataSend}/{carCarouselPosition}",
-                arguments = listOf(
-                    navArgument("typeDataSend") { type = NavType.StringType },
-                    navArgument("carCarouselPosition") { type = NavType.IntType }
-                )
-            ) { backStackEntry ->
-                DetailRentalCar(
-                    navController = navController,
-                    typeDataSend = backStackEntry.arguments?.getString("typeDataSend") ?: "",
-                    carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition")
-                        ?: 0
-                )
-            }
-
-
-
-            composable(RoutesMaster.CartRoute.route) {
-                CarScreen(navController = navController)
-            }
-            composable(
-                route = "PurchaseCar/{carCarouselPosition}",
-                arguments = listOf(
-                    navArgument("carCarouselPosition") { type = NavType.IntType }
-                )
-            ) { backStackEntry ->
-                PurchaseCar(
-                    navController = navController,
-                    carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition")
-                        ?: 0
-                )
-            }
-
-
-
-            composable(RoutesMaster.ProfileRoute.route) {
-                ProfileScreen(navController = navController)
-            }
-
-
-            searchCustomCar(navController = navController)
-
-
+        //HOME       *********************************************************************
+        composable(route = RoutesMaster.HomeRoute.route) {
+            HomeRentalCar(
+                navController,
+                onClickNavigateToSearchCustom = { navController.navigate(RoutesMasterSearchCustom.SearchCustomRoute.route) }
+            )
         }
+        composable(
+            route = "DetailRentalCar/{typeDataSend}/{carCarouselPosition}",
+            arguments = listOf(
+                navArgument("typeDataSend") { type = NavType.StringType },
+                navArgument("carCarouselPosition") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            DetailRentalCar(
+                navController = navController,
+                typeDataSend = backStackEntry.arguments?.getString("typeDataSend") ?: "",
+                carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition")
+                    ?: 0
+            )
+        }
+
+
+        //CAR       *********************************************************************
+        composable(RoutesMaster.CartRoute.route) {
+            CarScreen(navController = navController)
+        }
+        composable(
+            route = "PurchaseCar/{carCarouselPosition}",
+            arguments = listOf(
+                navArgument("carCarouselPosition") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            PurchaseCar(
+                navController = navController,
+                carCarouselPosition = backStackEntry.arguments?.getInt("carCarouselPosition")
+                    ?: 0
+            )
+        }
+
+
+        //PROFILE       *********************************************************************
+        composable(RoutesMaster.ProfileRoute.route) {
+            ProfileScreen(
+                navController = navController
+            ) { /*navController.navigate(RootGraph.HOME_CONTENT_SEARCH_CUSTOM)*/ }
+        }
+
+        ContentSearchHome(navController)
+
+
     }
 }
 
-fun NavGraphBuilder.searchCustomCar(navController: NavHostController) {
-    navigation(
-        route = RootGraph.HOME_CONTENT_SEARCH_CUSTOM,
-        startDestination = RoutesMasterSearchCustom.SearchCustomRoute.route
-    ) {
+fun NavGraphBuilder.ContentSearchHome(navController: NavHostController) {
 
-        composable(route = RoutesMasterSearchCustom.SearchCustomRoute.route) {
-            SearchCustomScreen(navController = navController) {
+    composable(route = RoutesMasterSearchCustom.SearchCustomRoute.route) {
+        SearchCustomScreen(navController = navController) {
 
-            }
         }
-        /*composable(route = DetailsScreen.Overview.route) {
-            HomeScreen_Detail_Overview(name = DetailsScreen.Overview.route) {
-                navController.popBackStack(
-                    route = DetailsScreen.Information.route,
-                    inclusive = false
-                )
-            }
-        }*/
     }
 }
 

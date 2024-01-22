@@ -51,6 +51,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -89,11 +90,13 @@ import com.maggiver.elements.ui.theme.profileInfoColor
 @Preview(showBackground = true, showSystemUi = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ProfileScreenPreview() {
-    ProfileScreen(navController = rememberNavController())
+    ProfileScreen(navController = rememberNavController()) {
+
+    }
 }
 
 @Composable
-fun ProfileScreen(navController: NavHostController) {
+fun ProfileScreen(navController: NavHostController, onClickNavigateToSearchCustom: () -> Unit) {
 
     val isDark = true
     val settingsTitles = arrayOf(
@@ -275,6 +278,15 @@ fun ProfileScreen(navController: NavHostController) {
                     }
 
 
+                    Text(
+                        text = "Te ayudamos a encontrar un auto",
+                        modifier = Modifier.clickable { /*onClickNavigateToSearchCustom()*/ },
+                        color = Color.Black,
+                        textAlign = TextAlign.Start,
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = TextDecoration.None
+                    )
 
                     Spacer(modifier = Modifier.height(40.dp))
                 }

@@ -23,7 +23,7 @@ package com.maggiver.elements.ui.rentalcar.navigation.routes
  */
  
 sealed class RoutesAuth(val route: String) {
-    object AuthStartRoute: RoutesAuth(route = "auth")
+    object AUTH_ROOT_ROUTE : RoutesAuth(route = "auth")
 
     object LoginRoute: RoutesAuth(route = "login")
     object RegisterRoute: RoutesAuth(route = "register")

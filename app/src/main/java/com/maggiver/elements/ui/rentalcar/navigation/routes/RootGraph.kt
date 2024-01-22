@@ -23,8 +23,7 @@ package com.maggiver.elements.ui.rentalcar.navigation.routes
  */
 
 object RootGraph {
-    const val ROOT_NAVIGATION_GRAPH = "ROOT_NAVIGATION_GRAPH"
-    const val MASTER_CONTENT_APP = "MASTER_CONTENT_APP"
-
+    const val ROOT_NAVIGATION_AUTH = "ROOT_NAVIGATION_AUTH"
+    const val ROOT_NAVIGATION_MASTER = "MASTER_NAVIGATION_MASTER"
     const val HOME_CONTENT_SEARCH_CUSTOM = "HOME_CONTENT_SEARCH_CUSTOM"
 }

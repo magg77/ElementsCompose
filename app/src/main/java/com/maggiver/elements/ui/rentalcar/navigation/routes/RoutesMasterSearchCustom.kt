@@ -24,6 +24,7 @@ package com.maggiver.elements.ui.rentalcar.navigation.routes
  
 sealed class RoutesMasterSearchCustom(val route: String) {
 
+    object SEARCH_ROOT_ROUTE : RoutesMaster(route = "search_home")
     object SearchCustomRoute: RoutesMasterSearchCustom(route = "search_custom_home")
 
 }

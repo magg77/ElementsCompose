@@ -94,10 +94,10 @@ dependencies {
     //hilt
         implementation("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
         implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    kapt("com.google.dagger:hilt-android-compiler:${rootProject.extra["hilt_version"]}")
+        implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+        androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+        androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+        kapt("com.google.dagger:hilt-android-compiler:${rootProject.extra["hilt_version"]}")
         annotationProcessor("com.google.dagger:hilt-compiler:${rootProject.extra["hilt_version"]}")
         //kapt "com.google.dagger:hilt-compiler:$rootProject.hilt_version"
         ksp("com.google.dagger:hilt-compiler:${rootProject.extra["hilt_version"]}")

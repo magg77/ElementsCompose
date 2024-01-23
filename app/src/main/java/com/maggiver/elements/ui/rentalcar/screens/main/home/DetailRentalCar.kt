@@ -110,7 +110,7 @@ fun DetailRentalCar(
 
     Column(
         modifier = Modifier
-            .padding(bottom = 80.dp)
+            .padding(bottom = 0.dp)
             .background(Color(0xFF000000))
             .fillMaxSize()
             .verticalScroll(

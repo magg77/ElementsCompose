@@ -268,7 +268,7 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
 
         ConstraintLayout(
             modifier = Modifier
-                .padding(bottom = 0.dp)
+                .padding(bottom = 100.dp)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(Color(0xFFF5F5F5))
@@ -331,7 +331,6 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp),
-                    color = Color(0xFF000000),
                     textAlign = TextAlign.Start,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
@@ -508,7 +507,6 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp),
-                    color = Color(0xFF000000),
                     textAlign = TextAlign.Start,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
@@ -684,7 +682,6 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp),
-                    color = Color(0xFF000000),
                     textAlign = TextAlign.Start,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold

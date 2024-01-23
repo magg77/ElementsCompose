@@ -24,6 +24,6 @@ package com.maggiver.elements.ui.rentalcar.navigation.routes
  
 sealed class RoutesMaster(val route: String) {
     object HomeRoute: RoutesMaster(route = "home")
-    object CartRoute: RoutesMaster(route = "cart")
+    object CarRoute: RoutesMaster(route = "car")
     object ProfileRoute: RoutesMaster(route = "profile")
 }

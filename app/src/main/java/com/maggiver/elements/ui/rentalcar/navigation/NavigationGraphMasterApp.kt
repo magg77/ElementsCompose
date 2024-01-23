@@ -1,14 +1,15 @@
 package com.maggiver.elements.ui.rentalcar.navigation
 
+import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
@@ -91,76 +93,87 @@ fun NavigationGraphMasterApp(navController: NavHostController = rememberNavContr
 fun NavigationBarMaster(navController: NavHostController) {
 
     val screens = listOf(
-        RoutesMaster.HomeRoute,
+        BottomNavigationItem.Home,
+        BottomNavigationItem.Car,
+        BottomNavigationItem.Profile
     )
 
-    NavigationBar(
-        modifier = Modifier
-    ) {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        var currentDestination = navBackStackEntry?.destination
-        var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+    var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
 
-        TOP_LEVEL_DESTINATIONS.forEachIndexed { index, item ->
-
-            var selected2 = currentDestination?.hierarchy?.any { it.route == item.route } == true
-            Log.i("click", "selected2 = $selected2")
-
-            NavigationBarItem(
-                modifier = Modifier,
-                selected = selected2,
-                onClick = {
-                    Log.i("click", "selec = $index")
-
-                    selectedItemIndex = index
-                    navController.navigate(item.route) {
-                        Log.i("click", "${navController.graph.findStartDestination().id}")
-                        popUpTo(
-                            navController.graph.findStartDestination().id
-                        ) {
-                            saveState = true
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                },
-                label = {
-                    Text(text = item.title, color = Color.White)
-                },
-                alwaysShowLabel = false,
-                icon = {
-                    BadgedBox(badge = {
-                        if (item.badgeCount != null) {
-                            Badge(
-                                containerColor = Color(0xFFFFE000),
-                            ) {
-                                Text(
-                                    text = item.badgeCount.toString(),
-                                    color = MaterialTheme.colorScheme.surface
-                                )
-                            }
-                        } else if (item.hasNew) {
-                            Badge(
-                                containerColor = Color(0xFFFFE000),
-                            )
-                        }
-                    }) {
-                        Icon(
-                            imageVector = if (index == selectedItemIndex) {
-                                item.selectedIcon
-                            } else item.uselectedIcon,
-                            contentDescription = item.title
-                        )
-                    }
-                },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color(0xFF5CC500),
-                    unselectedTextColor = LightColors.textGrey,
-                    unselectedIconColor = Color.Gray
+    if (bottomBarDestination) {
+        NavigationBar {
+            screens.forEachIndexed { index, item ->
+                AddItemNavigation(
+                    screen = item,
+                    currentDestination = currentDestination,
+                    navController = navController
                 )
-            )
+            }
         }
     }
+}
+
+@SuppressLint("RestrictedApi")
+@Composable
+fun RowScope.AddItemNavigation(
+    screen: BottomNavigationItem,
+    currentDestination: NavDestination?,
+    navController: NavHostController
+) {
+    NavigationBarItem(
+        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+        onClick = {
+            navController.navigate(screen.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        },
+        icon = {
+            BadgedBox(
+                badge = {
+                    if (screen.badgeCount != null) {
+                        Badge(
+                            containerColor = Color(0xFFFFE000),
+                        ) {
+                            Text(
+                                text = screen.badgeCount.toString(),
+                                color = MaterialTheme.colorScheme.surface
+                            )
+                        }
+                    } else if (screen.hasNew) {
+                        Badge(
+                            containerColor = Color(0xFFFFE000),
+                        )
+                    }
+                }
+            ) {
+                Icon(
+                    imageVector = if (navController.currentDestination?.route == screen.route) {
+                        screen.selectedIcon
+                    } else {
+                        screen.uselectedIcon
+                    },
+                    contentDescription = screen.title,
+                    tint = Color(0xFF5CC500)
+                )
+            }
+        },
+        modifier = Modifier,
+        enabled = true,
+        label = { Text(text = screen.title, color = Color.White) },
+        alwaysShowLabel = false,
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = Color(0xFF5CC500),
+            unselectedTextColor = LightColors.textGrey,
+            unselectedIconColor = Color.Gray
+        )
+    )
 }
 
 @Composable
@@ -195,7 +208,7 @@ fun NavigationGraphMasterApp(navController: NavHostController, paddingValue: Pad
 
 
         //CAR       *********************************************************************
-        composable(RoutesMaster.CartRoute.route) {
+        composable(RoutesMaster.CarRoute.route) {
             CarScreen(navController = navController)
         }
         composable(
@@ -239,38 +252,39 @@ fun NavGraphBuilder.ContentSearchHome(navController: NavHostController) {
     }
 }
 
-data class BottomNavigationItem(
+sealed class BottomNavigationItem(
     val title: String,
     val route: String,
     val selectedIcon: ImageVector,
     val uselectedIcon: ImageVector,
     val hasNew: Boolean,
     val badgeCount: Int? = null
-)
-
-val TOP_LEVEL_DESTINATIONS = listOf(
-    BottomNavigationItem(
-        "Home",
-        RoutesMaster.HomeRoute.route,
+) {
+    data object Home : BottomNavigationItem(
+        title = "Home",
+        route = RoutesMaster.HomeRoute.route,
         Icons.Filled.Home,
-        Icons.Filled.Home,
+        Icons.Outlined.Home,
         false,
         null
-    ),
-    BottomNavigationItem(
-        "Cart",
-        RoutesMaster.CartRoute.route,
+    )
+
+    data object Car : BottomNavigationItem(
+        title = "Car",
+        route = RoutesMaster.CarRoute.route,
         Icons.Filled.ShoppingCart,
         Icons.Outlined.ShoppingCart,
         true,
         7
-    ),
-    BottomNavigationItem(
-        "Profile",
-        RoutesMaster.ProfileRoute.route,
+    )
+
+    data object Profile : BottomNavigationItem(
+        title = "Profile",
+        route = RoutesMaster.ProfileRoute.route,
         Icons.Filled.AccountCircle,
         Icons.Outlined.AccountCircle,
         true,
         null
     )
-)
+}
+

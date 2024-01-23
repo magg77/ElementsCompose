@@ -3,6 +3,7 @@ package com.maggiver.elements.ui.rentalcar.screens.main.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,12 +46,11 @@ import androidx.navigation.NavHostController
 @Composable
 fun SearchCustomScreen(navController: NavHostController, onClick: () -> Unit) {
 
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Blue)
-                .zIndex(5f),
+                .background(Color.Blue),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

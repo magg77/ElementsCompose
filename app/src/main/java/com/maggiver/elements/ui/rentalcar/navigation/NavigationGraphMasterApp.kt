@@ -1,11 +1,9 @@
 package com.maggiver.elements.ui.rentalcar.navigation
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
@@ -77,22 +75,25 @@ import com.maggiver.elements.ui.theme.LightColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationGraphMasterApp(navController: NavHostController) {
+fun NavigationGraphMasterApp(navController: NavHostController = rememberNavController()) {
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFFF4242)),
+        modifier = Modifier,
         topBar = {
             /*TopAppBar(title = { Text(text = "HeladoMagg") })*/
         },
-        bottomBar = { NavigationBarMaster(navController) }
+        bottomBar = { NavigationBarMaster(navController = navController) }
     ) {
-        NavigationGraphMasterApp(navController, it)
+        NavigationGraphMasterApp(navController = navController, it)
     }
 }
 
 @Composable
 fun NavigationBarMaster(navController: NavHostController) {
+
+    val screens = listOf(
+        RoutesMaster.HomeRoute,
+    )
+
     NavigationBar(
         modifier = Modifier
     ) {
@@ -167,14 +168,14 @@ fun NavigationGraphMasterApp(navController: NavHostController, paddingValue: Pad
     NavHost(
         navController = navController,
         startDestination = RoutesMaster.HomeRoute.route,
-        route = RootGraph.ROOT_NAVIGATION_MASTER
+        route = RootGraph.ROOT_ROUTE_MAIN
     ) {
 
         //HOME       *********************************************************************
         composable(route = RoutesMaster.HomeRoute.route) {
             HomeRentalCar(
                 navController,
-                onClickNavigateToSearchCustom = { navController.navigate(RoutesMasterSearchCustom.SearchCustomRoute.route) }
+                onClickNavigateToSearchCustom = { navController.navigate(RootGraph.HOME_CONTENT_SEARCH_CUSTOM) }
             )
         }
         composable(
@@ -226,9 +227,14 @@ fun NavigationGraphMasterApp(navController: NavHostController, paddingValue: Pad
 
 fun NavGraphBuilder.ContentSearchHome(navController: NavHostController) {
 
-    composable(route = RoutesMasterSearchCustom.SearchCustomRoute.route) {
-        SearchCustomScreen(navController = navController) {
+    navigation(
+        route = RootGraph.HOME_CONTENT_SEARCH_CUSTOM,
+        startDestination = RoutesMasterSearchCustom.SearchCustomRoute.route
+    ) {
+        composable(route = RoutesMasterSearchCustom.SearchCustomRoute.route) {
+            SearchCustomScreen(navController = navController) {
 
+            }
         }
     }
 }

@@ -235,8 +235,7 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
             }
         },
         modifier = Modifier
-            .fillMaxSize()
-            .zIndex(1f),
+            .fillMaxSize(),
         scaffoldState = scaffoldState,
         sheetPeekHeight = if (showBottomSheet) 180.dp else 0.dp,
         sheetShadowElevation = 40.dp,

@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.maggiver.elements.ui.rentalcar.navigation.NavigationGraphAuth
+import com.maggiver.elements.ui.rentalcar.navigation.NavigationGraphMasterApp
 import com.maggiver.elements.ui.rentalcar.navigation.routes.RootGraph
 import com.maggiver.elements.ui.rentalcar.navigation.routes.RoutesAuth
 import com.maggiver.elements.ui.rentalcar.screens.auth.ForgetPasswordScreen
@@ -31,22 +32,24 @@ class AuthActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ElementsTheme {
-                // A surface container using the 'background' color from the theme
-                Scaffold(
-                    Modifier.fillMaxSize()
+
+                val contextLocal = LocalContext.current
+                val navController = rememberNavController()
+
+                NavHost(
+                    navController = navController,
+                    startDestination = RootGraph.ROOT_DESTINATION_AUTH,
+                    route = RootGraph.ROOT_ROUTE_AUTH
                 ) {
 
-                    val contextLocal = LocalContext.current
-                    val navController = rememberNavController()
+                    NavigationGraphAuth(navController = navController, contextLocal = contextLocal)
 
-                    NavHost(
-                        navController = navController,
-                        startDestination = RoutesAuth.AUTH_ROOT_ROUTE.route,
-                        route = RootGraph.ROOT_NAVIGATION_AUTH
-                    ) {
-                        NavigationGraphAuth(navController = navController, contextLocal = contextLocal)
+                    composable(route = RootGraph.ROOT_ROUTE_MAIN) {
+                        NavigationGraphMasterApp()
                     }
+
                 }
+
             }
         }
     }

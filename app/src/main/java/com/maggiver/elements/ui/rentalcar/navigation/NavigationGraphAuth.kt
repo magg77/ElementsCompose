@@ -1,14 +1,11 @@
 package com.maggiver.elements.ui.rentalcar.navigation
 
 import android.content.Context
-import android.content.Intent
-import androidx.activity.ComponentActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.maggiver.elements.MainActivity
 import com.maggiver.elements.ui.rentalcar.navigation.routes.RootGraph
 import com.maggiver.elements.ui.rentalcar.navigation.routes.RoutesAuth
 import com.maggiver.elements.ui.rentalcar.screens.auth.ForgetPasswordScreen
@@ -41,17 +38,16 @@ fun NavGraphBuilder.NavigationGraphAuth(navController: NavController, contextLoc
 
     navigation(
         startDestination = RoutesAuth.LoginRoute.route,
-        route = RoutesAuth.AUTH_ROOT_ROUTE.route
+        route = RootGraph.ROOT_DESTINATION_AUTH
     ) {
 
         composable(RoutesAuth.LoginRoute.route) {
             LoginScreen(
                 navController = navController,
                 onClickLogin = {
-                    contextLocal.startActivity(
-                        Intent(contextLocal, MainActivity::class.java)
-                    )
-                    (contextLocal as ComponentActivity).finish()
+                    navController.navigate(route = RootGraph.ROOT_ROUTE_MAIN){
+                        popUpTo(RoutesAuth.LoginRoute.route) { inclusive = true }
+                    }
                 },
                 navigateToRegister = {
                     navController.navigate(RoutesAuth.RegisterRoute.route)
@@ -66,10 +62,10 @@ fun NavGraphBuilder.NavigationGraphAuth(navController: NavController, contextLoc
             RegisterScreen(
                 navController = navController,
                 onClickRegister = {
-                    contextLocal.startActivity(
+                    /*contextLocal.startActivity(
                         Intent(contextLocal, MainActivity::class.java)
                     )
-                    (contextLocal as ComponentActivity).finish()
+                    (contextLocal as ComponentActivity).finish()*/
                 },
                 navigateToLogin = {
                     /*navController.navigate(
@@ -86,12 +82,12 @@ fun NavGraphBuilder.NavigationGraphAuth(navController: NavController, contextLoc
             ForgetPasswordScreen(
                 navController = navController,
                 onClickForgotPassword = {
-                    contextLocal.startActivity(Intent(contextLocal, MainActivity::class.java))
-                    (contextLocal as ComponentActivity).finish()
+                    /*contextLocal.startActivity(Intent(contextLocal, MainActivity::class.java))
+                    (contextLocal as ComponentActivity).finish()*/
                 },
                 navigateToLogin = {
                     navController.navigate(
-                        route = RootGraph.ROOT_NAVIGATION_AUTH,
+                        route = RootGraph.ROOT_ROUTE_AUTH,
                         navOptions = NavOptions.Builder()
                             .setPopUpTo(RoutesAuth.AUTH_ROOT_ROUTE.route, true).build()
                     )

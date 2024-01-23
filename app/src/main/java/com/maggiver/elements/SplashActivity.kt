@@ -20,14 +20,11 @@ class SplashActivity : ComponentActivity() {
 
         setContent {
             val context = LocalContext.current
-            if (statusLoginUser) {
-                context.startActivity(Intent(context, MainActivity::class.java))
-                (context as Activity).finish()
-            } else {
-                context.startActivity(Intent(context, AuthActivity::class.java))
-                (context as Activity).finish()
-                finish()
-            }
+
+            context.startActivity(Intent(context, AuthActivity::class.java))
+            (context as Activity).finish()
+            finish()
+
         }
     }
 }

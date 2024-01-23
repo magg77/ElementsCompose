@@ -71,9 +71,9 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.0")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.activity:activity-compose:1.8.2")
 
     //constraintLayout
         //implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
@@ -87,7 +87,10 @@ dependencies {
     //live-data & view-model & navigation
         implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")      //Optional - Integration with ViewModels
         implementation("androidx.compose.runtime:runtime-livedata")                 // Optional - Integration with LiveData
+
+    //navigation
         implementation("androidx.navigation:navigation-compose:${rootProject.extra["compose_navigation"]}")
+        implementation("androidx.navigation:navigation-common-ktx:2.7.6")
         /*implementation("androidx.lifecycle:lifecycle-livedata-ktx:${rootProject.extra["liveData"]}")
         implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.extra["liveData"]}")*/
 
@@ -117,7 +120,6 @@ dependencies {
         implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.0.0-alpha02")
         implementation("androidx.compose.material:material-icons-extended-android:1.5.4")
         /*implementation("com.google.android.material:material:${rootProject.extra["materialDesing"]}")*/
-
 
     //splash-screen
         implementation("androidx.core:core-splashscreen:1.0.1")

@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.rentalcar.screens.main.carShopping
+package com.maggiver.elements.ui.rentalcar.screens.main.cartShopping
 
 import android.widget.Toast
 import androidx.compose.foundation.Image

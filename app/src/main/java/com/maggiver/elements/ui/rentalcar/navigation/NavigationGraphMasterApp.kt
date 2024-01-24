@@ -1,7 +1,6 @@
 package com.maggiver.elements.ui.rentalcar.navigation
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
@@ -13,7 +12,6 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -44,8 +42,8 @@ import androidx.navigation.navigation
 import com.maggiver.elements.ui.rentalcar.navigation.routes.RootGraph
 import com.maggiver.elements.ui.rentalcar.navigation.routes.RoutesMaster
 import com.maggiver.elements.ui.rentalcar.navigation.routes.RoutesMasterSearchCustom
-import com.maggiver.elements.ui.rentalcar.screens.main.carShopping.CarScreen
-import com.maggiver.elements.ui.rentalcar.screens.main.carShopping.PurchaseCar
+import com.maggiver.elements.ui.rentalcar.screens.main.cartShopping.CartScreen
+import com.maggiver.elements.ui.rentalcar.screens.main.cartShopping.PurchaseCar
 import com.maggiver.elements.ui.rentalcar.screens.main.home.DetailRentalCar
 import com.maggiver.elements.ui.rentalcar.screens.main.home.HomeRentalCar
 import com.maggiver.elements.ui.rentalcar.screens.main.home.SearchCustomScreen
@@ -74,8 +72,6 @@ import com.maggiver.elements.ui.theme.LightColors
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationGraphMasterApp(navController: NavHostController = rememberNavController()) {
     Scaffold(
@@ -208,8 +204,8 @@ fun NavigationGraphMasterApp(navController: NavHostController, paddingValue: Pad
 
 
         //CAR       *********************************************************************
-        composable(RoutesMaster.CarRoute.route) {
-            CarScreen(navController = navController)
+        composable(RoutesMaster.CartRoute.route) {
+            CartScreen(navController = navController)
         }
         composable(
             route = "PurchaseCar/{carCarouselPosition}",
@@ -270,8 +266,8 @@ sealed class BottomNavigationItem(
     )
 
     data object Car : BottomNavigationItem(
-        title = "Car",
-        route = RoutesMaster.CarRoute.route,
+        title = "Cart",
+        route = RoutesMaster.CartRoute.route,
         Icons.Filled.ShoppingCart,
         Icons.Outlined.ShoppingCart,
         true,

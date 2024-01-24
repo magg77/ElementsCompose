@@ -9,7 +9,7 @@ import androidx.navigation.navArgument
 import com.maggiver.elements.ui.rentalcar.screens.main.profile.ChatScreen
 import com.maggiver.elements.ui.rentalcar.screens.main.home.DetailRentalCar
 import com.maggiver.elements.ui.rentalcar.screens.main.home.HomeRentalCar
-import com.maggiver.elements.ui.rentalcar.screens.main.carShopping.PurchaseCar
+import com.maggiver.elements.ui.rentalcar.screens.main.cartShopping.PurchaseCar
 import com.maggiver.elements.ui.rentalcar.screens.main.SplashRentalCar
 
 

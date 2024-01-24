@@ -17,6 +17,7 @@ object LightColors {
     val background = Color(0xFFfffbff)
     val primary = Color(0xFFfebd38)
     val primaryContainer = Color(0xFFffdad8)
+
     val secondary = Color(0xFF140e27)
     val tertiary = Color(0xFF745a2f)
     val tertiaryContainer = Color(0xFFffdeab)

@@ -268,7 +268,7 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
 
         ConstraintLayout(
             modifier = Modifier
-                .padding(bottom = 100.dp)
+                .padding(bottom = 70.dp)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(Color(0xFFF5F5F5))

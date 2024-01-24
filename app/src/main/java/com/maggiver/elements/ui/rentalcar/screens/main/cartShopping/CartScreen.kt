@@ -1,4 +1,4 @@
-package com.maggiver.elements.ui.rentalcar.screens.main.carShopping
+package com.maggiver.elements.ui.rentalcar.screens.main.cartShopping
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -79,7 +79,7 @@ import com.maggiver.elements.ui.rentalcar.repo.DataUtils
  */
 
 @Composable
-fun CarScreen(navController: NavHostController) {
+fun CartScreen(navController: NavHostController) {
 
     var carCarouselPosition = 1
     val dataCarCarousel = DataUtils.carCarouel[carCarouselPosition]

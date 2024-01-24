@@ -927,7 +927,7 @@ fun CustomSearchInput(
         text = "Te ayudamos a encontrar un auto",
         modifier = Modifier.clickable { onClickNavigateToSearchCustom() },
         textAlign = TextAlign.Start,
-        fontSize = 28.sp,
+        fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
         textDecoration = TextDecoration.None
     )
@@ -965,7 +965,7 @@ fun CustomSearchInput(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(54.dp)
+                .height(42.dp)
                 .clickable { }
                 .onFocusChanged {
                     isFocusedCard = it.isFocused
@@ -1038,7 +1038,7 @@ fun CustomSearchInput(
                 },
                 trailingIcon = {
                     Icon(
-                        Icons.Filled.CarRental,
+                        Icons.Filled.Search,
                         contentDescription = null,
                         tint = if (isFocusedCard) {
                             Color(0xFF585858)
@@ -1046,8 +1046,7 @@ fun CustomSearchInput(
                             LocalContentColor.current.copy(alpha = 0.7f)
                         },
                         modifier = Modifier
-                            .size(54.dp)
-                            .padding(end = 16.dp)
+                            .size(25.dp)
                     )
                 },
                 colors = OutlinedTextFieldDefaults.colors(

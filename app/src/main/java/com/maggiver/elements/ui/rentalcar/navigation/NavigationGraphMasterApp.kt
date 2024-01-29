@@ -100,7 +100,10 @@ fun NavigationBarMaster(navController: NavHostController) {
     var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
 
     if (bottomBarDestination) {
-        NavigationBar {
+        NavigationBar(
+            modifier = Modifier,
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
+        ) {
             screens.forEachIndexed { index, item ->
                 AddItemNavigation(
                     screen = item,
@@ -135,16 +138,16 @@ fun RowScope.AddItemNavigation(
                 badge = {
                     if (screen.badgeCount != null) {
                         Badge(
-                            containerColor = Color(0xFFFFE000),
+                            /*containerColor = Color(0xFFFFE000)*/
                         ) {
                             Text(
                                 text = screen.badgeCount.toString(),
-                                color = MaterialTheme.colorScheme.surface
+                                /*color = MaterialTheme.colorScheme.surface*/
                             )
                         }
                     } else if (screen.hasNew) {
                         Badge(
-                            containerColor = Color(0xFFFFE000),
+                            /*containerColor = Color(0xFFFFE000)*/
                         )
                     }
                 }
@@ -156,18 +159,18 @@ fun RowScope.AddItemNavigation(
                         screen.uselectedIcon
                     },
                     contentDescription = screen.title,
-                    tint = Color(0xFF5CC500)
+                    /*tint = Color(0xFF202020)*/
                 )
             }
         },
         modifier = Modifier,
         enabled = true,
-        label = { Text(text = screen.title, color = Color.White) },
+        label = { Text(text = screen.title) },
         alwaysShowLabel = false,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = Color(0xFF5CC500),
+            /*selectedIconColor = Color(0xFF202020),
             unselectedTextColor = LightColors.textGrey,
-            unselectedIconColor = Color.Gray
+            unselectedIconColor = Color.Gray*/
         )
     )
 }

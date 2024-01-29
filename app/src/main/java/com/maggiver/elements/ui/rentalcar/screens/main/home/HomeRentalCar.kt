@@ -66,6 +66,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
@@ -271,21 +272,20 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 .padding(bottom = 70.dp)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .background(Color(0xFFF5F5F5))
         ) {
-            val (PERFIL, CAROUSEL,
+            val (SEARCH, CAROUSEL,
                 URBANOS_TITLE, CARS_URBANOS,
                 CAMIONES_TITLE, CARS_CAMIONES,
                 MOTOCARROS_TITLE, CARS_MOTOCARROS) = createRefs()
 
 
             //Search
-            Column(
+            Surface(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp, top = 16.dp)
                     .fillMaxWidth()
                     .padding(start = 8.dp, end = 0.dp, top = 8.dp, bottom = 8.dp)
-                    .constrainAs(PERFIL) {
+                    .constrainAs(SEARCH) {
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                         top.linkTo(parent.top)
@@ -302,11 +302,11 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
             //CAROUSEL
             Column(
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 20.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 0.dp)
                     .constrainAs(CAROUSEL) {
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                        top.linkTo(PERFIL.bottom)
+                        top.linkTo(SEARCH.bottom)
 
                     },
                 horizontalAlignment = CenterHorizontally
@@ -318,7 +318,7 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 }
             }
 
-            //URBANOS_TITLE
+            //CARS_URBANOS *******************************************
             Column(
                 modifier = Modifier.constrainAs(URBANOS_TITLE) {
                     start.linkTo(parent.start)
@@ -337,7 +337,6 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 )
             }
 
-            //CARS_URBANOS
             LazyRow(
                 modifier = Modifier
                     .padding(top = 32.dp)
@@ -349,152 +348,167 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                     }
             ) {
                 items(listAvailableCars) { item ->
-                    ConstraintLayout(
-                        modifier = Modifier
-                            .fillMaxWidth(1f)
-                    ) {
 
-                        val (rowEmptyContent, imageCar, modelCarUrban, detailsCarUrban) = createRefs()
-                        val guidelineImage = createGuidelineFromStart(0.1f)
-
-                        //imagen
-                        Row(
+                        ConstraintLayout(
                             modifier = Modifier
-                                .fillParentMaxWidth(0.8f)
-                                .height(80.dp)
-                                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                                .clip(
-                                    shape = RoundedCornerShape(
-                                        topStart = 16.dp,
-                                        topEnd = 16.dp
-                                    )
-                                )
-                                .background(Color(0xFF121529))
-                                .constrainAs(rowEmptyContent) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    top.linkTo(parent.top)
-                                }
-                        ) {}
-
-                        Image(
-                            painter = painterResource(id = item.pathCarModel),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .height(100.dp)
-                                .constrainAs(imageCar) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    bottom.linkTo(modelCarUrban.top)
-                                    width = Dimension.wrapContent
-                                    height = Dimension.wrapContent
-                                },
-                            alignment = Alignment.Center,
-                            contentScale = ContentScale.Crop,
-                        )
-
-                        //modelCar
-                        Column(
-                            modifier = Modifier
-                                .fillParentMaxWidth(0.8f)
-                                .constrainAs(modelCarUrban) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    top.linkTo(rowEmptyContent.bottom)
-                                }
+                                .fillMaxWidth(1f)
                         ) {
+
+                            val (rowEmptyContent, imageCar, modelCarUrban, detailsCarUrban) = createRefs()
+                            val guidelineImage = createGuidelineFromStart(0.1f)
+
+                            //imagen
                             Row(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 16.dp, end = 16.dp)
-                                    .background(Color(0xFF121529))
-                            ) {
-
-                                //model car
-                                Column(
-                                    modifier = Modifier
-                                        .padding(start = 16.dp)
-                                ) {
-                                    Text(
-                                        text = item.modelCar,
-                                        modifier = Modifier,
-                                        color = Color(0xFFFFFFFF),
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-
-                                    Text(
-                                        text = item.aniocModel,
-                                        modifier = Modifier,
-                                        color = Color(0xFFA4A4A4),
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
-
-                            }
-
-                            //precio & button_Detalles
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
+                                    .fillParentMaxWidth(0.8f)
+                                    .height(100.dp)
+                                    .padding(start = 0.dp, end = 0.dp, top = 70.dp)
                                     .clip(
                                         shape = RoundedCornerShape(
-                                            bottomStart = 16.dp, bottomEnd = 16.dp
+                                            topStart = 32.dp,
+                                            topEnd = 32.dp
                                         )
                                     )
-                                    .background(Color(0xFF121529))
-                                    .padding(
-                                        start = 16.dp,
-                                        end = 16.dp,
-                                        top = 16.dp,
-                                        bottom = 16.dp
-                                    ),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Text(
-                                    text = item.hourlyRental,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(bottom = 18.dp),
-                                    color = Color(0xFFFFFFFF),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
+                                    .background(Color(0xFFFF1A1A))
+                                    /*.background(Color(0xFFF0F0F0))*/
+                                    .constrainAs(rowEmptyContent) {
+                                        start.linkTo(parent.start)
+                                        end.linkTo(parent.end)
+                                        top.linkTo(parent.top)
+                                    }
+                            ) {}
 
-                                typeDataSend = "lazyColum"
+                            Image(
+                                painter = painterResource(id = item.pathCarModel),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .height(100.dp)
+                                    .constrainAs(imageCar) {
+                                        start.linkTo(parent.start)
+                                        end.linkTo(parent.end)
+                                        bottom.linkTo(modelCarUrban.top)
+                                        width = Dimension.wrapContent
+                                        height = Dimension.wrapContent
+                                    },
+                                alignment = Alignment.Center,
+                                contentScale = ContentScale.Crop,
+                            )
 
-                                Button(
-                                    onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                            ElevatedCard(
+                                modifier = Modifier
+                                    .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 16.dp)
+                                    .fillParentMaxWidth(0.8f)
+                                    .constrainAs(modelCarUrban) {
+                                        start.linkTo(parent.start)
+                                        end.linkTo(parent.end)
+                                        top.linkTo(rowEmptyContent.bottom)
+                                    },
+                                shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = Color(0xFFFF1A1A),
+                                    contentColor = Color(0xFF222222)  //Card content color,e.g.text
+                                ),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
+                            ){
+                                //modelCar
+                                Column(
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(50.dp),
-                                    colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                        containerColor = Color(0xFF00B127),
-                                        contentColor = Color(0xFFFFFFFF),
-                                        disabledContainerColor = Color(0xFF747474),
-                                        disabledContentColor = Color(0xFF222222)
-                                    ),
-                                    shape = RoundedCornerShape(24.dp)
                                 ) {
-                                    Text(
-                                        text = "Alquilar",
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 18.sp
-                                    )
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(start = 16.dp, end = 16.dp)
+                                        /*.background(Color(0xFF121529))*/
+                                    ) {
+
+                                        //model car
+                                        Column(
+                                            modifier = Modifier
+                                                .padding(start = 16.dp)
+                                        ) {
+                                            Text(
+                                                text = item.modelCar,
+                                                modifier = Modifier,
+                                                color = Color(0xFFFFFFFF),
+                                                textAlign = TextAlign.Start,
+                                                fontSize = 16.sp,
+                                                fontWeight = FontWeight.Bold
+                                            )
+
+                                            Text(
+                                                text = item.aniocModel,
+                                                modifier = Modifier,
+                                                color = Color(0xFFA4A4A4),
+                                                textAlign = TextAlign.Start,
+                                                fontSize = 14.sp,
+                                                fontWeight = FontWeight.Medium
+                                            )
+                                        }
+
+                                    }
+
+                                    //precio & button_Detalles
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(start = 16.dp, end = 16.dp, bottom = 4.dp)
+                                            .clip(
+                                                shape = RoundedCornerShape(
+                                                    bottomStart = 16.dp, bottomEnd = 16.dp
+                                                )
+                                            )
+                                            /*.background(Color(0xFF121529))*/
+                                            .padding(
+                                                start = 16.dp,
+                                                end = 16.dp,
+                                                top = 16.dp,
+                                                bottom = 16.dp
+                                            ),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Text(
+                                            text = item.hourlyRental,
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(bottom = 18.dp),
+                                            color = Color(0xFFFFFFFF),
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+
+                                        typeDataSend = "lazyColum"
+
+                                        Button(
+                                            onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(50.dp),
+                                            colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
+                                                /* containerColor = Color(0xFF00B127),
+                                                 contentColor = Color(0xFFFFFFFF),*/
+                                                disabledContainerColor = Color(0xFF747474),
+                                                disabledContentColor = Color(0xFF222222)
+                                            ),
+                                            shape = RoundedCornerShape(24.dp)
+                                        ) {
+                                            Text(
+                                                text = "Alquilar",
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 18.sp
+                                            )
+                                        }
+                                    }
                                 }
                             }
-                        }
 
-                    }//ConstraintLayout
+
+
+                        }//ConstraintLayout
                 }
             }
 
-            //URBANOS_TITLE
+            //CARS_CAMIONES *******************************************
             Column(
                 modifier = Modifier.constrainAs(CAMIONES_TITLE) {
                     start.linkTo(parent.start)
@@ -669,7 +683,7 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 }
             }
 
-            //MOTOCARROS_TITLE
+            //CARS_MOTOCARROS *******************************************
             Column(
                 modifier = Modifier.constrainAs(MOTOCARROS_TITLE) {
                     start.linkTo(parent.start)
@@ -923,16 +937,6 @@ fun CustomSearchInput(
     onClickNavigateToSearchCustom: () -> Unit
 ) {
 
-    Text(
-        text = "Te ayudamos a encontrar un auto",
-        modifier = Modifier.clickable { onClickNavigateToSearchCustom() },
-        textAlign = TextAlign.Start,
-        fontSize = 22.sp,
-        fontWeight = FontWeight.Bold,
-        textDecoration = TextDecoration.None
-    )
-
-
     var searchQuery by remember { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
 
@@ -943,138 +947,148 @@ fun CustomSearchInput(
     val interactionSource = remember { MutableInteractionSource() }
     val context = LocalContext.current
 
+    Column {
+        Text(
+            text = "Te ayudamos a encontrar un auto",
+            modifier = Modifier.fillMaxWidth().clickable { onClickNavigateToSearchCustom() },
+            textAlign = TextAlign.Center,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            textDecoration = TextDecoration.None
+        )
 
-    ElevatedCard(
-        modifier = Modifier
-            .padding(top = 16.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(32.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFFF1A1A),
-            contentColor = Color(0xFF222222)  //Card content color,e.g.text
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
-    ) {
-
-        //Search Input Custom
-        BasicTextField(
-            value = cardNumberCustom,
-            onValueChange = {
-                onCardNumberChangeCustom(it)
-                isError = false
-            },
+        ElevatedCard(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(42.dp)
-                .clickable { }
-                .onFocusChanged {
-                    isFocusedCard = it.isFocused
-                },
-            interactionSource = interactionSource,
-            enabled = true,
-            /*keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
-            ),*/
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Search
+                .padding(16.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(32.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFFFF1A1A),
+                contentColor = Color(0xFF222222)  //Card content color,e.g.text
             ),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    // Focus on the next field // Handle the search action
-                    handleSearch(searchQuery)
-                }
-            ),
-            textStyle = TextStyle(
-                color = Color(0xFF6D6D6D),
-                fontStyle = FontStyle.Normal,
-                fontWeight = FontWeight.Bold,
-                fontSize = 22.sp
-            ),
-            singleLine = true,
-            cursorBrush = SolidColor(Color.Black)
-        ) { innerTextField ->
+            elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
+        ) {
 
-            OutlinedTextFieldDefaults.DecorationBox(
+            //Search Input Custom
+            BasicTextField(
                 value = cardNumberCustom,
-                innerTextField = {
-                    /*Box(modifier = Modifier) {
-                        if (value.isEmpty()) {
-                            Text(
-                                text = "Tu Email",
-                                color = LocalContentColor.current.copy(alpha = 0.6f)
-                            )
-                        }
-                    }*/
-                    innerTextField()
+                onValueChange = {
+                    onCardNumberChangeCustom(it)
+                    isError = false
                 },
-                enabled = true,
-                singleLine = true,
-                visualTransformation = VisualTransformation.None,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(42.dp)
+                    .clickable { }
+                    .onFocusChanged {
+                        isFocusedCard = it.isFocused
+                    },
                 interactionSource = interactionSource,
-                isError = isError,
-                /*label = {
-                    Text(
-                        "Label",
-                        color = if (isFocused) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
-                        }
-                    )
-                },*/
-                placeholder = {
-                    Text(
-                        text = "Para donde vas?",
-                        modifier = Modifier.padding(start = 0.dp),
-                        color = LocalContentColor.current.copy(alpha = 0.5f),
-                        style = TextStyle(
-                            fontStyle = FontStyle.Normal,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp
-                        ),
-                    )
-                },
-                trailingIcon = {
-                    Icon(
-                        Icons.Filled.Search,
-                        contentDescription = null,
-                        tint = if (isFocusedCard) {
-                            Color(0xFF585858)
-                        } else {
-                            LocalContentColor.current.copy(alpha = 0.7f)
-                        },
-                        modifier = Modifier
-                            .size(25.dp)
-                    )
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Color.Black,
-                    unfocusedBorderColor = Color.Black,
+                enabled = true,
+                /*keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Next
+                ),*/
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Search
                 ),
-                contentPadding = PaddingValues(start = 16.dp),// TextFieldDefaults.contentPaddingWithoutLabel(start = 0.dp, end = 8.dp, top = 0.dp, bottom = 0.dp),
-                // update border thickness and shape
-                container = {
-                    OutlinedTextFieldDefaults.ContainerBox(
-                        enabled = true,
-                        isError = isError,
-                        interactionSource = interactionSource,
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Color(0xFFBEBEBE),
-                            unfocusedBorderColor = Color(0xFFDADADA),
-                            focusedContainerColor = Color(0xFFF8F8F8),
-                            unfocusedContainerColor = Color(0xFFF2F2F2),
-                            errorBorderColor = Color(0xFFB00020),
-                            errorContainerColor = Color(0xFFE6E6E6)
-                        ),
-                        shape = RoundedCornerShape(32.dp) //OutlinedTextFieldDefaults.shape
-                    )
-                }
-            )
+                keyboardActions = KeyboardActions(
+                    onSearch = {
+                        // Focus on the next field // Handle the search action
+                        handleSearch(searchQuery)
+                    }
+                ),
+                textStyle = TextStyle(
+                    color = Color(0xFF6D6D6D),
+                    fontStyle = FontStyle.Normal,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 22.sp
+                ),
+                singleLine = true,
+                cursorBrush = SolidColor(Color.Black)
+            ) { innerTextField ->
 
-        }//END :: Search Input Custom
-    }//END ELEVATED CARD
+                OutlinedTextFieldDefaults.DecorationBox(
+                    value = cardNumberCustom,
+                    innerTextField = {
+                        /*Box(modifier = Modifier) {
+                            if (value.isEmpty()) {
+                                Text(
+                                    text = "Tu Email",
+                                    color = LocalContentColor.current.copy(alpha = 0.6f)
+                                )
+                            }
+                        }*/
+                        innerTextField()
+                    },
+                    enabled = true,
+                    singleLine = true,
+                    visualTransformation = VisualTransformation.None,
+                    interactionSource = interactionSource,
+                    isError = isError,
+                    /*label = {
+                        Text(
+                            "Label",
+                            color = if (isFocused) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)
+                            }
+                        )
+                    },*/
+                    placeholder = {
+                        Text(
+                            text = "Para donde vas?",
+                            modifier = Modifier.padding(start = 0.dp),
+                            color = LocalContentColor.current.copy(alpha = 0.5f),
+                            style = TextStyle(
+                                fontStyle = FontStyle.Normal,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp
+                            ),
+                        )
+                    },
+                    trailingIcon = {
+                        Icon(
+                            Icons.Filled.Search,
+                            contentDescription = null,
+                            tint = if (isFocusedCard) {
+                                Color(0xFF585858)
+                            } else {
+                                LocalContentColor.current.copy(alpha = 0.7f)
+                            },
+                            modifier = Modifier
+                                .size(25.dp)
+                        )
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color.Black,
+                        unfocusedBorderColor = Color.Black,
+                    ),
+                    contentPadding = PaddingValues(start = 16.dp),// TextFieldDefaults.contentPaddingWithoutLabel(start = 0.dp, end = 8.dp, top = 0.dp, bottom = 0.dp),
+                    // update border thickness and shape
+                    container = {
+                        OutlinedTextFieldDefaults.ContainerBox(
+                            enabled = true,
+                            isError = isError,
+                            interactionSource = interactionSource,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFFBEBEBE),
+                                unfocusedBorderColor = Color(0xFFDADADA),
+                                focusedContainerColor = Color(0xFFF8F8F8),
+                                unfocusedContainerColor = Color(0xFFF2F2F2),
+                                errorBorderColor = Color(0xFFB00020),
+                                errorContainerColor = Color(0xFFE6E6E6)
+                            ),
+                            shape = RoundedCornerShape(32.dp) //OutlinedTextFieldDefaults.shape
+                        )
+                    }
+                )
+
+            }//END :: Search Input Custom
+        }//END ELEVATED CARD
+    }
 
 }
 
@@ -1117,7 +1131,10 @@ fun Carousel(
         }
     }
 
-    Column {
+    Column(
+        modifier = Modifier,
+        horizontalAlignment = CenterHorizontally
+    ) {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
@@ -1221,11 +1238,11 @@ fun Carousel(
                 }
             }
         }
-    }
+
 
     Box(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 8.dp)
             .offset(y = (0).dp)
             .fillMaxWidth(0.5f)
             .height(32.dp)
@@ -1298,6 +1315,7 @@ fun Carousel(
         }
     }
 
+    }
 
 }
 

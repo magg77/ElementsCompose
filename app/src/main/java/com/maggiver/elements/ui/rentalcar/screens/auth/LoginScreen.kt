@@ -158,6 +158,7 @@ fun LoginScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
+                        .height(72.dp)
                         .padding(8.dp)
                 ) {
                     Text(text = "Login")

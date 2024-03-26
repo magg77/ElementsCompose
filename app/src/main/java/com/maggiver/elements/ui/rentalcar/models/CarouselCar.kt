@@ -32,6 +32,7 @@ data class CarouselCar(
     val deliveryTime: String,
     val aniocModel: String,
     val hourlyRental: String,
+    val rating: String,
     val descriptionModel: String,
     val pathCarModel: Int
 )

@@ -1,7 +1,6 @@
 package com.maggiver.elements.ui.rentalcar.repo
 
 import com.maggiver.elements.R
-import com.maggiver.elements.ui.rentalcar.models.AvailableCars
 import com.maggiver.elements.ui.rentalcar.models.CarouselCar
 
 
@@ -35,6 +34,7 @@ object DataUtils {
             deliveryTime = "15 Min",
             aniocModel = "2023",
             hourlyRental = "$49.900 / H",
+            rating = "5.0",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
@@ -48,6 +48,7 @@ object DataUtils {
             deliveryTime = "30 Min",
             aniocModel = "2021",
             hourlyRental = "$25.000 / H",
+            rating = "4.5",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
@@ -61,6 +62,7 @@ object DataUtils {
             deliveryTime = "15 Min",
             aniocModel = "2020",
             hourlyRental = "$45.000 / H",
+            rating = "5.0",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
@@ -74,6 +76,7 @@ object DataUtils {
             deliveryTime = "20 Min",
             aniocModel = "2023",
             hourlyRental = "$69.900 / H",
+            rating = "4.5",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
@@ -83,13 +86,14 @@ object DataUtils {
         )
     )
 
-    val lazyColumList = listOf(
+    val lazyColumListCarsUrbans = listOf(
         CarouselCar(
             id = 0,
             modelCar = "Mazda 3 Prime",
             deliveryTime = "15 Min",
             aniocModel = "2023",
             hourlyRental = "$49.900 / H",
+            rating = "4.5",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
@@ -103,6 +107,7 @@ object DataUtils {
             deliveryTime = "30 Min",
             aniocModel = "2021",
             hourlyRental = "$25.000 / H",
+            rating = "5.0",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
@@ -116,6 +121,7 @@ object DataUtils {
             deliveryTime = "15 Min",
             aniocModel = "2020",
             hourlyRental = "$45.000 / H",
+            rating = "4.5",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
@@ -129,12 +135,159 @@ object DataUtils {
             deliveryTime = "20 Min",
             aniocModel = "2023",
             hourlyRental = "$69.900 / H",
+            rating = "5.0",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
                     "\n" +
                     "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
             pathCarModel = R.drawable.car4
+        )
+    )
+
+    val lazyColumListCamionesSmall= listOf(
+        CarouselCar(
+            id = 0,
+            modelCar = "Chevrolet D-MAX DSL 2.5",
+            deliveryTime = "15 Min",
+            aniocModel = "2008",
+            hourlyRental = "$15.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.car_small_camiones_1_chevrolet_d_max_dsl_2_5_2008
+        ),
+        CarouselCar(
+            id = 1,
+            modelCar = "Chevrolet Luv 1.6 Std TFR",
+            deliveryTime = "30 Min",
+            aniocModel = "2003",
+            hourlyRental = "$14.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.car_small_camiones_2_chevrolet_luv_1_6_std_tfr
+        ),
+        CarouselCar(
+            id = 2,
+            modelCar = "Nissan Frontier D22 NP300",
+            deliveryTime = "15 Min",
+            aniocModel = "2011",
+            hourlyRental = "$16.900 / H",
+            rating = "5.0",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.car_small_camiones_3_nissan_frontier_d22_np300_estacas_2011_removebg_preview
+        ),
+        CarouselCar(
+            id = 3,
+            modelCar = "Piaggio Hafei Ruiyi HFJ",
+            deliveryTime = "20 Min",
+            aniocModel = "2007",
+            hourlyRental = "$13.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.car_small_camiones_4_hafei_ruiyi_hfj
+        )
+    )
+
+    val lazyColumListMotocarro= listOf(
+        CarouselCar(
+            id = 0,
+            modelCar = "Motocarro Auteco Cerrote 200",
+            deliveryTime = "15 Min",
+            aniocModel = "2018",
+            hourlyRental = "$15.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.motocarro1_autecocerrote200
+        ),
+        CarouselCar(
+            id = 1,
+            modelCar = "Chevrolet Luv 1.6 Std TFR",
+            deliveryTime = "30 Min",
+            aniocModel = "2003",
+            hourlyRental = "$14.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.motocarro2_ayco200
+        ),
+        CarouselCar(
+            id = 2,
+            modelCar = "Natsuky 850",
+            deliveryTime = "15 Min",
+            aniocModel = "2011",
+            hourlyRental = "$16.900 / H",
+            rating = "5.0",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.motocarro3_natsuky850
+        ),
+        CarouselCar(
+            id = 3,
+            modelCar = "Forza 200 HK",
+            deliveryTime = "20 Min",
+            aniocModel = "2020",
+            hourlyRental = "$13.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.motocarro4_forza_200
+        ),
+        CarouselCar(
+            id = 3,
+            modelCar = "Piaggio Ck 350",
+            deliveryTime = "20 Min",
+            aniocModel = "2022",
+            hourlyRental = "$13.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.motocarro5_piaggio_ck_350
+        ),
+        CarouselCar(
+            id = 3,
+            modelCar = "Piaggio A Appe City",
+            deliveryTime = "20 Min",
+            aniocModel = "2007",
+            hourlyRental = "$13.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.motocarro6_piaggio_a_appe_city
         )
     )
 

@@ -44,9 +44,11 @@ import androidx.compose.material.icons.filled.CarRental
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FilterTiltShift
+import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.Button
@@ -147,7 +149,7 @@ import kotlin.math.absoluteValue
 @Preview
 @Composable
 fun HomeRentalCarPreview() {
-    var navController: NavHostController = rememberNavController ()
+    var navController: NavHostController = rememberNavController()
     HomeRentalCar(navController) { }
 }
 
@@ -157,7 +159,9 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
 
 
     val listCarsModelPagerCarousel = remember { mutableStateOf(DataUtils.carCarouel) }
-    val listAvailableCars = DataUtils.lazyColumList
+    val listAvailableCars = DataUtils.lazyColumListCarsUrbans
+    val listAvailableCamionesSmall = DataUtils.lazyColumListCamionesSmall
+    val listAvailableMotocarro = DataUtils.lazyColumListMotocarro
     var typeDataSend = ""
 
     val pagerState = rememberPagerState(pageCount = { listCarsModelPagerCarousel.value.size })
@@ -189,61 +193,52 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
         Text("Registrar")
     }*/
 
-    BottomSheetScaffold(
-        sheetContent = {
-            Column(
-                modifier = Modifier.padding(bottom = 90.dp),
-                horizontalAlignment = CenterHorizontally
-            ) {
+    BottomSheetScaffold(sheetContent = {
+        Column(
+            modifier = Modifier.padding(bottom = 90.dp),
+            horizontalAlignment = CenterHorizontally
+        ) {
 
-                LazyColumn {
-                    items(50) {
-                        ListItem(
-                            headlineContent = { Text("Item $it") },
-                            leadingContent = {
-                                Icon(
-                                    imageVector = Icons.Default.Favorite,
-                                    contentDescription = null
-                                )
-                            }
+            LazyColumn {
+                items(50) {
+                    ListItem(headlineContent = { Text("Item $it") }, leadingContent = {
+                        Icon(
+                            imageVector = Icons.Default.Favorite, contentDescription = null
                         )
-                    }
-                    item {
-                        Box(
-                            modifier = Modifier
-                                .padding(16.dp, 16.dp)
-                                .fillMaxWidth()
-                                .background(Color(0xFF4CFF37)),
-                            contentAlignment = Alignment.Center
-                        ) {
+                    })
+                }
+                item {
+                    Box(
+                        modifier = Modifier
+                            .padding(16.dp, 16.dp)
+                            .fillMaxWidth()
+                            .background(Color(0xFF4CFF37)), contentAlignment = Alignment.Center
+                    ) {
 
-                            Button(onClick = {
-                                scope.launch {
-                                    if (scaffoldState.bottomSheetState.isVisible) {
-                                        scaffoldState.bottomSheetState.hide()
-                                        showBottomSheet = true
-                                    }
+                        Button(onClick = {
+                            scope.launch {
+                                if (scaffoldState.bottomSheetState.isVisible) {
+                                    scaffoldState.bottomSheetState.hide()
+                                    showBottomSheet = true
                                 }
                             }
-                            ) {
-                                Text("Registrar")
-                            }
-
+                        }) {
+                            Text("Registrar")
                         }
+
                     }
                 }
-
             }
-        },
-        modifier = Modifier
-            .fillMaxSize(),
+
+        }
+    },
+        modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
         sheetPeekHeight = if (showBottomSheet) 180.dp else 0.dp,
         sheetShadowElevation = 40.dp,
         sheetDragHandle = {
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = CenterHorizontally
+                modifier = Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally
             ) {
                 BottomSheetDefaults.DragHandle()
                 Text(
@@ -259,13 +254,10 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider(
-                    modifier = Modifier.fillMaxWidth(),
-                    thickness = 1.dp,
-                    color = Color(0xFF000000)
+                    modifier = Modifier.fillMaxWidth(), thickness = 1.dp, color = Color(0xFF000000)
                 )
             }
-        }
-    ) {
+        }) {
 
         ConstraintLayout(
             modifier = Modifier
@@ -273,30 +265,23 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            val (SEARCH, CAROUSEL,
-                URBANOS_TITLE, CARS_URBANOS,
-                CAMIONES_TITLE, CARS_CAMIONES,
-                MOTOCARROS_TITLE, CARS_MOTOCARROS) = createRefs()
+            val (SEARCH, CAROUSEL, URBANOS_TITLE, CARS_URBANOS, CAMIONES_TITLE, CARS_CAMIONES, MOTOCARROS_TITLE, CARS_MOTOCARROS) = createRefs()
 
 
             //Search
-            Surface(
-                modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                    .fillMaxWidth()
-                    .padding(start = 8.dp, end = 0.dp, top = 8.dp, bottom = 8.dp)
-                    .constrainAs(SEARCH) {
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        top.linkTo(parent.top)
-                    }
-            ) {
+            Surface(modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 0.dp, top = 8.dp, bottom = 8.dp)
+                .constrainAs(SEARCH) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(parent.top)
+                }) {
                 var cardNumberCustom by remember { mutableStateOf("") }
-                CustomSearchInput(
-                    cardNumberCustom = cardNumberCustom,
+                CustomSearchInput(cardNumberCustom = cardNumberCustom,
                     onCardNumberChangeCustom = { cardNumberCustom = it },
-                    onClickNavigateToSearchCustom = { onClickNavigateToSearchCustom() }
-                )
+                    onClickNavigateToSearchCustom = { onClickNavigateToSearchCustom() })
             }
 
             //CAROUSEL
@@ -308,8 +293,7 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                         end.linkTo(parent.end)
                         top.linkTo(SEARCH.bottom)
 
-                    },
-                horizontalAlignment = CenterHorizontally
+                    }, horizontalAlignment = CenterHorizontally
             ) {
                 Carousel(listCarsModelPagerCarousel, pagerState, scope) {
                     Log.i("itemClicked", "Enviado: $it")
@@ -319,8 +303,7 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
             }
 
             //CARS_URBANOS *******************************************
-            Column(
-                modifier = Modifier.constrainAs(URBANOS_TITLE) {
+            Column(modifier = Modifier.constrainAs(URBANOS_TITLE) {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                     top.linkTo(CAROUSEL.bottom)
@@ -337,185 +320,217 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 )
             }
 
-            LazyRow(
-                modifier = Modifier
-                    .padding(top = 32.dp)
-                    .fillMaxSize()
-                    .constrainAs(CARS_URBANOS) {
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        top.linkTo(URBANOS_TITLE.bottom)
-                    }
-            ) {
+            LazyRow(modifier = Modifier
+                .padding(top = 32.dp)
+                .fillMaxSize()
+                .constrainAs(CARS_URBANOS) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(URBANOS_TITLE.bottom)
+                }) {
                 items(listAvailableCars) { item ->
 
-                        ConstraintLayout(
-                            modifier = Modifier
-                                .fillMaxWidth(1f)
-                        ) {
+                    ConstraintLayout(
+                        modifier = Modifier.fillMaxWidth(1f)
+                    ) {
 
-                            val (rowEmptyContent, imageCar, modelCarUrban, detailsCarUrban) = createRefs()
-                            val guidelineImage = createGuidelineFromStart(0.1f)
+                        val (rowEmptyContent, imageCar, dataCarUrban, detailsCarUrban) = createRefs()
+                        val guidelineImage = createGuidelineFromStart(0.1f)
 
-                            //imagen
-                            Row(
-                                modifier = Modifier
-                                    .fillParentMaxWidth(0.8f)
-                                    .height(100.dp)
-                                    .padding(start = 0.dp, end = 0.dp, top = 70.dp)
-                                    .clip(
-                                        shape = RoundedCornerShape(
-                                            topStart = 32.dp,
-                                            topEnd = 32.dp
-                                        )
-                                    )
-                                    .background(Color(0xFFFF1A1A))
-                                    /*.background(Color(0xFFF0F0F0))*/
-                                    .constrainAs(rowEmptyContent) {
-                                        start.linkTo(parent.start)
-                                        end.linkTo(parent.end)
-                                        top.linkTo(parent.top)
-                                    }
-                            ) {}
-
+                        //imagen
+                        Column(modifier = Modifier
+                            .padding(bottom = 216.dp)
+                            .constrainAs(imageCar) {
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                                top.linkTo(parent.top)
+                                bottom.linkTo(dataCarUrban.bottom)
+                                width = Dimension.wrapContent
+                                height = Dimension.wrapContent
+                            }
+                            .zIndex(0.9f), horizontalAlignment = CenterHorizontally) {
                             Image(
                                 painter = painterResource(id = item.pathCarModel),
                                 contentDescription = null,
-                                modifier = Modifier
-                                    .height(100.dp)
-                                    .constrainAs(imageCar) {
-                                        start.linkTo(parent.start)
-                                        end.linkTo(parent.end)
-                                        bottom.linkTo(modelCarUrban.top)
-                                        width = Dimension.wrapContent
-                                        height = Dimension.wrapContent
-                                    },
+                                modifier = Modifier.height(100.dp),
                                 alignment = Alignment.Center,
-                                contentScale = ContentScale.Crop,
+                                contentScale = ContentScale.Crop
                             )
+                        }
 
-                            ElevatedCard(
+                        ElevatedCard(
+                            modifier = Modifier
+                                .padding(
+                                    start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp
+                                )
+                                .fillParentMaxWidth(0.8f)
+                                .constrainAs(dataCarUrban) {
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                    top.linkTo(imageCar.bottom)
+                                    bottom.linkTo(parent.top)
+                                },
+                            shape = RoundedCornerShape(32.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color(0xFFFFFFFF),
+                                contentColor = Color(0xFF222222)  //Card content color,e.g.text
+                            ),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                        ) {
+
+                            //modelCar
+                            Column(
                                 modifier = Modifier
-                                    .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 16.dp)
-                                    .fillParentMaxWidth(0.8f)
-                                    .constrainAs(modelCarUrban) {
-                                        start.linkTo(parent.start)
-                                        end.linkTo(parent.end)
-                                        top.linkTo(rowEmptyContent.bottom)
-                                    },
-                                shape = RoundedCornerShape(bottomStart = 32.dp, bottomEnd = 32.dp),
-                                colors = CardDefaults.cardColors(
-                                    containerColor = Color(0xFFFF1A1A),
-                                    contentColor = Color(0xFF222222)  //Card content color,e.g.text
-                                ),
-                                elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
-                            ){
-                                //modelCar
-                                Column(
+                            ) {
+                                Row(
                                     modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(
+                                            start = 0.dp, end = 16.dp, top = 32.dp
+                                        )/*.background(Color(0xFF121529))*/
                                 ) {
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(start = 16.dp, end = 16.dp)
-                                        /*.background(Color(0xFF121529))*/
-                                    ) {
 
-                                        //model car
-                                        Column(
-                                            modifier = Modifier
-                                                .padding(start = 16.dp)
-                                        ) {
-                                            Text(
-                                                text = item.modelCar,
-                                                modifier = Modifier,
-                                                color = Color(0xFFFFFFFF),
-                                                textAlign = TextAlign.Start,
-                                                fontSize = 16.sp,
-                                                fontWeight = FontWeight.Bold
-                                            )
-
-                                            Text(
-                                                text = item.aniocModel,
-                                                modifier = Modifier,
-                                                color = Color(0xFFA4A4A4),
-                                                textAlign = TextAlign.Start,
-                                                fontSize = 14.sp,
-                                                fontWeight = FontWeight.Medium
-                                            )
-                                        }
-
-                                    }
-
-                                    //precio & button_Detalles
+                                    //model car
                                     Column(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(start = 16.dp, end = 16.dp, bottom = 4.dp)
-                                            .clip(
-                                                shape = RoundedCornerShape(
-                                                    bottomStart = 16.dp, bottomEnd = 16.dp
-                                                )
-                                            )
-                                            /*.background(Color(0xFF121529))*/
-                                            .padding(
-                                                start = 16.dp,
-                                                end = 16.dp,
-                                                top = 16.dp,
-                                                bottom = 16.dp
-                                            ),
-                                        horizontalAlignment = Alignment.CenterHorizontally
+                                        modifier = Modifier.padding(start = 16.dp)
                                     ) {
                                         Text(
-                                            text = item.hourlyRental,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(bottom = 18.dp),
-                                            color = Color(0xFFFFFFFF),
+                                            text = item.modelCar,
+                                            modifier = Modifier,
                                             textAlign = TextAlign.Start,
                                             fontSize = 18.sp,
-                                            fontWeight = FontWeight.Bold
+                                            fontWeight = FontWeight.Black
                                         )
 
-                                        typeDataSend = "lazyColum"
+                                        Text(
+                                            text = item.aniocModel,
+                                            modifier = Modifier,/*color = Color(0xFFA4A4A4)*/
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Medium
+                                        )
+                                    }
 
-                                        Button(
-                                            onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .height(50.dp),
-                                            colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                                /* containerColor = Color(0xFF00B127),
-                                                 contentColor = Color(0xFFFFFFFF),*/
-                                                disabledContainerColor = Color(0xFF747474),
-                                                disabledContentColor = Color(0xFF222222)
-                                            ),
-                                            shape = RoundedCornerShape(24.dp)
-                                        ) {
-                                            Text(
-                                                text = "Alquilar",
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 18.sp
+                                }
+
+                                //precio & button_Detalles
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(start = 0.dp, end = 16.dp, bottom = 8.dp)
+                                        .clip(
+                                            shape = RoundedCornerShape(
+                                                bottomStart = 16.dp, bottomEnd = 16.dp
                                             )
+                                        )/*.background(Color(0xFF121529))*/
+                                        .padding(
+                                            start = 16.dp, end = 0.dp, top = 8.dp, bottom = 16.dp
+                                        ), horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+
+                                        Box(
+                                            modifier = Modifier
+                                                .clip(RoundedCornerShape(16.dp))
+                                                .background(Color(0xFF241F1F))
+                                                .padding(
+                                                    start = 6.dp,
+                                                    end = 8.dp,
+                                                    top = 6.dp,
+                                                    bottom = 6.dp
+                                                ),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Row(
+                                                modifier = Modifier,
+                                                horizontalArrangement = Arrangement.SpaceBetween,
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                IconButton(
+                                                    onClick = { /*TODO*/ },
+                                                    modifier = Modifier
+                                                        .padding(end = 8.dp)
+                                                        .height(18.dp)
+                                                        .width(18.dp),
+                                                    colors = IconButtonDefaults.iconButtonColors(
+                                                        containerColor = Color.Transparent,
+                                                        contentColor = Color.Transparent,
+                                                        disabledContainerColor = Color(0xFFFFFFFF),
+                                                        disabledContentColor = Color(0xFF222222)
+                                                    )
+                                                ) {
+                                                    Icon(
+                                                        imageVector = Icons.Filled.Star,
+                                                        contentDescription = "Google",
+                                                        modifier = Modifier.fillMaxSize(),
+                                                        tint = Color(0xFFECEC09)
+                                                    )
+                                                }
+
+                                                Text(
+                                                    text = item.rating,
+                                                    modifier = Modifier,
+                                                    color = Color(0xFFFFFFFF),
+                                                    textAlign = TextAlign.Start,
+                                                    fontSize = 15.sp,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            }
                                         }
+
+                                        Text(
+                                            text = item.hourlyRental,
+                                            modifier = Modifier,
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Black
+                                        )
+                                    }
+
+                                    typeDataSend = "lazyColum"
+
+                                    Button(
+                                        onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                                        modifier = Modifier
+                                            .padding(top = 12.dp)
+                                            .fillMaxWidth()
+                                            .height(50.dp),
+                                        colors = ButtonDefaults.elevatedButtonColors(
+                                            //ButtonDefaults.buttonColors
+                                            /* containerColor = Color(0xFF00B127),
+                                             contentColor = Color(0xFFFFFFFF),
+                                            disabledContainerColor = Color(0xFFD50808),*/
+                                            disabledContentColor = Color(0xFF222222)
+                                        ),
+                                        shape = RoundedCornerShape(24.dp)
+                                    ) {
+                                        Text(
+                                            text = "Alquilar",
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 18.sp
+                                        )
                                     }
                                 }
                             }
+                        }
 
 
-
-                        }//ConstraintLayout
+                    }//ConstraintLayout
                 }
             }
 
             //CARS_CAMIONES *******************************************
-            Column(
-                modifier = Modifier.constrainAs(CAMIONES_TITLE) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(CARS_URBANOS.bottom)
-                }
-            ) {
+            Column(modifier = Modifier.constrainAs(CAMIONES_TITLE) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(CARS_URBANOS.bottom)
+            }) {
                 Text(
                     text = "Camiones",
                     modifier = Modifier
@@ -527,170 +542,219 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 )
             }
 
-            LazyRow(
-                modifier = Modifier
-                    .padding(top = 32.dp)
-                    .fillMaxSize()
-                    .constrainAs(CARS_CAMIONES) {
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        top.linkTo(CAMIONES_TITLE.bottom)
-                    }
-            ) {
-                items(listAvailableCars) { item ->
+            LazyRow(modifier = Modifier
+                .padding(top = 32.dp)
+                .fillMaxSize()
+                .constrainAs(CARS_CAMIONES) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(CAMIONES_TITLE.bottom)
+                }) {
+                items(listAvailableCamionesSmall) { item ->
+
                     ConstraintLayout(
-                        modifier = Modifier
-                            .fillMaxWidth(1f)
+                        modifier = Modifier.fillMaxWidth(1f)
                     ) {
 
-                        val (rowEmptyContent, imageCar, modelCarUrban, detailsCarUrban) = createRefs()
+                        val (rowEmptyContent, imageCar, dataCarUrban, detailsCarUrban) = createRefs()
                         val guidelineImage = createGuidelineFromStart(0.1f)
 
                         //imagen
-                        Row(
-                            modifier = Modifier
-                                .fillParentMaxWidth(0.8f)
-                                .height(80.dp)
-                                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                                .clip(
-                                    shape = RoundedCornerShape(
-                                        topStart = 16.dp,
-                                        topEnd = 16.dp
-                                    )
-                                )
-                                .background(Color(0xFF121529))
-                                .constrainAs(rowEmptyContent) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    top.linkTo(parent.top)
-                                }
-                        ) {}
-
-                        Image(
-                            painter = painterResource(id = item.pathCarModel),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .height(100.dp)
-                                .constrainAs(imageCar) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    bottom.linkTo(modelCarUrban.top)
-                                    width = Dimension.wrapContent
-                                    height = Dimension.wrapContent
-                                },
-                            alignment = Alignment.Center,
-                            contentScale = ContentScale.Crop,
-                        )
-
-                        //modelCar
-                        Column(
-                            modifier = Modifier
-                                .fillParentMaxWidth(0.8f)
-                                .constrainAs(modelCarUrban) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    top.linkTo(rowEmptyContent.bottom)
-                                }
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 16.dp, end = 16.dp)
-                                    .background(Color(0xFF121529))
-                            ) {
-
-                                //model car
-                                Column(
-                                    modifier = Modifier
-                                        .padding(start = 16.dp)
-                                ) {
-                                    Text(
-                                        text = item.modelCar,
-                                        modifier = Modifier,
-                                        color = Color(0xFFFFFFFF),
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-
-                                    Text(
-                                        text = item.aniocModel,
-                                        modifier = Modifier,
-                                        color = Color(0xFFA4A4A4),
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
-
+                        Column(modifier = Modifier
+                            .padding(bottom = 200.dp)
+                            .constrainAs(imageCar) {
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                                top.linkTo(parent.top)
+                                bottom.linkTo(dataCarUrban.bottom)
+                                width = Dimension.wrapContent
+                                height = Dimension.wrapContent
                             }
+                            .zIndex(0.9f), horizontalAlignment = CenterHorizontally) {
+                            Image(
+                                painter = painterResource(id = item.pathCarModel),
+                                contentDescription = null,
+                                modifier = Modifier.height(200.dp),
+                                alignment = Alignment.Center,
+                                contentScale = ContentScale.Crop
+                            )
+                        }
 
-                            //precio & button_Detalles
+                        ElevatedCard(
+                            modifier = Modifier
+                                .padding(
+                                    start = 16.dp, end = 16.dp, top = 8.dp, bottom = 0.dp
+                                )
+                                .fillParentMaxWidth(0.8f)
+                                .constrainAs(dataCarUrban) {
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                    top.linkTo(imageCar.bottom)
+                                    bottom.linkTo(parent.top)
+                                },
+                            shape = RoundedCornerShape(32.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color(0xFFFFFFFF),
+                                contentColor = Color(0xFF222222)  //Card content color,e.g.text
+                            ),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                        ) {
+
+                            //modelCar
                             Column(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
-                                    .clip(
-                                        shape = RoundedCornerShape(
-                                            bottomStart = 16.dp, bottomEnd = 16.dp
-                                        )
-                                    )
-                                    .background(Color(0xFF121529))
-                                    .padding(
-                                        start = 16.dp,
-                                        end = 16.dp,
-                                        top = 16.dp,
-                                        bottom = 16.dp
-                                    ),
-                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                Text(
-                                    text = item.hourlyRental,
+                                Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(bottom = 18.dp),
-                                    color = Color(0xFFFFFFFF),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-
-                                typeDataSend = "lazyColum"
-
-                                Button(
-                                    onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(50.dp),
-                                    colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                        containerColor = Color(0xFF00B127),
-                                        contentColor = Color(0xFFFFFFFF),
-                                        disabledContainerColor = Color(0xFF747474),
-                                        disabledContentColor = Color(0xFF222222)
-                                    ),
-                                    shape = RoundedCornerShape(24.dp)
+                                        .padding(
+                                            start = 0.dp, end = 16.dp, top = 32.dp
+                                        )/*.background(Color(0xFF121529))*/
                                 ) {
-                                    Text(
-                                        text = "Alquilar",
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 18.sp
-                                    )
+
+                                    //model car
+                                    Column(
+                                        modifier = Modifier.padding(start = 16.dp)
+                                    ) {
+                                        Text(
+                                            text = item.modelCar,
+                                            modifier = Modifier,
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Black
+                                        )
+
+                                        Text(
+                                            text = item.aniocModel,
+                                            modifier = Modifier,/*color = Color(0xFFA4A4A4)*/
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Medium
+                                        )
+                                    }
+
+                                }
+
+                                //precio & button_Detalles
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(start = 0.dp, end = 16.dp, bottom = 8.dp)
+                                        .clip(
+                                            shape = RoundedCornerShape(
+                                                bottomStart = 16.dp, bottomEnd = 16.dp
+                                            )
+                                        )/*.background(Color(0xFF121529))*/
+                                        .padding(
+                                            start = 16.dp, end = 0.dp, top = 8.dp, bottom = 16.dp
+                                        ), horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+
+                                        Box(
+                                            modifier = Modifier
+                                                .clip(RoundedCornerShape(16.dp))
+                                                .background(Color(0xFF241F1F))
+                                                .padding(
+                                                    start = 6.dp,
+                                                    end = 8.dp,
+                                                    top = 6.dp,
+                                                    bottom = 6.dp
+                                                ),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Row(
+                                                modifier = Modifier,
+                                                horizontalArrangement = Arrangement.SpaceBetween,
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                IconButton(
+                                                    onClick = { /*TODO*/ },
+                                                    modifier = Modifier
+                                                        .padding(end = 8.dp)
+                                                        .height(18.dp)
+                                                        .width(18.dp),
+                                                    colors = IconButtonDefaults.iconButtonColors(
+                                                        containerColor = Color.Transparent,
+                                                        contentColor = Color.Transparent,
+                                                        disabledContainerColor = Color(0xFFFFFFFF),
+                                                        disabledContentColor = Color(0xFF222222)
+                                                    )
+                                                ) {
+                                                    Icon(
+                                                        imageVector = Icons.Filled.Star,
+                                                        contentDescription = "Google",
+                                                        modifier = Modifier.fillMaxSize(),
+                                                        tint = Color(0xFFECEC09)
+                                                    )
+                                                }
+
+                                                Text(
+                                                    text = item.rating,
+                                                    modifier = Modifier,
+                                                    color = Color(0xFFFFFFFF),
+                                                    textAlign = TextAlign.Start,
+                                                    fontSize = 15.sp,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            }
+                                        }
+
+                                        Text(
+                                            text = item.hourlyRental,
+                                            modifier = Modifier,
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Black
+                                        )
+                                    }
+
+                                    typeDataSend = "lazyColum"
+
+                                    Button(
+                                        onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                                        modifier = Modifier
+                                            .padding(top = 12.dp)
+                                            .fillMaxWidth()
+                                            .height(50.dp),
+                                        colors = ButtonDefaults.elevatedButtonColors(
+                                            //ButtonDefaults.buttonColors
+                                            /* containerColor = Color(0xFF00B127),
+                                             contentColor = Color(0xFFFFFFFF),
+                                            disabledContainerColor = Color(0xFFD50808),*/
+                                            disabledContentColor = Color(0xFF222222)
+                                        ),
+                                        shape = RoundedCornerShape(24.dp)
+                                    ) {
+                                        Text(
+                                            text = "Alquilar",
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 18.sp
+                                        )
+                                    }
                                 }
                             }
                         }
+
 
                     }//ConstraintLayout
                 }
             }
 
+
+
             //CARS_MOTOCARROS *******************************************
-            Column(
-                modifier = Modifier.constrainAs(MOTOCARROS_TITLE) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(CARS_CAMIONES.bottom)
-                }
-            ) {
+            Column(modifier = Modifier.constrainAs(MOTOCARROS_TITLE) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(CARS_CAMIONES.bottom)
+            }) {
                 Text(
                     text = "Motocarros",
                     modifier = Modifier
@@ -702,157 +766,206 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                 )
             }
 
-            LazyRow(
-                modifier = Modifier
-                    .padding(top = 32.dp)
-                    .fillMaxSize()
-                    .constrainAs(CARS_MOTOCARROS) {
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        top.linkTo(MOTOCARROS_TITLE.bottom)
-                    }
-            ) {
-                items(listAvailableCars) { item ->
+            LazyRow(modifier = Modifier
+                .padding(top = 32.dp)
+                .fillMaxSize()
+                .constrainAs(CARS_MOTOCARROS) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(MOTOCARROS_TITLE.bottom)
+                }) {
+                items(listAvailableMotocarro) { item ->
+
                     ConstraintLayout(
-                        modifier = Modifier
-                            .fillMaxWidth(1f)
+                        modifier = Modifier.fillMaxWidth(1f)
                     ) {
 
-                        val (rowEmptyContent, imageCar, modelCarUrban, detailsCarUrban) = createRefs()
+                        val (rowEmptyContent, imageCar, dataCarUrban, detailsCarUrban) = createRefs()
                         val guidelineImage = createGuidelineFromStart(0.1f)
 
                         //imagen
-                        Row(
-                            modifier = Modifier
-                                .fillParentMaxWidth(0.8f)
-                                .height(80.dp)
-                                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                                .clip(
-                                    shape = RoundedCornerShape(
-                                        topStart = 16.dp,
-                                        topEnd = 16.dp
-                                    )
-                                )
-                                .background(Color(0xFF121529))
-                                .constrainAs(rowEmptyContent) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    top.linkTo(parent.top)
-                                }
-                        ) {}
-
-                        Image(
-                            painter = painterResource(id = item.pathCarModel),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .height(100.dp)
-                                .constrainAs(imageCar) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    bottom.linkTo(modelCarUrban.top)
-                                    width = Dimension.wrapContent
-                                    height = Dimension.wrapContent
-                                },
-                            alignment = Alignment.Center,
-                            contentScale = ContentScale.Crop,
-                        )
-
-                        //modelCar
-                        Column(
-                            modifier = Modifier
-                                .fillParentMaxWidth(0.8f)
-                                .constrainAs(modelCarUrban) {
-                                    start.linkTo(parent.start)
-                                    end.linkTo(parent.end)
-                                    top.linkTo(rowEmptyContent.bottom)
-                                }
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 16.dp, end = 16.dp)
-                                    .background(Color(0xFF121529))
-                            ) {
-
-                                //model car
-                                Column(
-                                    modifier = Modifier
-                                        .padding(start = 16.dp)
-                                ) {
-                                    Text(
-                                        text = item.modelCar,
-                                        modifier = Modifier,
-                                        color = Color(0xFFFFFFFF),
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-
-                                    Text(
-                                        text = item.aniocModel,
-                                        modifier = Modifier,
-                                        color = Color(0xFFA4A4A4),
-                                        textAlign = TextAlign.Start,
-                                        fontSize = 14.sp,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
-
+                        Column(modifier = Modifier
+                            .padding(bottom = 200.dp)
+                            .constrainAs(imageCar) {
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                                top.linkTo(parent.top)
+                                bottom.linkTo(dataCarUrban.bottom)
+                                width = Dimension.wrapContent
+                                height = Dimension.wrapContent
                             }
+                            .zIndex(0.9f), horizontalAlignment = CenterHorizontally) {
+                            Image(
+                                painter = painterResource(id = item.pathCarModel),
+                                contentDescription = null,
+                                modifier = Modifier.height(200.dp),
+                                alignment = Alignment.Center,
+                                contentScale = ContentScale.Crop
+                            )
+                        }
 
-                            //precio & button_Detalles
+                        ElevatedCard(
+                            modifier = Modifier
+                                .padding(
+                                    start = 16.dp, end = 16.dp, top = 8.dp, bottom = 0.dp
+                                )
+                                .fillParentMaxWidth(0.8f)
+                                .constrainAs(dataCarUrban) {
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                    top.linkTo(imageCar.bottom)
+                                    bottom.linkTo(parent.top)
+                                },
+                            shape = RoundedCornerShape(32.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color(0xFFFFFFFF),
+                                contentColor = Color(0xFF222222)  //Card content color,e.g.text
+                            ),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+                        ) {
+
+                            //modelCar
                             Column(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 16.dp, end = 16.dp, bottom = 24.dp)
-                                    .clip(
-                                        shape = RoundedCornerShape(
-                                            bottomStart = 16.dp, bottomEnd = 16.dp
-                                        )
-                                    )
-                                    .background(Color(0xFF121529))
-                                    .padding(
-                                        start = 16.dp,
-                                        end = 16.dp,
-                                        top = 16.dp,
-                                        bottom = 16.dp
-                                    ),
-                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                Text(
-                                    text = item.hourlyRental,
+                                Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(bottom = 18.dp),
-                                    color = Color(0xFFFFFFFF),
-                                    textAlign = TextAlign.Start,
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-
-                                typeDataSend = "lazyColum"
-
-                                Button(
-                                    onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(50.dp),
-                                    colors = ButtonDefaults.elevatedButtonColors(//ButtonDefaults.buttonColors
-                                        containerColor = Color(0xFF00B127),
-                                        contentColor = Color(0xFFFFFFFF),
-                                        disabledContainerColor = Color(0xFF747474),
-                                        disabledContentColor = Color(0xFF222222)
-                                    ),
-                                    shape = RoundedCornerShape(24.dp)
+                                        .padding(
+                                            start = 0.dp, end = 16.dp, top = 32.dp
+                                        )/*.background(Color(0xFF121529))*/
                                 ) {
-                                    Text(
-                                        text = "Alquilar",
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 18.sp
-                                    )
+
+                                    //model car
+                                    Column(
+                                        modifier = Modifier.padding(start = 16.dp)
+                                    ) {
+                                        Text(
+                                            text = item.modelCar,
+                                            modifier = Modifier,
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Black
+                                        )
+
+                                        Text(
+                                            text = item.aniocModel,
+                                            modifier = Modifier,/*color = Color(0xFFA4A4A4)*/
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.Medium
+                                        )
+                                    }
+
+                                }
+
+                                //precio & button_Detalles
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(start = 0.dp, end = 16.dp, bottom = 8.dp)
+                                        .clip(
+                                            shape = RoundedCornerShape(
+                                                bottomStart = 16.dp, bottomEnd = 16.dp
+                                            )
+                                        )/*.background(Color(0xFF121529))*/
+                                        .padding(
+                                            start = 16.dp, end = 0.dp, top = 8.dp, bottom = 16.dp
+                                        ), horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+
+                                        Box(
+                                            modifier = Modifier
+                                                .clip(RoundedCornerShape(16.dp))
+                                                .background(Color(0xFF241F1F))
+                                                .padding(
+                                                    start = 6.dp,
+                                                    end = 8.dp,
+                                                    top = 6.dp,
+                                                    bottom = 6.dp
+                                                ),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Row(
+                                                modifier = Modifier,
+                                                horizontalArrangement = Arrangement.SpaceBetween,
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                IconButton(
+                                                    onClick = { /*TODO*/ },
+                                                    modifier = Modifier
+                                                        .padding(end = 8.dp)
+                                                        .height(18.dp)
+                                                        .width(18.dp),
+                                                    colors = IconButtonDefaults.iconButtonColors(
+                                                        containerColor = Color.Transparent,
+                                                        contentColor = Color.Transparent,
+                                                        disabledContainerColor = Color(0xFFFFFFFF),
+                                                        disabledContentColor = Color(0xFF222222)
+                                                    )
+                                                ) {
+                                                    Icon(
+                                                        imageVector = Icons.Filled.Star,
+                                                        contentDescription = "Google",
+                                                        modifier = Modifier.fillMaxSize(),
+                                                        tint = Color(0xFFECEC09)
+                                                    )
+                                                }
+
+                                                Text(
+                                                    text = item.rating,
+                                                    modifier = Modifier,
+                                                    color = Color(0xFFFFFFFF),
+                                                    textAlign = TextAlign.Start,
+                                                    fontSize = 15.sp,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            }
+                                        }
+
+                                        Text(
+                                            text = item.hourlyRental,
+                                            modifier = Modifier,
+                                            textAlign = TextAlign.Start,
+                                            fontSize = 18.sp,
+                                            fontWeight = FontWeight.Black
+                                        )
+                                    }
+
+                                    typeDataSend = "lazyColum"
+
+                                    Button(
+                                        onClick = { navController.navigate("DetailRentalCar/{typeDataSend}/${item.id}") },
+                                        modifier = Modifier
+                                            .padding(top = 12.dp)
+                                            .fillMaxWidth()
+                                            .height(50.dp),
+                                        colors = ButtonDefaults.elevatedButtonColors(
+                                            //ButtonDefaults.buttonColors
+                                            /* containerColor = Color(0xFF00B127),
+                                             contentColor = Color(0xFFFFFFFF),
+                                            disabledContainerColor = Color(0xFFD50808),*/
+                                            disabledContentColor = Color(0xFF222222)
+                                        ),
+                                        shape = RoundedCornerShape(24.dp)
+                                    ) {
+                                        Text(
+                                            text = "Alquilar",
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 18.sp
+                                        )
+                                    }
                                 }
                             }
                         }
+
 
                     }//ConstraintLayout
                 }
@@ -902,19 +1015,18 @@ fun rememberCustomBottomSheetState(
     skipHiddenState: Boolean = false,
 ): SheetState {
     return rememberSaveable(
-        skipPartiallyExpanded, skipHiddenState, confirmValueChange,
-        saver = Saver(
-            save = { it.currentValue },
-            restore = { savedValue ->
-                SheetState(
-                    skipPartiallyExpanded = skipPartiallyExpanded,
-                    density = Density(density = 1f, fontScale = 1f),
-                    initialValue = savedValue,
-                    confirmValueChange = confirmValueChange,
-                    skipHiddenState = skipHiddenState
-                )
-            }
-        )
+        skipPartiallyExpanded,
+        skipHiddenState,
+        confirmValueChange,
+        saver = Saver(save = { it.currentValue }, restore = { savedValue ->
+            SheetState(
+                skipPartiallyExpanded = skipPartiallyExpanded,
+                density = Density(density = 1f, fontScale = 1f),
+                initialValue = savedValue,
+                confirmValueChange = confirmValueChange,
+                skipHiddenState = skipHiddenState
+            )
+        })
     ) {
         SheetState(
             skipPartiallyExpanded = skipPartiallyExpanded,
@@ -950,7 +1062,9 @@ fun CustomSearchInput(
     Column {
         Text(
             text = "Te ayudamos a encontrar un auto",
-            modifier = Modifier.fillMaxWidth().clickable { onClickNavigateToSearchCustom() },
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onClickNavigateToSearchCustom() },
             textAlign = TextAlign.Center,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
@@ -970,47 +1084,33 @@ fun CustomSearchInput(
         ) {
 
             //Search Input Custom
-            BasicTextField(
-                value = cardNumberCustom,
-                onValueChange = {
-                    onCardNumberChangeCustom(it)
-                    isError = false
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(42.dp)
-                    .clickable { }
-                    .onFocusChanged {
-                        isFocusedCard = it.isFocused
-                    },
-                interactionSource = interactionSource,
-                enabled = true,
-                /*keyboardOptions = KeyboardOptions.Default.copy(
+            BasicTextField(value = cardNumberCustom, onValueChange = {
+                onCardNumberChangeCustom(it)
+                isError = false
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .height(42.dp)
+                .clickable { }
+                .onFocusChanged {
+                    isFocusedCard = it.isFocused
+                }, interactionSource = interactionSource, enabled = true,/*keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),*/
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Search
-                ),
-                keyboardActions = KeyboardActions(
-                    onSearch = {
-                        // Focus on the next field // Handle the search action
-                        handleSearch(searchQuery)
-                    }
-                ),
-                textStyle = TextStyle(
+                    keyboardType = KeyboardType.Text, imeAction = ImeAction.Search
+                ), keyboardActions = KeyboardActions(onSearch = {
+                    // Focus on the next field // Handle the search action
+                    handleSearch(searchQuery)
+                }), textStyle = TextStyle(
                     color = Color(0xFF6D6D6D),
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.Bold,
                     fontSize = 22.sp
-                ),
-                singleLine = true,
-                cursorBrush = SolidColor(Color.Black)
+                ), singleLine = true, cursorBrush = SolidColor(Color.Black)
             ) { innerTextField ->
 
-                OutlinedTextFieldDefaults.DecorationBox(
-                    value = cardNumberCustom,
+                OutlinedTextFieldDefaults.DecorationBox(value = cardNumberCustom,
                     innerTextField = {
                         /*Box(modifier = Modifier) {
                             if (value.isEmpty()) {
@@ -1026,8 +1126,7 @@ fun CustomSearchInput(
                     singleLine = true,
                     visualTransformation = VisualTransformation.None,
                     interactionSource = interactionSource,
-                    isError = isError,
-                    /*label = {
+                    isError = isError,/*label = {
                         Text(
                             "Label",
                             color = if (isFocused) {
@@ -1058,8 +1157,7 @@ fun CustomSearchInput(
                             } else {
                                 LocalContentColor.current.copy(alpha = 0.7f)
                             },
-                            modifier = Modifier
-                                .size(25.dp)
+                            modifier = Modifier.size(25.dp)
                         )
                     },
                     colors = OutlinedTextFieldDefaults.colors(
@@ -1083,8 +1181,7 @@ fun CustomSearchInput(
                             ),
                             shape = RoundedCornerShape(32.dp) //OutlinedTextFieldDefaults.shape
                         )
-                    }
-                )
+                    })
 
             }//END :: Search Input Custom
         }//END ELEVATED CARD
@@ -1132,8 +1229,7 @@ fun Carousel(
     }
 
     Column(
-        modifier = Modifier,
-        horizontalAlignment = CenterHorizontally
+        modifier = Modifier, horizontalAlignment = CenterHorizontally
     ) {
         HorizontalPager(
             state = pagerState,
@@ -1240,80 +1336,80 @@ fun Carousel(
         }
 
 
-    Box(
-        modifier = Modifier
-            .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 8.dp)
-            .offset(y = (0).dp)
-            .fillMaxWidth(0.5f)
-            .height(32.dp)
-            .clip(RoundedCornerShape(100))
-            .padding(0.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+        Box(
+            modifier = Modifier
+                .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 8.dp)
+                .offset(y = (0).dp)
+                .fillMaxWidth(0.5f)
+                .height(32.dp)
+                .clip(RoundedCornerShape(100))
+                .padding(0.dp)
         ) {
-
-            IconButton(
-                enabled = pagerState.currentPage > 0, onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                    }
-                }, modifier = Modifier
-                    .padding(0.dp)
-                    .weight(1f)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.KeyboardArrowLeft,
-                    contentDescription = "Go back",
-                    modifier = Modifier.size(24.dp),
-                    tint = Color(0xFF01A738)
-                )
-            }
-
             Row(
-                modifier = Modifier.weight(3f), horizontalArrangement = Arrangement.Center
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                repeat(listCarsModelPager.value.size) { iteration ->
-                    val colorCurrent =
-                        if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
-                    Box(modifier = Modifier
-                        .padding(6.dp)
-                        .clip(CircleShape)
-                        .size(12.dp)
-                        .background(colorCurrent)
-                        .clickable {
-                            scope.launch {
-                                pagerState.animateScrollToPage(iteration)
-                            }
-                        })
 
+                IconButton(
+                    enabled = pagerState.currentPage > 0, onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                        }
+                    }, modifier = Modifier
+                        .padding(0.dp)
+                        .weight(1f)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowLeft,
+                        contentDescription = "Go back",
+                        modifier = Modifier.size(24.dp),
+                        tint = Color(0xFF01A738)
+                    )
                 }
-            }
 
+                Row(
+                    modifier = Modifier.weight(3f), horizontalArrangement = Arrangement.Center
+                ) {
+                    repeat(listCarsModelPager.value.size) { iteration ->
+                        val colorCurrent =
+                            if (pagerState.currentPage == iteration) Color.DarkGray else Color.LightGray
+                        Box(modifier = Modifier
+                            .padding(6.dp)
+                            .clip(CircleShape)
+                            .size(12.dp)
+                            .background(colorCurrent)
+                            .clickable {
+                                scope.launch {
+                                    pagerState.animateScrollToPage(iteration)
+                                }
+                            })
 
-            IconButton(
-                enabled = pagerState.currentPage < listCarsModelPager.value.size - 1,
-                onClick = {
-                    scope.launch {
-                        pagerState.animateScrollToPage(pagerState.currentPage + 1)
                     }
-                },
-                modifier = Modifier
-                    .padding(0.dp)
-                    .weight(1f)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.KeyboardArrowRight,
-                    contentDescription = "Go forward",
-                    modifier = Modifier.size(24.dp),
-                    tint = Color(0xFF01A738)
-                )
-            }
+                }
 
+
+                IconButton(
+                    enabled = pagerState.currentPage < listCarsModelPager.value.size - 1,
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                        }
+                    },
+                    modifier = Modifier
+                        .padding(0.dp)
+                        .weight(1f)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowRight,
+                        contentDescription = "Go forward",
+                        modifier = Modifier.size(24.dp),
+                        tint = Color(0xFF01A738)
+                    )
+                }
+
+            }
         }
-    }
 
     }
 

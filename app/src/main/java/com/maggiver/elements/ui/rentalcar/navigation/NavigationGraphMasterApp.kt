@@ -238,7 +238,6 @@ fun NavigationGraphMasterApp(navController: NavHostController, paddingValue: Pad
 }
 
 fun NavGraphBuilder.ContentSearchHome(navController: NavHostController) {
-
     navigation(
         route = RootGraph.HOME_CONTENT_SEARCH_CUSTOM,
         startDestination = RoutesMasterSearchCustom.SearchCustomRoute.route

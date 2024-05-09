@@ -1,6 +1,5 @@
 package com.maggiver.elements.ui.rentalcar.navigation
 
-import android.content.Context
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -34,7 +33,7 @@ import com.maggiver.elements.ui.rentalcar.screens.auth.RegisterScreen
  * @Derecho_de_transformacion_distribucion_y_reproduccion_de_la_obra: facultad que tiene el titular o autor de un software de realizar cambios totales o parciales al código de su obra; ponerla a disposición del público o autorizar su difusión.
  */
 
-fun NavGraphBuilder.NavigationGraphAuth(navController: NavController, contextLocal: Context) {
+fun NavGraphBuilder.NavigationGraphAuth(navController: NavController) {
 
     navigation(
         startDestination = RoutesAuth.LoginRoute.route,
@@ -45,9 +44,10 @@ fun NavGraphBuilder.NavigationGraphAuth(navController: NavController, contextLoc
             LoginScreen(
                 navController = navController,
                 onClickLogin = {
-                    navController.navigate(route = RootGraph.ROOT_ROUTE_MAIN){
+                    navController.navigate(route = RootGraph.ROOT_ROUTE_MAIN) {
                         popUpTo(RoutesAuth.LoginRoute.route) { inclusive = true }
                     }
+                    //navController.popBackStack(RootGraph.ROOT_ROUTE_AUTH, false)
                 },
                 navigateToRegister = {
                     navController.navigate(RoutesAuth.RegisterRoute.route)

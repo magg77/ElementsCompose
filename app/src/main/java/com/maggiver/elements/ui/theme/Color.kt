@@ -2,6 +2,8 @@ package com.maggiver.elements.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val seed = Color(0xFF1A1F19)
+
 /*componentes destacados UI: botones, texto FAB, botones de alto énfasis y estados activos*/
 val md_theme_light_primary = Color(0xFF202020)              /*rellenos, textos e íconos de alto énfasis contra la superficie*/
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)            /*texto e íconos frente a principal*/
@@ -76,7 +78,7 @@ val md_theme_dark_outlineVariant = Color(0xFF424940)
 val md_theme_dark_scrim = Color(0xFF000000)
 
 
-val seed = Color(0xFF1A1F19)
+
 val CustomColor1 = Color(0xFFFFE000)
 val CustomColor2 = Color(0xFF5CC500)
 val light_CustomColor1 = Color(0xFF6C5E00)

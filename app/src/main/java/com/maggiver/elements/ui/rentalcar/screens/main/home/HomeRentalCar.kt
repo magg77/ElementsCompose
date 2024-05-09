@@ -304,10 +304,10 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
 
             //CARS_URBANOS *******************************************
             Column(modifier = Modifier.constrainAs(URBANOS_TITLE) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(CAROUSEL.bottom)
-                }
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(CAROUSEL.bottom)
+            }
             ) {
                 Text(
                     text = "Urbanos",
@@ -748,7 +748,6 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
             }
 
 
-
             //CARS_MOTOCARROS *******************************************
             Column(modifier = Modifier.constrainAs(MOTOCARROS_TITLE) {
                 start.linkTo(parent.start)
@@ -1084,32 +1083,39 @@ fun CustomSearchInput(
         ) {
 
             //Search Input Custom
-            BasicTextField(value = cardNumberCustom, onValueChange = {
-                onCardNumberChangeCustom(it)
-                isError = false
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .height(42.dp)
-                .clickable { }
-                .onFocusChanged {
-                    isFocusedCard = it.isFocused
-                }, interactionSource = interactionSource, enabled = true,/*keyboardOptions = KeyboardOptions.Default.copy(
+            BasicTextField(
+                value = cardNumberCustom,
+                onValueChange = {
+                    onCardNumberChangeCustom(it)
+                    isError = false
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(42.dp)
+                    .clickable { }
+                    .onFocusChanged {
+                        isFocusedCard = it.isFocused
+                    },
+                interactionSource = interactionSource, enabled = true,/*keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),*/
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text, imeAction = ImeAction.Search
-                ), keyboardActions = KeyboardActions(onSearch = {
-                    // Focus on the next field // Handle the search action
-                    handleSearch(searchQuery)
-                }), textStyle = TextStyle(
+                ),
+                keyboardActions = KeyboardActions(
+                    onSearch = {
+                        // Focus on the next field // Handle the search action
+                        handleSearch(searchQuery)
+                    }
+                ),
+                textStyle = TextStyle(
                     color = Color(0xFF6D6D6D),
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.Bold,
                     fontSize = 22.sp
                 ), singleLine = true, cursorBrush = SolidColor(Color.Black)
             ) { innerTextField ->
-
                 OutlinedTextFieldDefaults.DecorationBox(value = cardNumberCustom,
                     innerTextField = {
                         /*Box(modifier = Modifier) {
@@ -1181,8 +1187,8 @@ fun CustomSearchInput(
                             ),
                             shape = RoundedCornerShape(32.dp) //OutlinedTextFieldDefaults.shape
                         )
-                    })
-
+                    }
+                )
             }//END :: Search Input Custom
         }//END ELEVATED CARD
     }

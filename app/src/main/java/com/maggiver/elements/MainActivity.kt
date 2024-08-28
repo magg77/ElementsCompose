@@ -1,6 +1,7 @@
 package com.maggiver.elements
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -21,6 +22,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
@@ -54,32 +56,40 @@ class MainActivity : ComponentActivity() {
 
                     NavigationGraphMasterApp(navController =  rememberNavController())
 
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                        val dateFecha = LocalDate.now()
+                        Log.i("dateFECHA", "LocalDate.now() = ${dateFecha.toString()}")
+
+                        val dateFecha2 = LocalDateTime.now(ZoneId.systemDefault())
+                        Log.i("dateFECHA", "LocalDateTime.now(ZoneId.systemDefault()) = ${dateFecha2.toString()}")
+
+                        val dateFecha3 = ZonedDateTime.of(dateFecha2, ZoneId.systemDefault())
+                        Log.i("dateFECHA", " ZonedDateTime.of(dateFecha2, ZoneId.systemDefault()) = ${dateFecha3.toString()}")
+
+                        /*convert to UTC*/
+                        var dateUTC = dateFecha3.toInstant().toEpochMilli()
+                        Log.i("dateFECHA", "utc : ${dateUTC.toString()}")
+
+                        /*convert to ZonedDateTime*/
+                        var zonedDateConvert = ZonedDateTime.ofInstant(Instant.ofEpochMilli(dateUTC), ZoneId.systemDefault())
+                        Log.i("dateFECHA", "convert utc :  ${zonedDateConvert.toString()}")
+
+                        /*convert zone horaria sin pasar por utc*/
+                        dateFecha3.withZoneSameInstant(ZoneId.of("Australia/Melbourne"))
+
+                        var dateFormatCustom = DateTimeFormatter.ofPattern("d MMM", Locale.getDefault())
+                        var formattedString = dateFecha3.format(dateFormatCustom)
+                        Log.i("dateFECHA", "date format :  ${formattedString}")
+
+                    } else {
+
+                        val date1 = Date()
+                        Log.i("dateFECHA", "Date() = ${date1.toString()}")
+
+                    }
 
 
-
-                    val dateFecha = LocalDate.now()
-                    Log.i("dateFECHA", "LocalDate : ${dateFecha.toString()}")
-
-                    val dateFecha2 = LocalDateTime.now(ZoneId.systemDefault())
-                    Log.i("dateFECHA", "LocalDateTime : ${dateFecha2.toString()}")
-
-                    val dateFecha3 = ZonedDateTime.of(dateFecha2, ZoneId.systemDefault())
-                    Log.i("dateFECHA", "LocalDateTime.zondeId ${dateFecha3.toString()}")
-
-                    /*convert to UTC*/
-                    var dateUTC = dateFecha3.toInstant().toEpochMilli()
-                    Log.i("dateFECHA", "utc : ${dateUTC.toString()}")
-
-                    /*convert to ZonedDateTime*/
-                    var zonedDateConvert = ZonedDateTime.ofInstant(Instant.ofEpochMilli(dateUTC), ZoneId.systemDefault())
-                    Log.i("dateFECHA", "convert utc :  ${zonedDateConvert.toString()}")
-
-                    /*convert zone horaria sin pasar por utc*/
-                    val aus = dateFecha3.withZoneSameInstant(ZoneId.of("Australia/Melbourne"))
-
-                    var dateFormatCustom = DateTimeFormatter.ofPattern("d MMM", Locale.getDefault())
-                    var formattedString = dateFecha3.format(dateFormatCustom)
-                    Log.i("dateFECHA", "date format :  ${formattedString}")
 
 
                 }

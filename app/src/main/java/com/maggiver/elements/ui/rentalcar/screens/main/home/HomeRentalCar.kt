@@ -3,12 +3,9 @@
 package com.maggiver.elements.ui.rentalcar.screens.main.home
 
 import android.util.Log
-import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -39,12 +36,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCard
-import androidx.compose.material.icons.filled.CarRental
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FilterTiltShift
-import androidx.compose.material.icons.filled.Fingerprint
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Search
@@ -63,8 +55,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
@@ -94,7 +84,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -114,10 +103,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.maggiver.elements.R
 import com.maggiver.elements.ui.rentalcar.models.CarouselCar
 import com.maggiver.elements.ui.rentalcar.repo.DataUtils
-import com.maggiver.elements.ui.theme.card_info_background
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -193,45 +180,46 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
         Text("Registrar")
     }*/
 
-    BottomSheetScaffold(sheetContent = {
-        Column(
-            modifier = Modifier.padding(bottom = 90.dp),
-            horizontalAlignment = CenterHorizontally
-        ) {
+    BottomSheetScaffold(
+        sheetContent = {
+            Column(
+                modifier = Modifier.padding(bottom = 90.dp),
+                horizontalAlignment = CenterHorizontally
+            ) {
 
-            LazyColumn {
-                items(50) {
-                    ListItem(headlineContent = { Text("Item $it") }, leadingContent = {
-                        Icon(
-                            imageVector = Icons.Default.Favorite, contentDescription = null
-                        )
-                    })
-                }
-                item {
-                    Box(
-                        modifier = Modifier
-                            .padding(16.dp, 16.dp)
-                            .fillMaxWidth()
-                            .background(Color(0xFF4CFF37)), contentAlignment = Alignment.Center
-                    ) {
+                LazyColumn {
+                    items(50) {
+                        ListItem(headlineContent = { Text("Item $it") }, leadingContent = {
+                            Icon(
+                                imageVector = Icons.Default.Favorite, contentDescription = null
+                            )
+                        })
+                    }
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .padding(16.dp, 16.dp)
+                                .fillMaxWidth()
+                                .background(Color(0xFF4CFF37)), contentAlignment = Alignment.Center
+                        ) {
 
-                        Button(onClick = {
-                            scope.launch {
-                                if (scaffoldState.bottomSheetState.isVisible) {
-                                    scaffoldState.bottomSheetState.hide()
-                                    showBottomSheet = true
+                            Button(onClick = {
+                                scope.launch {
+                                    if (scaffoldState.bottomSheetState.isVisible) {
+                                        scaffoldState.bottomSheetState.hide()
+                                        showBottomSheet = true
+                                    }
                                 }
+                            }) {
+                                Text("Registrar")
                             }
-                        }) {
-                            Text("Registrar")
-                        }
 
+                        }
                     }
                 }
-            }
 
-        }
-    },
+            }
+        },
         modifier = Modifier.fillMaxSize(),
         scaffoldState = scaffoldState,
         sheetPeekHeight = if (showBottomSheet) 180.dp else 0.dp,
@@ -278,10 +266,15 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                     end.linkTo(parent.end)
                     top.linkTo(parent.top)
                 }) {
+
                 var cardNumberCustom by remember { mutableStateOf("") }
-                CustomSearchInput(cardNumberCustom = cardNumberCustom,
+
+                CustomSearchInput(
+                    cardNumberCustom = cardNumberCustom,
                     onCardNumberChangeCustom = { cardNumberCustom = it },
-                    onClickNavigateToSearchCustom = { onClickNavigateToSearchCustom() })
+                    onClickNavigateToSearchCustom = { onClickNavigateToSearchCustom() }
+                )
+
             }
 
             //CAROUSEL

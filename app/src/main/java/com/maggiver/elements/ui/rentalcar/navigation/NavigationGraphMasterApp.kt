@@ -85,34 +85,40 @@ fun NavigationGraphMasterApp(navController: NavHostController = rememberNavContr
     }
 }
 
-@Composable
-fun NavigationBarMaster(navController: NavHostController) {
-
-    val screens = listOf(
-        BottomNavigationItem.Home,
-        BottomNavigationItem.Car,
-        BottomNavigationItem.Profile
+sealed class BottomNavigationItem(
+    val title: String,
+    val route: String,
+    val selectedIcon: ImageVector,
+    val uselectedIcon: ImageVector,
+    val hasNew: Boolean,
+    val badgeCount: Int? = null
+) {
+    data object Home : BottomNavigationItem(
+        title = "Home",
+        route = RoutesMaster.HomeRoute.route,
+        Icons.Filled.Home,
+        Icons.Outlined.Home,
+        false,
+        null
     )
 
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
-    var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
+    data object Car : BottomNavigationItem(
+        title = "Cart",
+        route = RoutesMaster.CartRoute.route,
+        Icons.Filled.ShoppingCart,
+        Icons.Outlined.ShoppingCart,
+        true,
+        7
+    )
 
-    if (bottomBarDestination) {
-        NavigationBar(
-            modifier = Modifier,
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
-        ) {
-            screens.forEachIndexed { index, item ->
-                AddItemNavigation(
-                    screen = item,
-                    currentDestination = currentDestination,
-                    navController = navController
-                )
-            }
-        }
-    }
+    data object Profile : BottomNavigationItem(
+        title = "Profile",
+        route = RoutesMaster.ProfileRoute.route,
+        Icons.Filled.AccountCircle,
+        Icons.Outlined.AccountCircle,
+        true,
+        null
+    )
 }
 
 @SuppressLint("RestrictedApi")
@@ -173,6 +179,36 @@ fun RowScope.AddItemNavigation(
             unselectedIconColor = Color.Gray*/
         )
     )
+}
+
+@Composable
+fun NavigationBarMaster(navController: NavHostController) {
+
+    val screens = listOf(
+        BottomNavigationItem.Home,
+        BottomNavigationItem.Car,
+        BottomNavigationItem.Profile
+    )
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+    var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
+
+    if (bottomBarDestination) {
+        NavigationBar(
+            modifier = Modifier,
+            containerColor = MaterialTheme.colorScheme.surfaceContainer
+        ) {
+            screens.forEachIndexed { index, item ->
+                AddItemNavigation(
+                    screen = item,
+                    currentDestination = currentDestination,
+                    navController = navController
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -248,41 +284,5 @@ fun NavGraphBuilder.ContentSearchHome(navController: NavHostController) {
             }
         }
     }
-}
-
-sealed class BottomNavigationItem(
-    val title: String,
-    val route: String,
-    val selectedIcon: ImageVector,
-    val uselectedIcon: ImageVector,
-    val hasNew: Boolean,
-    val badgeCount: Int? = null
-) {
-    data object Home : BottomNavigationItem(
-        title = "Home",
-        route = RoutesMaster.HomeRoute.route,
-        Icons.Filled.Home,
-        Icons.Outlined.Home,
-        false,
-        null
-    )
-
-    data object Car : BottomNavigationItem(
-        title = "Cart",
-        route = RoutesMaster.CartRoute.route,
-        Icons.Filled.ShoppingCart,
-        Icons.Outlined.ShoppingCart,
-        true,
-        7
-    )
-
-    data object Profile : BottomNavigationItem(
-        title = "Profile",
-        route = RoutesMaster.ProfileRoute.route,
-        Icons.Filled.AccountCircle,
-        Icons.Outlined.AccountCircle,
-        true,
-        null
-    )
 }
 

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -160,10 +161,11 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
     //bottom sheet
     var peekHeight: Int by remember { mutableStateOf(0) }
 
-    //var que se guardara en bd y hacer parte de config_init user app
-    var showBottomSheet: Boolean by remember { mutableStateOf(false) }
+    //controla el estado de mostrar/ocultar el bottom sheet junto SheetValue.PartiallyExpanded
+    var showBottomSheet: Boolean by remember { mutableStateOf(true) }
+
     var bottomSheetState: SheetState = rememberStandardBottomSheetState(
-        initialValue = if (showBottomSheet) SheetValue.Expanded else SheetValue.Hidden,
+        initialValue = if (showBottomSheet) SheetValue.PartiallyExpanded else SheetValue.Hidden,
         skipHiddenState = false
     )
     val bottomSheetStateCustom = rememberCustomBottomSheetState()
@@ -183,7 +185,10 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
     BottomSheetScaffold(
         sheetContent = {
             Column(
-                modifier = Modifier.padding(bottom = 90.dp),
+                modifier = Modifier
+                    .fillMaxHeight(0.7f)
+                    .fillMaxWidth()
+                    .padding(bottom = 90.dp),
                 horizontalAlignment = CenterHorizontally
             ) {
 

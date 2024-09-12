@@ -157,13 +157,10 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
     val scope = rememberCoroutineScope()
     val index by remember { mutableStateOf(0) }
 
-
     //bottom sheet
     var peekHeight: Int by remember { mutableStateOf(0) }
-
     //controla el estado de mostrar/ocultar el bottom sheet junto SheetValue.PartiallyExpanded
-    var showBottomSheet: Boolean by remember { mutableStateOf(true) }
-
+    var showBottomSheet: Boolean by remember { mutableStateOf(false) }
     var bottomSheetState: SheetState = rememberStandardBottomSheetState(
         initialValue = if (showBottomSheet) SheetValue.PartiallyExpanded else SheetValue.Hidden,
         skipHiddenState = false
@@ -250,7 +247,8 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
                     modifier = Modifier.fillMaxWidth(), thickness = 1.dp, color = Color(0xFF000000)
                 )
             }
-        }) {
+        })
+    {
 
         ConstraintLayout(
             modifier = Modifier
@@ -301,7 +299,8 @@ fun HomeRentalCar(navController: NavHostController, onClickNavigateToSearchCusto
             }
 
             //CARS_URBANOS *******************************************
-            Column(modifier = Modifier.constrainAs(URBANOS_TITLE) {
+            Column(
+                modifier = Modifier.constrainAs(URBANOS_TITLE) {
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
                 top.linkTo(CAROUSEL.bottom)

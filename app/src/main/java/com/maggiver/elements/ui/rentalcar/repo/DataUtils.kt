@@ -30,17 +30,17 @@ object DataUtils {
     val carCarouel = listOf(
         CarouselCar(
             id = 0,
-            modelCar = "Mazda 3 Prime",
+            modelCar = "Retro Excavadora Hitachi",
             deliveryTime = "15 Min",
             aniocModel = "2023",
-            hourlyRental = "$49.900 / H",
+            hourlyRental = "$115.900 / H",
             rating = "5.0",
             descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
                     "\n" +
                     "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
                     "\n" +
                     "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
-            pathCarModel = R.drawable.car1
+            pathCarModel = R.drawable.retro_excavadora_hitachi
         ),
         CarouselCar(
             id = 1,
@@ -83,6 +83,65 @@ object DataUtils {
                     "\n" +
                     "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
             pathCarModel = R.drawable.car4
+        )
+    )
+
+    val listAvailableMaquinaria = listOf(
+        CarouselCar(
+            id = 0,
+            modelCar = "RetroExcavadora Hitachi",
+            deliveryTime = "15 Min",
+            aniocModel = "2023",
+            hourlyRental = "$112.900 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.retro_excavadora_hitachi
+        ),
+        CarouselCar(
+            id = 1,
+            modelCar = "Retrocargador CAT",
+            deliveryTime = "30 Min",
+            aniocModel = "2021",
+            hourlyRental = "$115.000 / H",
+            rating = "5.0",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.retrocargador_pajarita
+        ),
+        CarouselCar(
+            id = 2,
+            modelCar = "MiniExcavadora Hitachi",
+            deliveryTime = "15 Min",
+            aniocModel = "2020",
+            hourlyRental = "$105.000 / H",
+            rating = "4.5",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.mini_excavadorahtachi_800x533
+        ),
+        CarouselCar(
+            id = 3,
+            modelCar = "Volqueta International",
+            deliveryTime = "20 Min",
+            aniocModel = "2023",
+            hourlyRental = "$69.900 / H",
+            rating = "5.0",
+            descriptionModel = "Sal de la rutina por un rato. Déjate guiar por tu espíritu aventurero y aprovecha cada oportunidad de salir a la carretera.\n" +
+                    "\n" +
+                    "La RAV4 está lista para darte el rendimiento y confianza que necesitas ya que está diseñada para llegar más lejos, ya sea en o fuera de la carretera\n" +
+                    "\n" +
+                    "La tracción permanente en las cuatro ruedas * disponible te permite manejar por los senderos montañosos, mientras que la suspensión trasera multibrazo te ayuda a dominar el pavimento.",
+            pathCarModel = R.drawable.volqueta_blanca
         )
     )
 
